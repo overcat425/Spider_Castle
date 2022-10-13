@@ -6,23 +6,29 @@ using UnityEngine.SceneManagement;
 
 public class HealthGauge : MonoBehaviour
 {
-    private Image healthBar;
-    private float maxHealth = 100f;
+    private Image healthBar;                        // 체력바 이미지
+    private float maxHealth = 100f;                 // 최대체력 100
     public static float health;
-    void Start()
-    {
-        healthBar = GetComponent<Image>();
-        health = maxHealth;
-    }
 
-    // Update is called once per frame
-    void Update()
+    public float CurrentHP => health; // 외부에서 볼수 있도록 property 정의
+    public float MaxHP => maxHealth;
+    private void Start()
+    {
+        healthBar = GetComponent<Image>();          // 체력바 구현
+        health = maxHealth;                                 // 초기 체력 = 최대체력
+    }
+    private void Update()
     {
         healthBar.fillAmount = health / maxHealth;
-        if(health == 0f)
+
+        if(health <= 0f)
         {
             Debug.Log("Game Over");
             SceneManager.LoadScene("GameOver");
         }
     }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    Destroy(collision.gameObject);
+    //}
 }

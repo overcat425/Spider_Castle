@@ -69,4 +69,8 @@ public class EnemyMemoryPool : MonoBehaviour
 
         spawnPointMemoryPool.InactivatePoolItem(point);
     }
+    public void InactivateEnemy(GameObject enemy)
+    {
+        enemyMemoryPool.InactivatePoolItem(enemy);
+    }
 }

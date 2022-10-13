@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[System.Serializable]
-public class HPEvent : UnityEngine.Events.UnityEvent<int, int> { }
 public class PlayerStatus : MonoBehaviour
 {
-    [HideInInspector]
-    public HPEvent onHPEvent = new HPEvent();
+    //[HideInInspector]
+    //public HPEvent onHPEvent = new HPEvent();
     //[Header("Walk, Run Speed")]
     //[SerializeField]
     //private float walkSpeed;
@@ -32,7 +30,7 @@ public class PlayerStatus : MonoBehaviour
     {
         int previousHP = currentHP;
         currentHP = currentHP - damage > 0 ? currentHP - damage : 0;
-        onHPEvent.Invoke(previousHP, currentHP);
+        //onHPEvent.Invoke(previousHP, currentHP);
         if (currentHP == 0)
         {
             return true;
@@ -43,7 +41,7 @@ public class PlayerStatus : MonoBehaviour
     {
         int previousHP = currentHP;
         currentHP = currentHP + hp > maxHP ? maxHP : currentHP + hp;
-        onHPEvent.Invoke(previousHP, currentHP);
+        //onHPEvent.Invoke(previousHP, currentHP);
     }
     public void TakeDamage(int damage)
     {

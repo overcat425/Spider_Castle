@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 5.0f;                                // 이동속도
+    private float moveSpeed = 10.0f;                                // 이동속도
     private Vector2 moveForce;                             // 이동 벡터
 
     private CharacterController characterController;    // 이동 제어 컴포

@@ -9,8 +9,8 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 {
     [SerializeField]
     private GameObject go_BaseUi;
-
     public Transform buttonScale;
+
     Vector3 defaultScale;
     private void Start()
     {

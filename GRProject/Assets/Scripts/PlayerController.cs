@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float moveSpeed = 100.0f;                         // 이동 속도
+    private float moveSpeed = 200.0f;                         // 이동 속도
     private Vector3 moveDirection = Vector3.zero;      // 이동 벡터
     private CharacterMovement movement;       // 키보드로 플레이어 이동
 
