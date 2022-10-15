@@ -10,12 +10,14 @@ public class HealthGauge : MonoBehaviour
     private float maxHealth = 100f;                 // 최대체력 100
     public static float health;
 
-    public float CurrentHP => health; // 외부에서 볼수 있도록 property 정의
+    public float CurrentHP => health; // 외부에서도 볼수 있도록 property 정의
     public float MaxHP => maxHealth;
+
     private void Start()
     {
         healthBar = GetComponent<Image>();          // 체력바 구현
         health = maxHealth;                                 // 초기 체력 = 최대체력
+
     }
     private void Update()
     {

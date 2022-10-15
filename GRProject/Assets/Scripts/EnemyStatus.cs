@@ -25,8 +25,8 @@ public class EnemyStatus : MonoBehaviour
             //enemyMemoryPool.InactivateEnemy(gameObject);
         //}
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    public void DestroyEnemy()
     {
-        //Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

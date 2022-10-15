@@ -9,8 +9,8 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 {
     [SerializeField]
     private GameObject go_BaseUi;
+    [SerializeField]
     public Transform buttonScale;
-
     Vector3 defaultScale;
     private void Start()
     {
@@ -41,8 +41,8 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
     public void ClickResume()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
         PlayerController.isPause = false;
         go_BaseUi.SetActive(false);
         Time.timeScale = 1f;

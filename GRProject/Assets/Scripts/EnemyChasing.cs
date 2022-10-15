@@ -7,6 +7,7 @@ public class EnemyChasing : MonoBehaviour
 {
     Rigidbody2D enemyBody;
     Transform target;
+    private HealthGauge healthGauge;
 
     [Header("속도")]
     [SerializeField]
@@ -14,7 +15,7 @@ public class EnemyChasing : MonoBehaviour
 
     [Header("타격 거리")]
     [SerializeField]
-    private float HitscanDistance = 1f;
+    private float hitscanDistance = 1f;
 
     [Header("BloodScreen")]
     [SerializeField]
@@ -33,7 +34,7 @@ public class EnemyChasing : MonoBehaviour
     }
     private void TargetChasing()                    // 플레이어 추적
     {
-        if(Vector2.Distance(transform.position, target.position) > HitscanDistance)
+        if(Vector2.Distance(transform.position, target.position) > hitscanDistance)
         {
             transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
         }
@@ -66,7 +67,7 @@ public class EnemyChasing : MonoBehaviour
     {
         float percent = 0;              // 1초동안 회복
         while (percent < 1)
-        {                                  // 빨간화면 알파값을 0에서 0.5(255)까지 변환
+        {                                  // 빨간화면 알파값을 0에서 0.5(127)까지 변환
             percent += Time.deltaTime;
             Color color = bloodScreen.color;
             color.a = Mathf.Lerp(0.5f, 0, curveBloodScreen.Evaluate(percent));
