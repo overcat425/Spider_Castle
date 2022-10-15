@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
             if (collider.tag == "Enemy")
             {
                 collider.GetComponent<EnemyStatus>().DestroyEnemy();    // 적 파괴
+                EnemySpawnPool.count_instance.EnemyKilledCount++;
             }
         }
         StartCoroutine("BaseAttackEffect"); // 기본공격 이펙트 코루틴메소드 반복
