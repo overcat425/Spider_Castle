@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;      // 이동 벡터
     private CharacterMovement movement;       // 키보드로 플레이어 이동
     private EnemyStatus enemyStatus;
+    private EnemyChasing enemyChasing;
     [SerializeField]
     private GameObject go_BaseUi;
 
