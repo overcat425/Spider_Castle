@@ -19,7 +19,6 @@ public class EnemySpawnPool : MonoBehaviour
     public int EnemyKilledCount;            // 적 카운터
     [SerializeField]
     public Text EnemyKilled;                // 카운터값을 보여주는 텍스트
-
     private static EnemySpawnPool instance;
     public static EnemySpawnPool count_instance     // 오브젝트가 파괴되는
     {                                  // 외부 스크립트에 가서 직접 카운트 하는 인스턴스

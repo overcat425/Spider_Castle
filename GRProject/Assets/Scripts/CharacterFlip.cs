@@ -20,16 +20,14 @@ public class CharacterFlip : MonoBehaviour
         //}
     }
     public void CharFlip()
-    {
+    {                   // 방향키 하나라도 입력받으면 대기에서 걷기 모션으로 변환
         Vector3 CharacterFlip = Vector3.zero;                       // 좌우 이동시
         if (Input.GetAxisRaw("Horizontal") < 0)                     // 캐릭터 좌우반전
         {
             CharacterFlip = Vector3.left;
             transform.localScale = new Vector3(-1, 1, 1);
             animator.SetBool("run", true);
-
-        }               // 방향키 하나라도 입력받으면 대기에서 걷기 모션으로 변환
-        else if (Input.GetAxisRaw("Horizontal") > 0)
+        }else if (Input.GetAxisRaw("Horizontal") > 0)
         {
             CharacterFlip = Vector3.right;
             transform.localScale = new Vector3(1, 1, 1);

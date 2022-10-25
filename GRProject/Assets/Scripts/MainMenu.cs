@@ -8,10 +8,9 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Transform buttonScale;           // 버튼 크기
-    [Header("Audio Clip")]
-    AudioSource audioSource;                // 버튼 효과음(아직 미구현)
-    [SerializeField]
-    private AudioClip audioClip;            // 효과음 클립
+    private AudioSource audioSource;                // 버튼 효과음
+    //[SerializeField]
+    //private AudioClip audioClip;            // 효과음 클립
     Vector3 defaultScale;                       // 버튼 크기 벡터
     void Start()
     {
@@ -26,12 +25,12 @@ public class MainMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         Debug.Log("게임시작");
         SceneManager.LoadScene("StartGame");
-        audioSource.GetComponent<AudioSource>();
-        audioSource.Play();
+        //audioSource.GetComponent<AudioSource>();
+        //audioSource.Play();
     }
-    public void OnClickOption()
+    public void OnClickLoadGame()
     {
-        Debug.Log("옵션");
+        Debug.Log("게임 이어하기");
     }
     public void OnClickQuit()
     {

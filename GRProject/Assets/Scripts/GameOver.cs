@@ -9,7 +9,7 @@ public class GameOver : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("StartGame");
         }
     }
 }

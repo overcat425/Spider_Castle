@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject go_BaseUi;
 
+    public AudioClip clip;
+    public AudioClip enemyDestroySound;
+
     public static bool canPlayerMove = false;
     public static bool isPause = false;
 
@@ -79,10 +82,12 @@ public class PlayerController : MonoBehaviour
             {
                 collider.GetComponent<EnemyStatus>().DestroyEnemy();    // 적 파괴
                 EnemySpawnPool.count_instance.EnemyKilledCount++;
+                SoundManager.SoundEffect.SoundPlay("EnemyDestroySound", enemyDestroySound);
             }
         }
         StartCoroutine("BaseAttackEffect"); // 기본공격 이펙트 코루틴메소드 반복
         StartCoroutine("BaseAttack");       // 기본공격 코루틴메소드 반복
+        SoundManager.SoundEffect.SoundPlay("BaseAttack",clip);
     }
     private IEnumerator BaseAttackEffect()          // 기본공격 이펙트 코루틴메소드
     {
@@ -97,7 +102,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
     }
-    public void ColliderBox()         // 공격 판정 방향 박스 (이것만 2일 걸림 ㅡㅡ)
+    public void ColliderBox()         // 공격 판정 방향 박스
     {                                          // 콜라이더와 공격이펙트 방향/위치 조절
         if (Input.GetAxisRaw("Horizontal") > 0)
         {
