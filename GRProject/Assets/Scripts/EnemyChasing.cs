@@ -42,11 +42,14 @@ public class EnemyChasing : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)          // 피격 시
     {
-        HealthGauge.health -= 2f;
-        //EnemyStatus.enemyHealth -= 2f;
-        //StopCoroutine("OnBloodScreen");             // 피격 받는 동안 지속
-        StartCoroutine("OnBloodScreen");            // 피격시 빨간화면 코루틴 실행
-        StartCoroutine("KnockBack");                    // 넉백 코루틴 실행
+        if (collision.CompareTag("Player"))
+        {
+            HealthGauge.health -= 5f;
+            //EnemyStatus.enemyHealth -= 2f;
+            //StopCoroutine("OnBloodScreen");             // 피격 받는 동안 지속
+            StartCoroutine("OnBloodScreen");            // 피격시 빨간화면 코루틴 실행
+            StartCoroutine("KnockBack");                    // 넉백 코루틴 실행
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)          // 피격 상태 X
     {

@@ -25,9 +25,11 @@ public class PlayerController : MonoBehaviour
     private AnimationCurve curveAttackEffect;       // 기본공격 이펙트 커브모션
     public Transform pos;
     public Vector2 boxSize;
+    //Transform log;
 
     private void Start()
     {
+        //log = GameObject.FindGameObjectWithTag("Log").GetComponent<Transform>();
         StartCoroutine("BaseAttack");
     }
     private void Awake()
@@ -57,15 +59,28 @@ public class PlayerController : MonoBehaviour
             //Cursor.visible = false;
             canPlayerMove = true;
         }
-        
     }
     public void UpdateMove()
     {
         float x = Input.GetAxisRaw("Horizontal");           // 좌우 이동
         float y = Input.GetAxisRaw("Vertical");              // 상하 이동
-
         moveDirection = new Vector3(x, y, 0);
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        if(transform.position.x > 3950)
+        {
+            transform.Translate(new Vector3(-5, 0, 0));
+        }else if(transform.position.x < -3950)
+        {
+            transform.Translate(new Vector3(5, 0, 0));
+        }
+        if (transform.position.y > 2930)
+        {
+            transform.Translate(new Vector3(0, -5, 0));
+        }
+        else if (transform.position.y < -2930)
+        {
+            transform.Translate(new Vector3(0, 5, 0));
+        }
     }
     private void OnDrawGizmos()
     {
