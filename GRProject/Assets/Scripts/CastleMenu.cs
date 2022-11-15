@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public EnhanceMenu enhanceMenu;
     public Transform buttonScale;           // 버튼 크기
     //private AudioSource audioSource;                // 버튼 효과음
     //[SerializeField]
@@ -14,8 +15,6 @@ public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     Vector3 defaultScale;                       // 버튼 크기 벡터
     void Start()
     {
-        Cursor.lockState = CursorLockMode.None;             // 커서 중앙에 고정
-        Cursor.visible = true;                                         // 커서 안보이게
         defaultScale = buttonScale.localScale;
     }
     void Update()
@@ -25,20 +24,29 @@ public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         Debug.Log("던전");
         SceneManager.LoadScene("Stage1");
-        //audioSource.GetComponent<AudioSource>();
-        //audioSource.Play();
-    }
-    public void OnClickEnhancement()
-    {
-        Debug.Log("강화소");
+        //audioSource.GetComponent<AudioSource>(); //audioSource.Play();
     }
     public void OnClickLab()
     {
         Debug.Log("연구소");
+        enhanceMenu.CallMenu();
+        enhanceMenu.OnClickLabTab();
+    }
+    public void OnClickEnhancement()
+    {
+        Debug.Log("강화소");
+        enhanceMenu.CallMenu();
+        enhanceMenu.OnClickEnhanceTab();
     }
     public void OnClickCobweb()
     {
         Debug.Log("거미 숙소");
+        enhanceMenu.CallMenu();
+        enhanceMenu.OnClickCobTab();
+    }
+    public void OnClickExit()
+    {
+        enhanceMenu.CloseMenu();
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
