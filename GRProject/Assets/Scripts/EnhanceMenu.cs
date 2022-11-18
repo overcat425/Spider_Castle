@@ -11,20 +11,30 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField]    private GameObject EnhanceTab;
     [SerializeField]    private GameObject CobTab;
     [SerializeField]    private GameObject Summary;
+    [SerializeField]    private GameObject SpiderInfo;
 
     [Header("스킬")]
-    [SerializeField] private GameObject Skill1;
-    [SerializeField] private GameObject Skill2;
-    [SerializeField] private GameObject Skill3;
-    [SerializeField] private GameObject Skill4;
-    [SerializeField] private GameObject Skill5;
-    [SerializeField] private GameObject Skill6;
+    [SerializeField]    private GameObject Skill1;
+    [SerializeField]    private GameObject Skill2;
+    [SerializeField]    private GameObject Skill3;
+    [SerializeField]    private GameObject Skill4;
+    [SerializeField]    private GameObject Skill5;
+    [SerializeField]    private GameObject Skill6;
+
+    [Header("거미종류")]
+    [SerializeField]    private GameObject Spider1;
+    [SerializeField]    private GameObject Spider2;
+    [SerializeField]    private GameObject Spider3;
+    [SerializeField]    private GameObject Spider4;
 
     public Transform buttonScale;
     Vector3 defaultScale;
     private void Start()
     {
         defaultScale = buttonScale.localScale;
+    }
+    private void Update()
+    {
     }
     public void CallMenu()
     {
@@ -60,6 +70,7 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         LabTab.SetActive(false);
         EnhanceTab.SetActive(false);
         CobTab.SetActive(true);
+        SpiderInfo.SetActive(false);
     }
     public void OnClickSkill1Icon()
     {
@@ -120,6 +131,38 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Skill3.SetActive(false);
         Skill4.SetActive(false);
         Skill5.SetActive(false);
+    }
+    public void OnClickSpider1Icon()
+    {
+        SpiderInfo.SetActive(true);
+        Spider1.SetActive(true);
+        Spider2.SetActive(false);
+        Spider3.SetActive(false);
+        Spider4.SetActive(false);
+    }
+    public void OnClickSpider2Icon()
+    {
+        SpiderInfo.SetActive(true);
+        Spider2.SetActive(true);
+        Spider1.SetActive(false);
+        Spider3.SetActive(false);
+        Spider4.SetActive(false);
+    }
+    public void OnClickSpider3Icon()
+    {
+        SpiderInfo.SetActive(true);
+        Spider3.SetActive(true);
+        Spider1.SetActive(false);
+        Spider2.SetActive(false);
+        Spider4.SetActive(false);
+    }
+    public void OnClickSpider4Icon()
+    {
+        SpiderInfo.SetActive(true);
+        Spider4.SetActive(true);
+        Spider1.SetActive(false);
+        Spider2.SetActive(false);
+        Spider3.SetActive(false);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

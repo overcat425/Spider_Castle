@@ -19,12 +19,11 @@ public class MainMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         defaultScale = buttonScale.localScale;
     }
     void Update()
-    {
+    {    
     }
     public void OnClickNewGame()                            // 뉴게임씬 시작
     {
         Debug.Log("게임시작");
-        SceneManager.LoadScene("StartGame");
         //audioSource.GetComponent<AudioSource>();
         //audioSource.Play();
     }
@@ -40,12 +39,6 @@ public class MainMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 #else
                 Application.Quit();
 #endif
-    }
-    public void OnClickHowToPlay()
-    {
-        Debug.Log("조작법");
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     public AudioClip clip;
     public AudioClip enemyDestroySound;
+    public AudioClip jumpSound;
 
     public static bool canPlayerMove = false;
     public static bool isPause = false;
@@ -25,12 +26,27 @@ public class PlayerController : MonoBehaviour
     private AnimationCurve curveAttackEffect;       // 기본공격 이펙트 커브모션
     public Transform pos;
     public Vector2 boxSize;
-    //Transform log;
 
+    public float lerpTime = 1.0f;
+    private bool canDash = true;
+    private bool isDashing;
+    private float dashingTime = 0.2f;
+    private float dashingCoolDown = 0.25f;
+    [SerializeField]
+    private TrailRenderer tr;
+
+    public int teleportationCount = 2;
+    public float currentCoolDown;
+    public float rechargeCoolDown = 5;
+    public Image countImage1;
+    public Image countImage2;
     private void Start()
     {
         //log = GameObject.FindGameObjectWithTag("Log").GetComponent<Transform>();
         StartCoroutine("BaseAttack");
+        StartCoroutine("CoolDown");
+        countImage1 = GameObject.Find("Count1").GetComponent<Image>();
+        countImage2 = GameObject.Find("Count2").GetComponent<Image>();
     }
     private void Awake()
     {
@@ -58,6 +74,21 @@ public class PlayerController : MonoBehaviour
             //Cursor.lockState = CursorLockMode.Locked;
             //Cursor.visible = false;
             canPlayerMove = true;
+        }
+        if (isDashing)
+        {
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && canDash)
+        {
+            StartCoroutine("Dash");
+        }
+    }
+    private void FixedUpdate()
+    {
+        if (isDashing)
+        {
+            return;
         }
     }
     public void UpdateMove()
@@ -107,13 +138,12 @@ public class PlayerController : MonoBehaviour
     private IEnumerator BaseAttackEffect()          // 기본공격 이펙트 코루틴메소드
     {
         float percent = 0;
+        Color color = baseAttackEffect.color;
         while (percent < 1)                     // 이펙트 fadeout
         {
-            percent += Time.deltaTime/0.5f;         // 2초동안 출력
-            Color color = baseAttackEffect.color;
+            percent += Time.deltaTime/0.5f;         // 1초동안 출력
             color.a = Mathf.Lerp(1f, 0, curveAttackEffect.Evaluate(percent));
             baseAttackEffect.color = color;
-            InfiniteLoopDetector.Run();
             yield return null;
         }
     }
@@ -127,8 +157,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetAxisRaw("Horizontal") < 0)
         {
-            pos.localPosition = new Vector3(2.5f, 0, 0);
-            pos.localRotation = Quaternion.Euler(0, 0, 0);
+            pos.localPosition = new Vector3(-2.5f, 0, 0);
+            pos.localRotation = Quaternion.Euler(0, 180, 0);
             boxSize = new Vector2(150, 300);
         }
         else if (Input.GetAxisRaw("Vertical") > 0)
@@ -142,6 +172,87 @@ public class PlayerController : MonoBehaviour
             pos.localPosition = new Vector3(0, -2.5f, 0);
             pos.localRotation = Quaternion.Euler(0, 0, -90);
             boxSize = new Vector2(300, 150);
+        }
+    }
+    public void LerpMove(Vector3 current, Vector3 target, float time)
+    {
+        float elapsedTime = 0.0f;
+        this.transform.position = current;
+        while (elapsedTime < time)
+        {
+            elapsedTime += (Time.deltaTime);
+            this.transform.position = Vector3.Lerp(current, target, elapsedTime / time);
+        }
+        transform.position = target;
+    }
+    private IEnumerator Dash()
+    {
+        //float originalGravity = rb.gravityScale;
+        //rb.gravityScale = 0f;
+        if (teleportationCount > 0)        //스킬 사용 가능 확인
+        {
+            canDash = false;
+            isDashing = true;
+            teleportationCount -= 1;            //사용횟수 차감
+            CountCheck();               //이동기 선행모션
+            if ((Input.GetAxisRaw("Horizontal") > 0) && (Input.GetAxisRaw("Vertical") > 0))
+            { LerpMove(this.transform.position, this.transform.position + new Vector3(150, 150, 0), lerpTime); }
+            else if ((Input.GetAxisRaw("Horizontal") > 0) && (Input.GetAxisRaw("Vertical") < 0))
+            { LerpMove(this.transform.position, this.transform.position + new Vector3(150, -150, 0), lerpTime); }
+            else if ((Input.GetAxisRaw("Horizontal") < 0) && (Input.GetAxisRaw("Vertical") < 0))
+            { LerpMove(this.transform.position, this.transform.position + new Vector3(-150, -150, 0), lerpTime); }
+            else if ((Input.GetAxisRaw("Horizontal") < 0) && (Input.GetAxisRaw("Vertical") > 0))
+            { LerpMove(this.transform.position, this.transform.position + new Vector3(-150, 150, 0), lerpTime); }
+            else if (Input.GetAxisRaw("Horizontal") < 0)
+            { LerpMove(this.transform.position, this.transform.position + new Vector3(-150, 0, 0), lerpTime); }
+            else if (Input.GetAxisRaw("Horizontal") > 0)
+            { LerpMove(this.transform.position, this.transform.position + new Vector3(150, 0, 0), lerpTime); }
+            else if (Input.GetAxisRaw("Vertical") > 0)
+            { LerpMove(this.transform.position, this.transform.position + new Vector3(0, 150, 0), lerpTime); }
+            else if (Input.GetAxisRaw("Vertical") < 0)
+            { LerpMove(this.transform.position, this.transform.position + new Vector3(0, -150, 0), lerpTime); }
+            //rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+            SoundManager.SoundEffect.SoundPlay("jumpSound", jumpSound);
+            tr.emitting = true;
+            yield return new WaitForSeconds(dashingTime);
+            tr.emitting = false;
+            ///rb.gravityScale = originalGravity;
+            isDashing = false;
+            yield return new WaitForSeconds(dashingCoolDown);
+            canDash = true;
+        }
+    }
+    private IEnumerator CoolDown()
+    {
+        while (true)
+        {
+            //순간이동 횟수가 최대 횟수인 2 보다 작을 때, 재충전시간을 통해 횟수를 충전한다. 
+            if (teleportationCount < 2)
+            {
+                yield return new WaitForSeconds(2f);
+                //위에서 저장한 현재시간 + 스킬 쿨타임보다 현재 시간이 클 경우, 
+                teleportationCount += 1;
+                CountCheck();
+            }
+            yield return null;
+        }
+    }
+    private void CountCheck()       //순간이동 횟수UI 색상 변경
+    {
+        if (teleportationCount == 2)
+        {
+            countImage1.color = Color.white;
+            countImage2.color = Color.white;
+        }
+        else if (teleportationCount == 1)
+        {
+            countImage1.color = Color.white;
+            countImage2.color = Color.black;
+        }
+        else if (teleportationCount == 0)
+        {
+            countImage1.color = Color.black;
+            countImage2.color = Color.black;
         }
     }
 }
