@@ -44,11 +44,10 @@ public class EnemyChasing : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            HealthGauge.health -= 5f;
+            HealthGauge.health -= 1f;
             //EnemyStatus.enemyHealth -= 2f;
             //StopCoroutine("OnBloodScreen");             // 피격 받는 동안 지속
             StartCoroutine("OnBloodScreen");            // 피격시 빨간화면 코루틴 실행
-            StartCoroutine("KnockBack");                    // 넉백 코루틴 실행
         }
     }
     private void OnTriggerExit2D(Collider2D collision)          // 피격 상태 X
@@ -78,31 +77,6 @@ public class EnemyChasing : MonoBehaviour
             color.a = Mathf.Lerp(0.5f, 0, curveBloodScreen.Evaluate(percent));
             bloodScreen.color = color;
             InfiniteLoopDetector.Run();
-            yield return null;
-        }
-    }
-    public IEnumerator KnockBack()
-    {
-        float directionX = transform.position.x - target.position.x;
-        float directionY = transform.position.y - target.position.y;
-        if (directionX < 0) { directionX = 1; }
-        else { directionX = -1; }
-        if (directionY < 0) { directionY = -1; }
-        else { directionY = 1; }
-        float kb = 0;
-        while (kb < 0.2f)
-        {
-            if (transform.rotation.y == 0)
-            {
-                transform.Translate(Vector3.left * moveSpeed * Time.deltaTime * directionX * 5f);
-                transform.Translate(Vector3.up * moveSpeed * Time.deltaTime * directionY * 5f);
-            }
-            else
-            {
-                transform.Translate(Vector3.left * moveSpeed * Time.deltaTime * directionX * -5f);
-                transform.Translate(Vector3.up * moveSpeed * Time.deltaTime * directionY * -5f);
-            }
-            kb += Time.deltaTime;
             yield return null;
         }
     }

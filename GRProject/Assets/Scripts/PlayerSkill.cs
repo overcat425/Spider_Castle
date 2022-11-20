@@ -75,9 +75,7 @@ public class PlayerSkill : MonoBehaviour
         {
             if (collider.tag == "Enemy")
             {
-                collider.GetComponent<EnemyStatus>().DestroyEnemy();    // Àû ÆÄ±«
-                EnemySpawnPool.count_instance.EnemyKilledCount++;
-                SoundManager.SoundEffect.SoundPlay("Mace", clip);
+                collider.GetComponent<EnemyStatus>().Skill2Damage();
             }
         }
         yield return null;

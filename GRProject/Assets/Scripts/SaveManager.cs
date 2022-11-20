@@ -23,12 +23,22 @@ public class SaveManager : MonoBehaviour
     string path;
     string filename = "savedata";
     public bool savefile;
+    public int a;
+    [Header("스킬레벨 인스턴스")]       // 외부 스크립트 전용 static 수치
+    public static int skill1LvInstance;
+    public static int skill2LvInstance;
+
     [Header("스킬레벨")]
     public int skill1Level;
     public int skill2Level;
     [SerializeField]    public Text skill1;
     [SerializeField]    public Text skill2;
 
+    [Header("데미지")]
+    [SerializeField] public int baseDamage;
+    [SerializeField] public int maceDamage;
+
+    [Header("효과음")]
     [SerializeField]
     private AudioClip lvUpSound;
     [SerializeField]
@@ -64,15 +74,27 @@ public class SaveManager : MonoBehaviour
         LoadData();
         skill1Level = playData.skill1Lv;
         skill2Level = playData.skill2Lv;
+        HealthGauge.canAutoSave = true;
     }
-
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
         //playData.bgmVolume = soundManager.musicSource.volume;
         //playData.effectVolume =  soundManager.effectSource.volume;
+        Instancing(); 
         skill1.text = skill1Level.ToString();
         skill2.text = skill2Level.ToString();
+        baseDamage = skill1Level * 10;
+        maceDamage = skill2Level * 20;
+        if (HealthGauge.health <= 0)
+        {
+            if (HealthGauge.canAutoSave == true)
+            {
+                Debug.Log("저장됨");
+                string data = JsonUtility.ToJson(playData);
+                File.WriteAllText(path + filename, data);
+                HealthGauge.canAutoSave = false;
+            }
+        }
     }
     public void NewGame()
     {
@@ -95,6 +117,7 @@ public class SaveManager : MonoBehaviour
         }
         else if (savefile == true)
         {
+            LoadData();
             SceneManager.LoadScene("StartGame");
         }
     }
@@ -151,5 +174,10 @@ public class SaveManager : MonoBehaviour
         {
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
+    }
+    public void Instancing()
+    {
+        skill1LvInstance = playData.skill1Lv;
+        skill2LvInstance = playData.skill2Lv;
     }
 }

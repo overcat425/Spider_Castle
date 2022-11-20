@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;      // 이동 벡터
     private CharacterMovement movement;       // 키보드로 플레이어 이동
     private EnemyStatus enemyStatus;
-    private EnemyChasing enemyChasing;
+    private static EnemyChasing enemyChasing;
+
     [SerializeField]
     private GameObject go_BaseUi;
 
@@ -126,9 +127,7 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.tag == "Enemy")
             {
-                collider.GetComponent<EnemyStatus>().DestroyEnemy();    // 적 파괴
-                EnemySpawnPool.count_instance.EnemyKilledCount++;
-                SoundManager.SoundEffect.SoundPlay("EnemyDestroySound", enemyDestroySound);
+                collider.GetComponent<EnemyStatus>().Skill1Damage();
             }
         }
         StartCoroutine("BaseAttackEffect"); // 기본공격 이펙트 코루틴메소드 반복

@@ -15,6 +15,7 @@ public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     Vector3 defaultScale;                       // 버튼 크기 벡터
     void Start()
     {
+        HealthGauge.canAutoSave = false;
         defaultScale = buttonScale.localScale;
     }
     void Update()

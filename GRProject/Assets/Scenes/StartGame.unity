@@ -290,7 +290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &35960266
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6101,7 +6101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &518816337
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6810,7 +6810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &554342712
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18027,7 +18027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1819776117
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18543,10 +18543,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 0}
   savefile: 0
-  skill1Level: 0
-  skill2Level: 0
   skill1: {fileID: 490288062}
   skill2: {fileID: 1978185797}
+  baseDamage: 0
+  maceDamage: 0
   lvUpSound: {fileID: 8300000, guid: 3b6deb981aa226e47a4fe39f16c3b410, type: 3}
   maxLvSound: {fileID: 8300000, guid: 86141e649b3df87478e8a8e25e202914, type: 3}
   alreadySavedGame: {fileID: 0}
@@ -18654,8 +18654,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70
-  m_fontSizeBase: 70
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
