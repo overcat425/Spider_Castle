@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class EnemySpawnPool : MonoBehaviour
 {
     [Header("적 오브젝트 생성")]
-    [SerializeField]
-    private GameObject enemy;
+    [SerializeField]    private GameObject enemy;
+    [SerializeField]    private GameObject enemy2;
     [SerializeField]
     private Transform[] spawnEnemy;
     [SerializeField]
@@ -34,6 +34,7 @@ public class EnemySpawnPool : MonoBehaviour
     void Start()
     {
         InvokeRepeating("Spawn", 0, spawnTime);
+        InvokeRepeating("Spawn2", 60, 20);
     }
     void Update()
     {
@@ -45,5 +46,12 @@ public class EnemySpawnPool : MonoBehaviour
         Instantiate(enemy, new Vector3(Random.Range(-5000, -4000), Random.Range(-4000, 4000), 0), Quaternion.identity);
         Instantiate(enemy, new Vector3(Random.Range(-5000, 5000), Random.Range(-4000, -3000), 0), Quaternion.identity);
         Instantiate(enemy, new Vector3(Random.Range(-5000, 5000), Random.Range(3000, 4000), 0), Quaternion.identity);
+    }
+    private void Spawn2()
+    {
+        Instantiate(enemy2, new Vector3(Random.Range(4000, 5000), Random.Range(-4000, 4000), 0), Quaternion.identity);
+        Instantiate(enemy2, new Vector3(Random.Range(-5000, -4000), Random.Range(-4000, 4000), 0), Quaternion.identity);
+        Instantiate(enemy2, new Vector3(Random.Range(-5000, 5000), Random.Range(-4000, -3000), 0), Quaternion.identity);
+        Instantiate(enemy2, new Vector3(Random.Range(-5000, 5000), Random.Range(3000, 4000), 0), Quaternion.identity);
     }
 }

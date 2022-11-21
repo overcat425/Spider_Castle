@@ -11,6 +11,7 @@ public class PlayerData
     public int skill1Lv;
     public int skill2Lv;
     public int skill3Lv;
+    public bool hideHelpNotice;
 }
 public class SaveManager : MonoBehaviour
 {
@@ -23,16 +24,20 @@ public class SaveManager : MonoBehaviour
     string path;
     string filename = "savedata";
     public bool savefile;
-    public int a;
-    [Header("스킬레벨 인스턴스")]       // 외부 스크립트 전용 static 수치
+    public bool hideNotice;
+
+    [Header("인스턴스")]       // 외부 스크립트 전용 static 수치
     public static int skill1LvInstance;
     public static int skill2LvInstance;
+    public static bool hideNoticeInstance;
 
     [Header("스킬레벨")]
     public int skill1Level;
     public int skill2Level;
     [SerializeField]    public Text skill1;
     [SerializeField]    public Text skill2;
+    [SerializeField]    public Text skill1Dmg;
+    [SerializeField]    public Text skill2Dmg;
 
     [Header("데미지")]
     [SerializeField] public int baseDamage;
@@ -57,12 +62,13 @@ public class SaveManager : MonoBehaviour
         {
             instance = this;
         }
-        else if(instance != this)
+        else if (instance != this)
         {
             Destroy(instance.gameObject);
         }
         DontDestroyOnLoad(this.gameObject);
         path = Application.persistentDataPath+ "/";
+
     }
     void Start()
     {
@@ -70,11 +76,11 @@ public class SaveManager : MonoBehaviour
         {
             savefile = true;
         }
-        //print(path);
         LoadData();
         skill1Level = playData.skill1Lv;
         skill2Level = playData.skill2Lv;
-        HealthGauge.canAutoSave = true;
+        hideNotice = playData.hideHelpNotice;
+        //HealthGauge.canAutoSave = true;
     }
     public void Update()
     {
@@ -85,7 +91,10 @@ public class SaveManager : MonoBehaviour
         skill2.text = skill2Level.ToString();
         baseDamage = skill1Level * 10;
         maceDamage = skill2Level * 20;
-        if (HealthGauge.health <= 0)
+        skill1Dmg.text =baseDamage.ToString();
+        skill2Dmg.text = maceDamage.ToString();
+
+        if (HealthGauge.health <= 0)        // 던전이 끝났을 때 자동저장
         {
             if (HealthGauge.canAutoSave == true)
             {
@@ -95,27 +104,31 @@ public class SaveManager : MonoBehaviour
                 HealthGauge.canAutoSave = false;
             }
         }
+        if(SceneManager.GetActiveScene().name == "GameOver")
+        {
+            Destroy(gameObject);
+        }
     }
     public void NewGame()
     {
-        if (savefile == true)
+        if (savefile == true)                       // 세이브파일이 있을 때
         {
             newGameAlert.SetActive(true);
             SoundManager.SoundEffect.SoundPlay("AlreadySavedGame", alreadySavedGame);
         }
-        else if (savefile == false)
+        else if (savefile == false)                 // 세이브파일 없을 때
         {
             SceneManager.LoadScene("StartGame");
         }
     }
     public void LoadGame()
     {
-        if (savefile == false)
+        if (savefile == false)                      // 세이브파일이 없을 때
         {
             noSaveData.SetActive(true);
             SoundManager.SoundEffect.SoundPlay("AlertSound", clip);
         }
-        else if (savefile == true)
+        else if (savefile == true)                  // 세이브파일 있을 때
         {
             LoadData();
             SceneManager.LoadScene("StartGame");
@@ -128,6 +141,7 @@ public class SaveManager : MonoBehaviour
     public void OnClickYesBtn()
     {
         File.Delete(path+filename);
+        playData.hideHelpNotice = false;
         SceneManager.LoadScene("StartGame");
     }
     public void OnClickNoBtn()
@@ -140,6 +154,7 @@ public class SaveManager : MonoBehaviour
         File.WriteAllText(path+filename, data);
         savedAlert.SetActive(true);
         SoundManager.SoundEffect.SoundPlay("savedGameAlert", savedGameAlert);
+        print(path);
     }
     public void ExitAlert2()
     {
@@ -152,7 +167,7 @@ public class SaveManager : MonoBehaviour
     }
     public void OnClickSkill1LvUp()
     {
-        if(skill1Level < 10)
+        if(skill1Level < 10)                    // 스킬 최대레벨 10
         {
             SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
             skill1Level += 1;
@@ -179,5 +194,12 @@ public class SaveManager : MonoBehaviour
     {
         skill1LvInstance = playData.skill1Lv;
         skill2LvInstance = playData.skill2Lv;
+        hideNoticeInstance = playData.hideHelpNotice;
+}
+    public void OnClickHideHelp()
+    {
+        playData.hideHelpNotice = true;
+        hideNotice = true;
+        Debug.Log(hideNotice);
     }
 }

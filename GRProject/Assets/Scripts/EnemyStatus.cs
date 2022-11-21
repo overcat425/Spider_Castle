@@ -10,7 +10,8 @@ public class EnemyStatus : MonoBehaviour
     Transform target;
     private float moveSpeed = 7.5f;
     private Image healthBar;                  // 적 체력바(필요시 추가)
-    private float maxHealth = 100f;
+    [SerializeField]
+    private float maxHealth;
     [SerializeField]
     public float enemyHealth;
     public AudioClip enemyDestroySound;
@@ -28,11 +29,6 @@ public class EnemyStatus : MonoBehaviour
     {
         baseDamage = SaveManager.skill1LvInstance * 10;
         maceDamage = SaveManager.skill2LvInstance * 20;
-        //healthBar.fillAmount = enemyHealth / maxHealth;
-        //if (enemyHealth <= 0f)
-        //{
-        //Destroy(gameObject);
-        //}
         if (enemyHealth <= 0)
         {
             DestroyEnemy();

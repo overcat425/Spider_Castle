@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3674415999094583431}
   - component: {fileID: 3674415999094583430}
+  - component: {fileID: 8976474533131636580}
   m_Layer: 6
   m_Name: EnemyBody
   m_TagString: Untagged
@@ -84,6 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8976474533131636580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3674415999094583432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80b37100161f87a4cb710535c9e3c961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3674415999873294064
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f27cfaf69b4f9241a9bfbe8fc9a9fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 150
+  moveSpeed: 300
   hitscanDistance: 1
   bloodScreen: {fileID: 3587494551441357169}
   curveBloodScreen:
@@ -188,6 +201,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 327d72892d3d2374e9dc5275e2ff81b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hudDamageText: {fileID: 3692411484774435566, guid: e0d3877effa0d8f449e8e3f9969f29c1, type: 3}
+  hudPos: {fileID: 3674415999873294031}
+  maxHealth: 150
+  enemyHealth: 0
+  enemyDestroySound: {fileID: 8300000, guid: f1e9ce0d0c415f04c95dfffcda9b8740, type: 3}
+  baseDamage: 0
+  maceDamage: 0
 --- !u!50 &2024272023827084254
 Rigidbody2D:
   serializedVersion: 4

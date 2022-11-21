@@ -13,13 +13,22 @@ public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     //[SerializeField]
     //private AudioClip audioClip;            // 효과음 클립
     Vector3 defaultScale;                       // 버튼 크기 벡터
+    [SerializeField]
+    private GameObject helpNotice;
+    public bool hideHelp;
     void Start()
     {
         HealthGauge.canAutoSave = false;
         defaultScale = buttonScale.localScale;
+        hideHelp = SaveManager.hideNoticeInstance;
+        if (hideHelp == true)
+        {
+            helpNotice.SetActive(false);
+        }
     }
     void Update()
     {
+
     }
     public void OnClickDungeon()                            // 뉴게임씬 시작
     {
@@ -48,6 +57,10 @@ public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnClickExit()
     {
         enhanceMenu.CloseMenu();
+    }
+    public void OnClickHideoff()
+    {
+        helpNotice.SetActive(false);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

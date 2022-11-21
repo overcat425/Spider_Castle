@@ -729,7 +729,7 @@ GameObject:
   - component: {fileID: 137424912}
   - component: {fileID: 137424911}
   m_Layer: 0
-  m_Name: SaveManager
+  m_Name: SaveManagerMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -749,8 +749,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 0fab818f6ec142145b04e0ab096450bf, type: 3}
   savefile: 0
+  hideNotice: 0
   skill1Level: 0
+  skill2Level: 0
   skill1: {fileID: 0}
+  skill2: {fileID: 0}
+  skill1Dmg: {fileID: 0}
+  skill2Dmg: {fileID: 0}
+  baseDamage: 0
+  maceDamage: 0
   lvUpSound: {fileID: 8300000, guid: 3b6deb981aa226e47a4fe39f16c3b410, type: 3}
   maxLvSound: {fileID: 8300000, guid: 86141e649b3df87478e8a8e25e202914, type: 3}
   alreadySavedGame: {fileID: 8300000, guid: c01df3918c6619e409b1c461f2f46250, type: 3}

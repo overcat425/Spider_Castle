@@ -207,7 +207,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!114 &7048984751240206904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hudDamageText: {fileID: 3692411484774435566, guid: e0d3877effa0d8f449e8e3f9969f29c1, type: 3}
   hudPos: {fileID: 3674415999873294031}
+  maxHealth: 100
   enemyHealth: 0
   enemyDestroySound: {fileID: 8300000, guid: f1e9ce0d0c415f04c95dfffcda9b8740, type: 3}
   baseDamage: 0

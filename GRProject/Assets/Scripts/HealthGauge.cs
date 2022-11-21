@@ -19,7 +19,6 @@ public class HealthGauge : MonoBehaviour
         canAutoSave = true;
         healthBar = GetComponent<Image>();          // 체력바 구현
         health = maxHealth;                                 // 초기 체력 = 최대체력
-
     }
     private void Update()
     {

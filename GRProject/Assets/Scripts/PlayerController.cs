@@ -125,14 +125,14 @@ public class PlayerController : MonoBehaviour
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
         foreach (Collider2D collider in collider2Ds)
         {
-            if (collider.tag == "Enemy")
+            if (collider.tag == "Enemy")                // Enemy를 때리면
             {
                 collider.GetComponent<EnemyStatus>().Skill1Damage();
-            }
+            }                                           // Skill1 수치의 데미지 부여
         }
         StartCoroutine("BaseAttackEffect"); // 기본공격 이펙트 코루틴메소드 반복
         StartCoroutine("BaseAttack");       // 기본공격 코루틴메소드 반복
-        SoundManager.SoundEffect.SoundPlay("BaseAttack",clip);
+        SoundManager.SoundEffect.SoundPlay("BaseAttack",clip);  // 공격 사운드
     }
     private IEnumerator BaseAttackEffect()          // 기본공격 이펙트 코루틴메소드
     {
