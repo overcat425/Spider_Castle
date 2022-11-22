@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private float dashingCoolDown = 0.25f;
     [SerializeField]
     private TrailRenderer tr;
+    [SerializeField]
+    public float jumpCoolDown;
 
     public int teleportationCount = 2;
     public float currentCoolDown;
@@ -59,6 +61,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        jumpCoolDown = 6 - (SaveManager.skill3LvInstance);
         if (canPlayerMove)
         {
             UpdateMove();
@@ -228,7 +231,7 @@ public class PlayerController : MonoBehaviour
             //순간이동 횟수가 최대 횟수인 2 보다 작을 때, 재충전시간을 통해 횟수를 충전한다. 
             if (teleportationCount < 2)
             {
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(jumpCoolDown);
                 //위에서 저장한 현재시간 + 스킬 쿨타임보다 현재 시간이 클 경우, 
                 teleportationCount += 1;
                 CountCheck();

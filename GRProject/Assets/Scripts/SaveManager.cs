@@ -34,6 +34,7 @@ public class SaveManager : MonoBehaviour
     [Header("인스턴스")]       // 외부 스크립트 전용 static 수치
     public static int skill1LvInstance;
     public static int skill2LvInstance;
+    public static int skill3LvInstance;
     public static bool hideNoticeInstance;
     public static int coinsInstance;
     public static int getCoinInstance;          // CoinManager에서 가져오는 수치
@@ -45,14 +46,18 @@ public class SaveManager : MonoBehaviour
     [Header("스킬레벨")]
     public int skill1Level;
     public int skill2Level;
+    public int skill3Level;
     [SerializeField]    public Text skill1;
     [SerializeField]    public Text skill2;
+    [SerializeField]    public Text skill3;
     [SerializeField]    public Text skill1Dmg;
     [SerializeField]    public Text skill2Dmg;
+    [SerializeField]    public Text skill3CoolDown;
 
-    [Header("데미지")]
+    [Header("데미지&쿨타임")]
     [SerializeField] public int baseDamage;
     [SerializeField] public int maceDamage;
+    [SerializeField] public float jumpCoolDown;
 
     [Header("효과음")]
     [SerializeField]
@@ -90,8 +95,10 @@ public class SaveManager : MonoBehaviour
         LoadData();
         skill1Level = playData.skill1Lv;
         skill2Level = playData.skill2Lv;
+        skill3Level = playData.skill3Lv;
         earnedCoins = playData.coins;
         hideNotice = playData.hideHelpNotice;
+
         //HealthGauge.canAutoSave = true;
     }
     public void Update()
@@ -101,10 +108,13 @@ public class SaveManager : MonoBehaviour
         Instancing(); 
         skill1.text = (skill1Level+1).ToString();
         skill2.text = (skill2Level+1).ToString();
+        skill3.text = (skill3Level+1).ToString();
         baseDamage = (skill1Level+1) * 30;
         maceDamage = (skill2Level+1) * 20;
+        jumpCoolDown = 6 - (skill3Level+1);
         skill1Dmg.text =baseDamage.ToString();
         skill2Dmg.text = maceDamage.ToString();
+        skill3CoolDown.text = jumpCoolDown.ToString();
         earnedCoinsCount.text = earnedCoins.ToString();
 
         if (HealthGauge.health <= 0)        // 던전이 끝났을 때 자동저장
@@ -132,7 +142,7 @@ public class SaveManager : MonoBehaviour
         }
         else if (savefile == false)                 // 세이브파일 없을 때
         {
-            ForTestCoin();
+            //ForTestCoin();
             SceneManager.LoadScene("StartGame");
         }
     }
@@ -157,7 +167,7 @@ public class SaveManager : MonoBehaviour
     {
         File.Delete(path+filename);
         playData.hideHelpNotice = false;
-        ForTestCoin();
+        //ForTestCoin();
         SceneManager.LoadScene("StartGame");
     }
     public void OnClickNoBtn()
@@ -234,10 +244,37 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
+    public void OnClickSkill3LvUp()
+    {
+        if (earnedCoins >= 100)
+        {
+            if (skill3Level < 2)
+            {
+                earnedCoins -= 100;
+                SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
+                skill3Level += 1;
+                playData.skill3Lv = skill3Level;
+                playData.coins = earnedCoins;
+            }
+            else if (skill3Level >= 2)
+            {
+                mastered.SetActive(true);
+                Invoke("MasterWarning", 0.5f);
+                SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+            }
+        }
+        else
+        {
+            needCost.SetActive(true);
+            Invoke("CostWarning", 0.5f);
+            SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+        }
+    }
     public void Instancing()
     {
         skill1LvInstance = playData.skill1Lv+1;
         skill2LvInstance = playData.skill2Lv+1;
+        skill3LvInstance = playData.skill3Lv+1;
         hideNoticeInstance = playData.hideHelpNotice;
         coinsInstance = playData.coins;
 }
