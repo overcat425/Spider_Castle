@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EnemyStatus : MonoBehaviour
 {
     public GameObject hudDamageText;
+    public GameObject coins;
     public Transform hudPos;
     Transform target;
     private float moveSpeed = 7.5f;
@@ -52,6 +53,10 @@ public class EnemyStatus : MonoBehaviour
     }
     public void DestroyEnemy()
     {
+        if (Random.Range(0, 5) == 0)
+        {
+            CoinDrop();
+        }
         Destroy(gameObject);
     }
     public void DamageText(int damageText)
@@ -60,6 +65,11 @@ public class EnemyStatus : MonoBehaviour
         hudText.transform.position = hudPos.position;
         hudText.GetComponent<DamageText>().damage = damageText;
         Debug.Log(damageText);
+    }
+    public void CoinDrop()
+    {
+        GameObject Coin = Instantiate(coins);
+        Coin.transform.position = hudPos.position;
     }
     public IEnumerator KnockBack()
     {

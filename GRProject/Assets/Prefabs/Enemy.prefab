@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hudDamageText: {fileID: 3692411484774435566, guid: e0d3877effa0d8f449e8e3f9969f29c1, type: 3}
+  coins: {fileID: 4057302891543436477, guid: 558cf528c78b34548a11c26ea27f61e8, type: 3}
   hudPos: {fileID: 3674415999873294031}
   maxHealth: 100
   enemyHealth: 0

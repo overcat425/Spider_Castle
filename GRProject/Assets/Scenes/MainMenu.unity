@@ -747,9 +747,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080d8c63332fa574f8f822c0d0e1750e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 0}
+  coinManager: {fileID: 0}
+  needCost: {fileID: 0}
+  mastered: {fileID: 0}
   clip: {fileID: 8300000, guid: 0fab818f6ec142145b04e0ab096450bf, type: 3}
   savefile: 0
   hideNotice: 0
+  earnedCoins: 0
+  earnedCoinsCount: {fileID: 0}
   skill1Level: 0
   skill2Level: 0
   skill1: {fileID: 0}

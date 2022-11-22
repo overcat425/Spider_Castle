@@ -33,7 +33,7 @@ public class EnemyChasing : MonoBehaviour
         TargetChasing();
         MobFlip();
     }
-    private void TargetChasing()                    // 플레이어 추적
+    public void TargetChasing()                    // 플레이어 추적
     {
         if(Vector2.Distance(transform.position, target.position) > hitscanDistance)
         {
@@ -44,7 +44,7 @@ public class EnemyChasing : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            HealthGauge.health -= 1f;
+            HealthGauge.health -= 0.5f;
             //EnemyStatus.enemyHealth -= 2f;
             //StopCoroutine("OnBloodScreen");             // 피격 받는 동안 지속
             StartCoroutine("OnBloodScreen");            // 피격시 빨간화면 코루틴 실행

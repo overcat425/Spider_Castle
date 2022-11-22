@@ -8,6 +8,7 @@ public class PlayerData
 {
     public float bgmVolume;
     public float effectVolume;
+    public int coins;
     public int skill1Lv;
     public int skill2Lv;
     public int skill3Lv;
@@ -16,8 +17,12 @@ public class PlayerData
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
-    public static SoundManager soundManager;
+    public SoundManager soundManager;
+    public CoinManager coinManager;
     private MainMenu mainMenu;
+    public GameObject needCost;
+    public GameObject mastered;
+
     [SerializeField]
     private AudioClip clip;
     PlayerData playData = new PlayerData();
@@ -30,6 +35,12 @@ public class SaveManager : MonoBehaviour
     public static int skill1LvInstance;
     public static int skill2LvInstance;
     public static bool hideNoticeInstance;
+    public static int coinsInstance;
+    public static int getCoinInstance;          // CoinManager에서 가져오는 수치
+
+    [Header("재화")]
+    public int earnedCoins;
+    [SerializeField]    public Text earnedCoinsCount;
 
     [Header("스킬레벨")]
     public int skill1Level;
@@ -79,6 +90,7 @@ public class SaveManager : MonoBehaviour
         LoadData();
         skill1Level = playData.skill1Lv;
         skill2Level = playData.skill2Lv;
+        earnedCoins = playData.coins;
         hideNotice = playData.hideHelpNotice;
         //HealthGauge.canAutoSave = true;
     }
@@ -87,18 +99,20 @@ public class SaveManager : MonoBehaviour
         //playData.bgmVolume = soundManager.musicSource.volume;
         //playData.effectVolume =  soundManager.effectSource.volume;
         Instancing(); 
-        skill1.text = skill1Level.ToString();
-        skill2.text = skill2Level.ToString();
-        baseDamage = skill1Level * 10;
-        maceDamage = skill2Level * 20;
+        skill1.text = (skill1Level+1).ToString();
+        skill2.text = (skill2Level+1).ToString();
+        baseDamage = (skill1Level+1) * 50;
+        maceDamage = (skill2Level+1) * 20;
         skill1Dmg.text =baseDamage.ToString();
         skill2Dmg.text = maceDamage.ToString();
+        earnedCoinsCount.text = earnedCoins.ToString();
 
         if (HealthGauge.health <= 0)        // 던전이 끝났을 때 자동저장
         {
             if (HealthGauge.canAutoSave == true)
             {
                 Debug.Log("저장됨");
+                playData.coins = playData.coins + getCoinInstance;
                 string data = JsonUtility.ToJson(playData);
                 File.WriteAllText(path + filename, data);
                 HealthGauge.canAutoSave = false;
@@ -118,6 +132,7 @@ public class SaveManager : MonoBehaviour
         }
         else if (savefile == false)                 // 세이브파일 없을 때
         {
+            ForTestCoin();
             SceneManager.LoadScene("StartGame");
         }
     }
@@ -142,6 +157,7 @@ public class SaveManager : MonoBehaviour
     {
         File.Delete(path+filename);
         playData.hideHelpNotice = false;
+        ForTestCoin();
         SceneManager.LoadScene("StartGame");
     }
     public void OnClickNoBtn()
@@ -167,39 +183,82 @@ public class SaveManager : MonoBehaviour
     }
     public void OnClickSkill1LvUp()
     {
-        if(skill1Level < 10)                    // 스킬 최대레벨 10
+        if (earnedCoins >= 10)                  // 코인 제한
         {
-            SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
-            skill1Level += 1;
-            playData.skill1Lv = skill1Level;
-        }else if(skill1Level >=10)
+            if (skill1Level < 9)                    // 스킬 최대레벨 10(9+1)
+            {
+                earnedCoins -= 10;
+                SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
+                skill1Level += 1;
+                playData.skill1Lv = skill1Level;
+                playData.coins = earnedCoins;
+            }
+            else if (skill1Level >= 9)
+            {
+                mastered.SetActive(true);
+                Invoke("MasterWarning", 0.5f);
+                SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+            }
+        }
+        else
         {
+            needCost.SetActive(true);
+            Invoke("CostWarning", 0.5f);
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
+
     public void OnClickSkill2LvUp()
     {
-        if (skill2Level < 10)
+        if (earnedCoins >= 20)
         {
-            SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
-            skill2Level += 1;
-            playData.skill2Lv = skill2Level;
+            if (skill2Level < 9)
+            {
+                earnedCoins -= 20;
+                SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
+                skill2Level += 1;
+                playData.skill2Lv = skill2Level;
+                playData.coins = earnedCoins;
+            }
+            else if (skill2Level >= 9)
+            {
+                mastered.SetActive(true);
+                Invoke("MasterWarning", 0.5f);
+                SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+            }
         }
-        else if (skill2Level >= 10)
+        else
         {
+            needCost.SetActive(true);
+            Invoke("CostWarning", 0.5f);
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
     public void Instancing()
     {
-        skill1LvInstance = playData.skill1Lv;
-        skill2LvInstance = playData.skill2Lv;
+        skill1LvInstance = playData.skill1Lv+1;
+        skill2LvInstance = playData.skill2Lv+1;
         hideNoticeInstance = playData.hideHelpNotice;
+        coinsInstance = playData.coins;
 }
     public void OnClickHideHelp()
     {
         playData.hideHelpNotice = true;
         hideNotice = true;
         Debug.Log(hideNotice);
+    }
+    public void CostWarning()
+    {
+        needCost.SetActive(false);
+    }
+    public void MasterWarning()
+    {
+        mastered.SetActive(false);
+    }
+    public void ForTestCoin()
+    {
+        playData.coins = 100;
+        string data = JsonUtility.ToJson(playData);
+        File.WriteAllText(path + filename, data);
     }
 }

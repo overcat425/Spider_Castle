@@ -8,6 +8,8 @@ TagManager:
   - Log
   - BaseAttack
   - EnemyDamaged
+  - MagnetField
+  - Coin
   layers:
   - Default
   - TransparentFX
