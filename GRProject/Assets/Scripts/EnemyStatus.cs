@@ -28,7 +28,7 @@ public class EnemyStatus : MonoBehaviour
     }
     private void Update()
     {
-        baseDamage = SaveManager.skill1LvInstance * 10;
+        baseDamage = SaveManager.skill1LvInstance * 30;
         maceDamage = SaveManager.skill2LvInstance * 20;
         if (enemyHealth <= 0)
         {

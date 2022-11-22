@@ -101,7 +101,7 @@ public class SaveManager : MonoBehaviour
         Instancing(); 
         skill1.text = (skill1Level+1).ToString();
         skill2.text = (skill2Level+1).ToString();
-        baseDamage = (skill1Level+1) * 50;
+        baseDamage = (skill1Level+1) * 30;
         maceDamage = (skill2Level+1) * 20;
         skill1Dmg.text =baseDamage.ToString();
         skill2Dmg.text = maceDamage.ToString();
