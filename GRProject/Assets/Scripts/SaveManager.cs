@@ -42,6 +42,7 @@ public class SaveManager : MonoBehaviour
     [Header("재화")]
     public int earnedCoins;
     [SerializeField]    public Text earnedCoinsCount;
+    [SerializeField]    public Text earnedCoinsCountMain;
 
     [Header("스킬레벨")]
     public int skill1Level;
@@ -105,17 +106,8 @@ public class SaveManager : MonoBehaviour
     {
         //playData.bgmVolume = soundManager.musicSource.volume;
         //playData.effectVolume =  soundManager.effectSource.volume;
-        Instancing(); 
-        skill1.text = (skill1Level+1).ToString();
-        skill2.text = (skill2Level+1).ToString();
-        skill3.text = (skill3Level+1).ToString();
-        baseDamage = (skill1Level+1) * 30;
-        maceDamage = (skill2Level+1) * 20;
-        jumpCoolDown = 6 - (skill3Level+1);
-        skill1Dmg.text =baseDamage.ToString();
-        skill2Dmg.text = maceDamage.ToString();
-        skill3CoolDown.text = jumpCoolDown.ToString();
-        earnedCoinsCount.text = earnedCoins.ToString();
+        Instancing();
+        Sync();
 
         if (HealthGauge.health <= 0)        // 던전이 끝났을 때 자동저장
         {
@@ -269,6 +261,20 @@ public class SaveManager : MonoBehaviour
             Invoke("CostWarning", 0.5f);
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
+    }
+    public void Sync()
+    {
+        skill1.text = (skill1Level + 1).ToString();
+        skill2.text = (skill2Level + 1).ToString();
+        skill3.text = (skill3Level + 1).ToString();
+        baseDamage = (skill1Level + 1) * 30;
+        maceDamage = (skill2Level + 1) * 20;
+        jumpCoolDown = 6 - (skill3Level + 1);
+        skill1Dmg.text = baseDamage.ToString();
+        skill2Dmg.text = maceDamage.ToString();
+        skill3CoolDown.text = jumpCoolDown.ToString();
+        earnedCoinsCount.text = earnedCoins.ToString();
+        earnedCoinsCountMain.text = earnedCoins.ToString();
     }
     public void Instancing()
     {
