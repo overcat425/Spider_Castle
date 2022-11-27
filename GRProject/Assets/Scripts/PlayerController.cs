@@ -41,8 +41,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 boxSize;
 
     [Header("มกวม")]
-    [SerializeField]    private GameObject tpCounter1;
-    [SerializeField]    private GameObject tpCounter2;
+    [SerializeField]    private GameObject tpCounter;
     public float lerpTime = 1.0f;
     private bool canDash = true;
     private bool isDashing;
@@ -85,8 +84,8 @@ public class PlayerController : MonoBehaviour
         //log = GameObject.FindGameObjectWithTag("Log").GetComponent<Transform>();
         StartCoroutine("BaseAttack");
         StartCoroutine("CoolDown");
-        countImage1 = GameObject.Find("Count1").GetComponent<Image>();
-        countImage2 = GameObject.Find("Count2").GetComponent<Image>();
+        //countImage1 = GameObject.Find("TpCounter").GetComponent<Image>();
+        //countImage2 = GameObject.Find("TpCounter2").GetComponent<Image>();
     }
     private void Awake()
     {
@@ -126,8 +125,7 @@ public class PlayerController : MonoBehaviour
             }
         }else if(SaveManager.skill3EnableInstance == false)
         {
-            tpCounter1.SetActive(false);
-            tpCounter2.SetActive(false);
+            tpCounter.SetActive(false);
         }
         if (isClear)
         {

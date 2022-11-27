@@ -21,6 +21,7 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField]    private GameObject skill5;
     [SerializeField]    private GameObject skill6;
     [SerializeField]    private GameObject skill3Pane;
+    [SerializeField]    private GameObject skill4Pane;
 
     [Header("거미종류")]
     [SerializeField]    private GameObject spider1;
@@ -29,6 +30,7 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField]    private GameObject spider4;
 
     public bool skill3Enable;
+    public bool skill4Enable;
 
     public Transform buttonScale;
     Vector3 defaultScale;
@@ -39,6 +41,7 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private void Update()
     {
         skill3Enable = SaveManager.skill3EnableInstance;
+        skill4Enable = SaveManager.skill4EnableInstance;
     }
     public void CallMenu()
     {
@@ -70,6 +73,7 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         cobTab.SetActive(false);
         summary.SetActive(false);
         EnableSkill3();
+        EnableSkill4();
     }
     public void OnClickCobTab()
     {
@@ -179,6 +183,17 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         else if (skill3Enable == false)
         {
             skill3Pane.SetActive(false);
+        }
+    }
+    public void EnableSkill4()
+    {
+        if (skill4Enable == true)
+        {
+            skill4Pane.SetActive(true);
+        }
+        else if (skill4Enable == false)
+        {
+            skill4Pane.SetActive(false);
         }
     }
     public void OnPointerEnter(PointerEventData eventData)

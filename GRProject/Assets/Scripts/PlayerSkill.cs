@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSkill : MonoBehaviour
 {
@@ -17,13 +18,32 @@ public class PlayerSkill : MonoBehaviour
     private bool maceOn = true;
     [SerializeField]
     public AudioClip clip;
+
+    [Header("°Å¹ÌÁÙ Æ®·¦")]
+    [SerializeField] private GameObject webCounter;
+    public GameObject web;
+    public Transform player;
+    [SerializeField] public float trapCoolDown;
+    public int webCount = 2;
+    public Image webCount1;
+    public Image webCount2;
+    public AudioClip trapSound;
     void Start()
     {
+        StartCoroutine("WebCoolDown");
     }
 
     void Update()
     {
+        trapCoolDown = 4 - (SaveManager.skill4LvInstance);
         StartCoroutine("WebMace");
+        if (SaveManager.skill4EnableInstance == true)
+        {
+            StartCoroutine("MakeWeb");
+        }else if(SaveManager.skill4EnableInstance == false)
+        {
+            webCounter.SetActive(false);
+        }
         //if (Input.GetKeyDown(KeyCode.R))
         //{
         //    if (maceOn == false)
@@ -79,5 +99,51 @@ public class PlayerSkill : MonoBehaviour
             }
         }
         yield return null;
+    }
+    private IEnumerator MakeWeb()
+    {
+        if (webCount > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                web.transform.position = new Vector2(player.position.x, player.position.y);
+                Instantiate(web);
+                SoundManager.SoundEffect.SoundPlay("trapSound", trapSound);
+                webCount -= 1;
+                CountCheck();
+            }
+            yield return null;
+        }
+    }
+    private IEnumerator WebCoolDown()
+    {
+        while (true)
+        {
+            if (webCount < 2)
+            {
+                yield return new WaitForSeconds(trapCoolDown);
+                webCount += 1;
+                CountCheck();
+            }
+            yield return null;
+        }
+    }
+    private void CountCheck()
+    {
+        if (webCount == 2)
+        {
+            webCount1.color = Color.white;
+            webCount2.color = Color.white;
+        }
+        else if (webCount == 1)
+        {
+            webCount1.color = Color.white;
+            webCount2.color = Color.black;
+        }
+        else if (webCount == 0)
+        {
+            webCount1.color = Color.black;
+            webCount2.color = Color.black;
+        }
     }
 }

@@ -12,7 +12,9 @@ public class PlayerData
     public int skill1Lv;
     public int skill2Lv;
     public int skill3Lv;
+    public int skill4Lv;
     public bool skill3Enable;
+    public bool skill4Enable;
     public bool hideHelpNotice;
 }
 public class SaveManager : MonoBehaviour
@@ -40,8 +42,11 @@ public class SaveManager : MonoBehaviour
     public static int skill1LvInstance;
     public static int skill2LvInstance;
     public static int skill3LvInstance;
+    public static int skill4LvInstance;
     public static bool skill3EnableInstance;
+    public static bool skill4EnableInstance;
     public static bool getSkill3EnableInstance;
+    public static bool getSkill4EnableInstance;
     public static bool hideNoticeInstance;
     public static int coinsInstance;
 
@@ -56,17 +61,21 @@ public class SaveManager : MonoBehaviour
     public int skill1Level;
     public int skill2Level;
     public int skill3Level;
+    public int skill4Level;
     [SerializeField]    public Text skill1;
     [SerializeField]    public Text skill2;
     [SerializeField]    public Text skill3;
+    [SerializeField]    public Text skill4;
     [SerializeField]    public Text skill1Dmg;
     [SerializeField]    public Text skill2Dmg;
     [SerializeField]    public Text skill3CoolDown;
+    [SerializeField]    public Text skill4CoolDown;
 
     [Header("데미지&쿨타임")]
     [SerializeField] public int baseDamage;
     [SerializeField] public int maceDamage;
     [SerializeField] public float jumpCoolDown;
+    [SerializeField] public float trapCoolDown;
 
     [Header("효과음")]
     [SerializeField]
@@ -93,7 +102,6 @@ public class SaveManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
         path = Application.persistentDataPath+ "/";
-
     }
     void Start()
     {
@@ -105,6 +113,7 @@ public class SaveManager : MonoBehaviour
         skill1Level = playData.skill1Lv;
         skill2Level = playData.skill2Lv;
         skill3Level = playData.skill3Lv;
+        skill4Level = playData.skill4Lv;
         earnedCoins = playData.coins;
         hideNotice = playData.hideHelpNotice;
         //HealthGauge.canAutoSave = true;
@@ -193,6 +202,7 @@ public class SaveManager : MonoBehaviour
                 SaveVolume();
                 playData.coins += getCoinInstance;
                 playData.skill3Enable = getSkill3EnableInstance;
+                playData.skill4Enable = getSkill4EnableInstance;
                 string data = JsonUtility.ToJson(playData);
                 File.WriteAllText(path + filename, data);
                 HealthGauge.canAutoSave = false;
@@ -279,17 +289,46 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
+    public void OnClickSkill4LvUp()
+    {
+        if (earnedCoins >= 50)
+        {
+            if (skill4Level < 2)
+            {
+                earnedCoins -= 50;
+                SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
+                skill4Level += 1;
+                playData.skill4Lv = skill4Level;
+                playData.coins = earnedCoins;
+            }
+            else if (skill4Level >= 2)
+            {
+                mastered.SetActive(true);
+                Invoke("MasterWarning", 0.5f);
+                SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+            }
+        }
+        else
+        {
+            needCost.SetActive(true);
+            Invoke("CostWarning", 0.5f);
+            SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+        }
+    }
     public void Sync()
     {
         skill1.text = (skill1Level + 1).ToString();
         skill2.text = (skill2Level + 1).ToString();
         skill3.text = (skill3Level + 1).ToString();
+        skill4.text = (skill4Level + 1).ToString();
         baseDamage = (skill1Level + 1) * 30;
         maceDamage = (skill2Level + 1) * 20;
         jumpCoolDown = 6 - (skill3Level + 1);
+        trapCoolDown = 4 - (skill4Level + 1);
         skill1Dmg.text = baseDamage.ToString();
         skill2Dmg.text = maceDamage.ToString();
         skill3CoolDown.text = jumpCoolDown.ToString();
+        skill4CoolDown.text = trapCoolDown.ToString();
         earnedCoinsCount.text = earnedCoins.ToString();
         earnedCoinsCountMain.text = earnedCoins.ToString();
     }
@@ -300,7 +339,9 @@ public class SaveManager : MonoBehaviour
         skill1LvInstance = playData.skill1Lv+1;
         skill2LvInstance = playData.skill2Lv+1;
         skill3LvInstance = playData.skill3Lv+1;
+        skill4LvInstance = playData.skill4Lv + 1;
         skill3EnableInstance = playData.skill3Enable;
+        skill4EnableInstance = playData.skill4Enable;
         hideNoticeInstance = playData.hideHelpNotice;
         coinsInstance = playData.coins;
 }

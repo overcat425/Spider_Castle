@@ -10,28 +10,27 @@ public class EnemyChasing : MonoBehaviour
     private HealthGauge healthGauge;
 
     [Header("속도")]
-    [SerializeField]
-    private float moveSpeed = 7.5f;
+    [SerializeField]    private float speed;
+    [SerializeField]    private float slowSpeed;
+    [SerializeField]    private float moveSpeed;
 
     [Header("타격 거리")]
     [SerializeField]
     private float hitscanDistance = 1f;
 
-    [Header("BloodScreen")]
-    [SerializeField]
-    private Image bloodScreen;
-    [SerializeField]
-    private AnimationCurve curveBloodScreen;
-
+    private bool canSlow = true;
     void Start()
     {
         enemyBody = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        slowSpeed = speed * 0.2f;
+        moveSpeed = speed;
     }
     void Update()
     {
         TargetChasing();
         MobFlip();
+
     }
     public void TargetChasing()                    // 플레이어 추적
     {
@@ -46,6 +45,10 @@ public class EnemyChasing : MonoBehaviour
         {
             HealthGauge.health -= 0.5f;
             //EnemyStatus.enemyHealth -= 2f;
+        }
+        if (collision.CompareTag("Web"))
+        {
+            StartCoroutine("Slow");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)          // 피격 상태 X
@@ -64,5 +67,16 @@ public class EnemyChasing : MonoBehaviour
             CharacterFlip = Vector3.right;
             transform.localScale = new Vector3(100, 100, 1);
         }
+    }
+    private IEnumerator Slow()
+    {
+        if (canSlow)
+        {
+            canSlow = false;
+            moveSpeed = slowSpeed;
+            yield return new WaitForSeconds(4f);
+            moveSpeed = speed;
+        }
+        canSlow = true;
     }
 }
