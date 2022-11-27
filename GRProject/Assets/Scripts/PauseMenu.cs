@@ -8,8 +8,7 @@ using UnityEngine.Audio;
 
 public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField]
-    private GameObject go_BaseUi;
+    [SerializeField]    private GameObject go_BaseUi;
     public Transform buttonScale;
     Vector3 defaultScale;
     private void Start()
@@ -19,12 +18,15 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (PlayerController.isClear == false)
         {
-            if (!PlayerController.isPause)
-                CallMenu();
-            else
-                CloseMenu();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!PlayerController.isPause)
+                    CallMenu();
+                else
+                    CloseMenu();
+            }
         }
     }
     public void CallMenu()
@@ -45,6 +47,10 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
     public void SaveData()
     {
+    }
+    public void OnClickVillage()
+    {
+        SceneManager.LoadScene("StartGame");
     }
     public void ClickQuit()
     {

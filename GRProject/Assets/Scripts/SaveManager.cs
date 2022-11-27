@@ -12,6 +12,7 @@ public class PlayerData
     public int skill1Lv;
     public int skill2Lv;
     public int skill3Lv;
+    public bool skill3Enable;
     public bool hideHelpNotice;
 }
 public class SaveManager : MonoBehaviour
@@ -28,15 +29,22 @@ public class SaveManager : MonoBehaviour
     PlayerData playData = new PlayerData();
     string path;
     string filename = "savedata";
-    public bool savefile;
+    public static bool savefile;
     public bool hideNotice;
 
     [Header("인스턴스")]       // 외부 스크립트 전용 static 수치
+    public static float bgmVolumeInstance;
+    public static float getBgmInstance;
+    public static float effectVolumeInstance;
+    public static float getEffectInstance;
     public static int skill1LvInstance;
     public static int skill2LvInstance;
     public static int skill3LvInstance;
+    public static bool skill3EnableInstance;
+    public static bool getSkill3EnableInstance;
     public static bool hideNoticeInstance;
     public static int coinsInstance;
+
     public static int getCoinInstance;          // CoinManager에서 가져오는 수치
 
     [Header("재화")]
@@ -99,7 +107,6 @@ public class SaveManager : MonoBehaviour
         skill3Level = playData.skill3Lv;
         earnedCoins = playData.coins;
         hideNotice = playData.hideHelpNotice;
-
         //HealthGauge.canAutoSave = true;
     }
     public void Update()
@@ -108,22 +115,13 @@ public class SaveManager : MonoBehaviour
         //playData.effectVolume =  soundManager.effectSource.volume;
         Instancing();
         Sync();
-
-        if (HealthGauge.health <= 0)        // 던전이 끝났을 때 자동저장
-        {
-            if (HealthGauge.canAutoSave == true)
-            {
-                Debug.Log("저장됨");
-                playData.coins = playData.coins + getCoinInstance;
-                string data = JsonUtility.ToJson(playData);
-                File.WriteAllText(path + filename, data);
-                HealthGauge.canAutoSave = false;
-            }
-        }
+        //Debug.Log(skill3EnableInstance);
+        StartCoroutine("AutoSave");
         if(SceneManager.GetActiveScene().name == "GameOver")
         {
             Destroy(gameObject);
         }
+        //Debug.Log("saveFile:" + savefile);
     }
     public void NewGame()
     {
@@ -159,6 +157,7 @@ public class SaveManager : MonoBehaviour
     {
         File.Delete(path+filename);
         playData.hideHelpNotice = false;
+        savefile = false;
         //ForTestCoin();
         SceneManager.LoadScene("StartGame");
     }
@@ -168,6 +167,7 @@ public class SaveManager : MonoBehaviour
     }
     public void SaveData()
     {
+        SaveVolume();
         string data = JsonUtility.ToJson(playData);
         File.WriteAllText(path+filename, data);
         savedAlert.SetActive(true);
@@ -182,6 +182,23 @@ public class SaveManager : MonoBehaviour
     {
         string data = File.ReadAllText(path+filename);
         playData = JsonUtility.FromJson<PlayerData>(data);
+    }
+    public IEnumerator AutoSave()
+    {
+        if ((HealthGauge.health <= 0)||(HealthGauge.health == 369))        // 던전이 끝났을 때 자동저장
+        {
+            if (HealthGauge.canAutoSave == true)
+            {
+                Debug.Log("게임오버 자동저장");
+                SaveVolume();
+                playData.coins += getCoinInstance;
+                playData.skill3Enable = getSkill3EnableInstance;
+                string data = JsonUtility.ToJson(playData);
+                File.WriteAllText(path + filename, data);
+                HealthGauge.canAutoSave = false;
+            }
+        }
+        yield return null;
     }
     public void OnClickSkill1LvUp()
     {
@@ -278,12 +295,20 @@ public class SaveManager : MonoBehaviour
     }
     public void Instancing()
     {
+        bgmVolumeInstance = playData.bgmVolume;
+        effectVolumeInstance = playData.effectVolume;
         skill1LvInstance = playData.skill1Lv+1;
         skill2LvInstance = playData.skill2Lv+1;
         skill3LvInstance = playData.skill3Lv+1;
+        skill3EnableInstance = playData.skill3Enable;
         hideNoticeInstance = playData.hideHelpNotice;
         coinsInstance = playData.coins;
 }
+    public void SaveVolume()
+    {
+        playData.bgmVolume = getBgmInstance;
+        playData.effectVolume = getEffectInstance;
+    }
     public void OnClickHideHelp()
     {
         playData.hideHelpNotice = true;

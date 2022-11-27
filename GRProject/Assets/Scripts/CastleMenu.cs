@@ -19,6 +19,8 @@ public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     void Start()
     {
         HealthGauge.canAutoSave = false;
+        PlayerController.isClear = false;
+        PlayerController.keysCount = 0;
         defaultScale = buttonScale.localScale;
         hideHelp = SaveManager.hideNoticeInstance;
         if (hideHelp == true)

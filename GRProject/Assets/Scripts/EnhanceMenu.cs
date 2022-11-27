@@ -6,26 +6,29 @@ using UnityEngine.UI;
 
 public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField]    private GameObject EnhanceUi;
-    [SerializeField]    private GameObject LabTab;
-    [SerializeField]    private GameObject EnhanceTab;
-    [SerializeField]    private GameObject CobTab;
-    [SerializeField]    private GameObject Summary;
-    [SerializeField]    private GameObject SpiderInfo;
+    [SerializeField]    private GameObject enhanceUi;
+    [SerializeField]    private GameObject labTab;
+    [SerializeField]    private GameObject enhanceTab;
+    [SerializeField]    private GameObject cobTab;
+    [SerializeField]    private GameObject summary;
+    [SerializeField]    private GameObject spiderInfo;
 
     [Header("스킬")]
-    [SerializeField]    private GameObject Skill1;
-    [SerializeField]    private GameObject Skill2;
-    [SerializeField]    private GameObject Skill3;
-    [SerializeField]    private GameObject Skill4;
-    [SerializeField]    private GameObject Skill5;
-    [SerializeField]    private GameObject Skill6;
+    [SerializeField]    private GameObject skill1;
+    [SerializeField]    private GameObject skill2;
+    [SerializeField]    private GameObject skill3;
+    [SerializeField]    private GameObject skill4;
+    [SerializeField]    private GameObject skill5;
+    [SerializeField]    private GameObject skill6;
+    [SerializeField]    private GameObject skill3Pane;
 
     [Header("거미종류")]
-    [SerializeField]    private GameObject Spider1;
-    [SerializeField]    private GameObject Spider2;
-    [SerializeField]    private GameObject Spider3;
-    [SerializeField]    private GameObject Spider4;
+    [SerializeField]    private GameObject spider1;
+    [SerializeField]    private GameObject spider2;
+    [SerializeField]    private GameObject spider3;
+    [SerializeField]    private GameObject spider4;
+
+    public bool skill3Enable;
 
     public Transform buttonScale;
     Vector3 defaultScale;
@@ -35,134 +38,148 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     private void Update()
     {
+        skill3Enable = SaveManager.skill3EnableInstance;
     }
     public void CallMenu()
     {
         //PlayerController.isPause = true;
-        EnhanceUi.SetActive(true);
+        enhanceUi.SetActive(true);
     }
     public void CloseMenu()
     {
         //PlayerController.isPause = false;
-        EnhanceUi.SetActive(false);
+        enhanceUi.SetActive(false);
     }
     public void ClickExit()
     {
         PlayerController.isPause = false;
-        EnhanceUi.SetActive(false);
+        enhanceUi.SetActive(false);
     }
     public void OnClickLabTab()
     {
-        LabTab.SetActive(true);
-        EnhanceTab.SetActive(false);
-        CobTab.SetActive(false);
+        labTab.SetActive(true);
+        enhanceTab.SetActive(false);
+        cobTab.SetActive(false);
 
     }
     public void OnClickEnhanceTab()
     {
-        LabTab.SetActive(false);
-        EnhanceTab.SetActive(true);
-        CobTab.SetActive(false);
-        Summary.SetActive(false);
+        Debug.Log(skill3Enable);
+        labTab.SetActive(false);
+        enhanceTab.SetActive(true);
+        cobTab.SetActive(false);
+        summary.SetActive(false);
+        EnableSkill3();
     }
     public void OnClickCobTab()
     {
-        LabTab.SetActive(false);
-        EnhanceTab.SetActive(false);
-        CobTab.SetActive(true);
-        SpiderInfo.SetActive(false);
+        labTab.SetActive(false);
+        enhanceTab.SetActive(false);
+        cobTab.SetActive(true);
+        spiderInfo.SetActive(false);
     }
     public void OnClickSkill1Icon()
     {
-        Summary.SetActive(true);
-        Skill1.SetActive(true);
-        Skill2.SetActive(false);
-        Skill3.SetActive(false);
-        Skill4.SetActive(false);
-        Skill5.SetActive(false);
-        Skill6.SetActive(false);
+        summary.SetActive(true);
+        skill1.SetActive(true);
+        skill2.SetActive(false);
+        skill3.SetActive(false);
+        skill4.SetActive(false);
+        skill5.SetActive(false);
+        skill6.SetActive(false);
     }
     public void OnClickSkill2Icon()
     {
-        Summary.SetActive(true);
-        Skill2.SetActive(true);
-        Skill1.SetActive(false);
-        Skill3.SetActive(false);
-        Skill4.SetActive(false);
-        Skill5.SetActive(false);
-        Skill6.SetActive(false);
+        summary.SetActive(true);
+        skill2.SetActive(true);
+        skill1.SetActive(false);
+        skill3.SetActive(false);
+        skill4.SetActive(false);
+        skill5.SetActive(false);
+        skill6.SetActive(false);
     }
     public void OnClickSkill3Icon()
     {
-        Summary.SetActive(true);
-        Skill3.SetActive(true);
-        Skill1.SetActive(false);
-        Skill2.SetActive(false);
-        Skill4.SetActive(false);
-        Skill5.SetActive(false);
-        Skill6.SetActive(false);
+        summary.SetActive(true);
+        skill3.SetActive(true);
+        skill1.SetActive(false);
+        skill2.SetActive(false);
+        skill4.SetActive(false);
+        skill5.SetActive(false);
+        skill6.SetActive(false);
     }
     public void OnClickSkill4Icon()
     {
-        Summary.SetActive(true);
-        Skill4.SetActive(true);
-        Skill1.SetActive(false);
-        Skill2.SetActive(false);
-        Skill3.SetActive(false);
-        Skill5.SetActive(false);
-        Skill6.SetActive(false);
+        summary.SetActive(true);
+        skill4.SetActive(true);
+        skill1.SetActive(false);
+        skill2.SetActive(false);
+        skill3.SetActive(false);
+        skill5.SetActive(false);
+        skill6.SetActive(false);
     }
     public void OnClickSkill5Icon()
     {
-        Summary.SetActive(true);
-        Skill5.SetActive(true);
-        Skill1.SetActive(false);
-        Skill2.SetActive(false);
-        Skill3.SetActive(false);
-        Skill4.SetActive(false);
-        Skill6.SetActive(false);
+        summary.SetActive(true);
+        skill5.SetActive(true);
+        skill1.SetActive(false);
+        skill2.SetActive(false);
+        skill3.SetActive(false);
+        skill4.SetActive(false);
+        skill6.SetActive(false);
     }
     public void OnClickSkill6Icon()
     {
-        Summary.SetActive(true);
-        Skill6.SetActive(true);
-        Skill1.SetActive(false);
-        Skill2.SetActive(false);
-        Skill3.SetActive(false);
-        Skill4.SetActive(false);
-        Skill5.SetActive(false);
+        summary.SetActive(true);
+        skill6.SetActive(true);
+        skill1.SetActive(false);
+        skill2.SetActive(false);
+        skill3.SetActive(false);
+        skill4.SetActive(false);
+        skill5.SetActive(false);
     }
     public void OnClickSpider1Icon()
     {
-        SpiderInfo.SetActive(true);
-        Spider1.SetActive(true);
-        Spider2.SetActive(false);
-        Spider3.SetActive(false);
-        Spider4.SetActive(false);
+        spiderInfo.SetActive(true);
+        spider1.SetActive(true);
+        spider2.SetActive(false);
+        spider3.SetActive(false);
+        spider4.SetActive(false);
     }
     public void OnClickSpider2Icon()
     {
-        SpiderInfo.SetActive(true);
-        Spider2.SetActive(true);
-        Spider1.SetActive(false);
-        Spider3.SetActive(false);
-        Spider4.SetActive(false);
+        spiderInfo.SetActive(true);
+        spider2.SetActive(true);
+        spider1.SetActive(false);
+        spider3.SetActive(false);
+        spider4.SetActive(false);
     }
     public void OnClickSpider3Icon()
     {
-        SpiderInfo.SetActive(true);
-        Spider3.SetActive(true);
-        Spider1.SetActive(false);
-        Spider2.SetActive(false);
-        Spider4.SetActive(false);
+        spiderInfo.SetActive(true);
+        spider3.SetActive(true);
+        spider1.SetActive(false);
+        spider2.SetActive(false);
+        spider4.SetActive(false);
     }
     public void OnClickSpider4Icon()
     {
-        SpiderInfo.SetActive(true);
-        Spider4.SetActive(true);
-        Spider1.SetActive(false);
-        Spider2.SetActive(false);
-        Spider3.SetActive(false);
+        spiderInfo.SetActive(true);
+        spider4.SetActive(true);
+        spider1.SetActive(false);
+        spider2.SetActive(false);
+        spider3.SetActive(false);
+    }
+    public void EnableSkill3()
+    {
+        if (skill3Enable == true)
+        {
+            skill3Pane.SetActive(true);
+        }
+        else if (skill3Enable == false)
+        {
+            skill3Pane.SetActive(false);
+        }
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

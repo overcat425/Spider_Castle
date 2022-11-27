@@ -10,6 +10,9 @@ TagManager:
   - EnemyDamaged
   - MagnetField
   - Coin
+  - Key
+  - SpiderGuys
+  - Eraser
   layers:
   - Default
   - TransparentFX

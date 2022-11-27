@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CoinManager : MonoBehaviour
 {
     public int earnedCoins;
+    public static int earnedCoinsInstance;
     [SerializeField]
     public Text earnedCoinsCount;
     private static CoinManager instance;
@@ -31,5 +32,6 @@ public class CoinManager : MonoBehaviour
     {
         earnedCoinsCount.text = earnedCoins.ToString();
         SaveManager.getCoinInstance = earnedCoins;
+        earnedCoinsInstance = earnedCoins;
     }
 }

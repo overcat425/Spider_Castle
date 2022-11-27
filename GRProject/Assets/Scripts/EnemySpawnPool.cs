@@ -9,14 +9,13 @@ public class EnemySpawnPool : MonoBehaviour
     [SerializeField]    private GameObject enemy;
     [SerializeField]    private GameObject enemy2;
     [SerializeField]
-    private Transform[] spawnEnemy;
-    [SerializeField]
     private float spawnTime;
     [SerializeField]
     private int stage = 4;
 
     [Header("적 처치")]
     public int EnemyKilledCount;            // 적 카운터
+    public static int enemyKilledCountInstance;
     [SerializeField]
     public Text EnemyKilled;                // 카운터값을 보여주는 텍스트
     private static EnemySpawnPool instance;
@@ -39,6 +38,7 @@ public class EnemySpawnPool : MonoBehaviour
     void Update()
     {
         EnemyKilled.text = EnemyKilledCount.ToString();
+        enemyKilledCountInstance = EnemyKilledCount;
     }
     private void Spawn()
     {

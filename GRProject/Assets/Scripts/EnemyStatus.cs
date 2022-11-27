@@ -37,6 +37,13 @@ public class EnemyStatus : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("EnemyDestroySound", enemyDestroySound);
         }
     }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Eraser"))
+        {
+            Destroy(gameObject);
+        }
+    }
     public void Skill1Damage()
     {
         enemyHealth -= baseDamage;

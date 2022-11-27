@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private float moveSpeed = 200.0f;                         // 이동 속도
+
+    private float moveSpeed = 300.0f;                         // 이동 속도
     private Vector3 moveDirection = Vector3.zero;      // 이동 벡터
     private CharacterMovement movement;       // 키보드로 플레이어 이동
+    private SaveManager saveManager;
+    private PlayerSkill playerSkill;
     private EnemyStatus enemyStatus;
     private static EnemyChasing enemyChasing;
 
@@ -17,10 +21,18 @@ public class PlayerController : MonoBehaviour
     public AudioClip clip;
     public AudioClip enemyDestroySound;
     public AudioClip jumpSound;
+    public GameObject maceSound;
 
     public static bool canPlayerMove = false;
     public static bool isPause = false;
 
+    [Header("BloodScreen")]
+    [SerializeField]
+    private Image bloodScreen;
+    [SerializeField]
+    private AnimationCurve curveBloodScreen;
+
+    [Header("기본공격")]
     [SerializeField]
     private SpriteRenderer baseAttackEffect;            // 기본공격 이펙트 스프라이트
     [SerializeField]
@@ -28,21 +40,46 @@ public class PlayerController : MonoBehaviour
     public Transform pos;
     public Vector2 boxSize;
 
+    [Header("점프")]
+    [SerializeField]    private GameObject tpCounter1;
+    [SerializeField]    private GameObject tpCounter2;
     public float lerpTime = 1.0f;
     private bool canDash = true;
     private bool isDashing;
     private float dashingTime = 0.2f;
     private float dashingCoolDown = 0.25f;
-    [SerializeField]
-    private TrailRenderer tr;
-    [SerializeField]
-    public float jumpCoolDown;
-
+    [SerializeField]    private TrailRenderer tr;
+    [SerializeField]    public float jumpCoolDown;
     public int teleportationCount = 2;
     public float currentCoolDown;
     public float rechargeCoolDown = 5;
     public Image countImage1;
     public Image countImage2;
+
+    [Header("열쇠")]
+    public static int keysCount;
+    [SerializeField]    private Image keyUi1;
+    [SerializeField]    private Image keyUi2;
+    [SerializeField]    private Image keyUi3;
+
+    [Header("클리어")]
+    [SerializeField] private GameObject eraser;
+    [SerializeField] private GameObject spawnPool;
+    [SerializeField] private AudioClip clearSound;
+    private float time = 0f;
+    public static bool isClear;
+    private int clearNum;
+    [SerializeField]
+    private GameObject clearUi;
+    private GameObject killed;
+    private GameObject coins;
+    [SerializeField] private Text killedText;
+    [SerializeField] private Text coinsText;
+    public Transform clearUiSize;
+    public Transform killedUiSize;
+    public Transform coinsUiSize;
+    [SerializeField] private GameObject jumpUnlock;
+    [SerializeField] private GameObject somethingUnlock;
     private void Start()
     {
         //log = GameObject.FindGameObjectWithTag("Log").GetComponent<Transform>();
@@ -58,6 +95,7 @@ public class PlayerController : MonoBehaviour
         isPause = false;
         movement = GetComponent<CharacterMovement>();
         Time.timeScale = 1f;
+        clearNum = 0;
     }
     private void Update()
     {
@@ -66,26 +104,53 @@ public class PlayerController : MonoBehaviour
         {
             UpdateMove();
             ColliderBox();
+            KeyCount();
         }
         if (isPause)
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
             canPlayerMove = false;
         }
         else
         {
-            //Cursor.lockState = CursorLockMode.Locked;
-            //Cursor.visible = false;
             canPlayerMove = true;
         }
-        if (isDashing)
+        if (SaveManager.skill3EnableInstance == true)
         {
-            return;
+            if (isDashing)
+            {
+                return;
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && canDash)
+            {
+                StartCoroutine("Dash");
+            }
+        }else if(SaveManager.skill3EnableInstance == false)
+        {
+            tpCounter1.SetActive(false);
+            tpCounter2.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && canDash)
+        if (isClear)
         {
-            StartCoroutine("Dash");
+            canPlayerMove = false;
+            ClearEvent();
+        }
+    }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if ((keysCount == 3)&&(collision.CompareTag("SpiderGuys")))
+        {
+            isClear = true;
+        }
+        if (collision.CompareTag("Enemy"))
+        {
+            StartCoroutine("OnBloodScreen");            // 피격시 빨간화면 코루틴 실행
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)          // 피격 시
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            //StartCoroutine("OnBloodScreen");            // 피격시 빨간화면 코루틴 실행
         }
     }
     private void FixedUpdate()
@@ -115,6 +180,18 @@ public class PlayerController : MonoBehaviour
         else if (transform.position.y < -2930)
         {
             transform.Translate(new Vector3(0, 5, 0));
+        }
+    }
+    private IEnumerator OnBloodScreen()          // 피격시 빨간화면 코루틴메소드
+    {
+        float percent = 0;              // 1초동안 회복
+        while (percent < 1)
+        {                                  // 빨간화면 알파값을 0에서 0.5(127)까지 변환
+            percent += Time.deltaTime;
+            Color color = bloodScreen.color;
+            color.a = Mathf.Lerp(0.5f, 0, curveBloodScreen.Evaluate(percent));
+            bloodScreen.color = color;
+            yield return null;
         }
     }
     private void OnDrawGizmos()
@@ -256,5 +333,87 @@ public class PlayerController : MonoBehaviour
             countImage1.color = Color.black;
             countImage2.color = Color.black;
         }
+    }
+    private void KeyCount()
+    {
+        if (keysCount == 3)
+        {
+            keyUi1.color = Color.white;
+            keyUi2.color = Color.white;
+            keyUi3.color = Color.white;
+        }
+        else if (keysCount == 2)
+        {
+            keyUi1.color = Color.white;
+            keyUi2.color = Color.white;
+            keyUi3.color = Color.black;
+        }
+        else if (keysCount == 1)
+        {
+            keyUi1.color = Color.white;
+            keyUi2.color = Color.black;
+            keyUi3.color = Color.black;
+        }
+        else if (keysCount == 0)
+        {
+            keyUi1.color = Color.black;
+            keyUi2.color = Color.black;
+            keyUi3.color = Color.black;
+        }
+    }
+    private void ClearEvent()
+    {
+        killedText.text = EnemySpawnPool.enemyKilledCountInstance.ToString();
+        coinsText.text = CoinManager.earnedCoinsInstance.ToString();
+        Invoke("ClearStop", 3);
+        maceSound.SetActive(false);
+        eraser.SetActive(true);
+        clearUi.SetActive(true);
+        time += Time.deltaTime;
+        if (time < 0.5f)
+        {
+            clearUiSize.localScale = Vector3.one * (time * 2f);
+        } else if (time <= 1.0f)
+        {
+            killedUiSize.localScale = Vector3.one * ((time - 0.5f) * 2f);
+        } else if (time <= 1.5f)
+        {
+            ClearSound();
+            coinsUiSize.localScale = Vector3.one * ((time - 1.0f) * 2f);
+        }else if(time > 1.5f)
+        {
+            //Time.timeScale = 0f;
+        }
+        //if (SaveManager.getSkill3EnableInstance == true)
+        //{
+        //    Debug.Log(SaveManager.getSkill3EnableInstance);
+        //    jumpUnlock.SetActive(false);
+        //    somethingUnlock.SetActive(true);
+        //}
+        //else if (SaveManager.getSkill3EnableInstance == false)
+        //{
+        //    Debug.Log(SaveManager.getSkill3EnableInstance);
+        //    somethingUnlock.SetActive(false);
+        //    jumpUnlock.SetActive(true);
+        //}
+    }
+    private void ClearSound()
+    {
+        if(clearNum == 0)
+        {
+            SoundManager.SoundEffect.SoundPlay("clearSound", clearSound);
+            SoundManager.SoundEffect.SoundPlay("clearSound", clearSound);
+            SoundManager.SoundEffect.SoundPlay("clearSound", clearSound);
+            clearNum++;
+        }
+    }
+    public void ClearSave()
+    {
+        HealthGauge.health = 369;
+        SceneManager.LoadScene("StartGame");
+    }
+    public void ClearStop()
+    {
+        Time.timeScale = 0f;
     }
 }
