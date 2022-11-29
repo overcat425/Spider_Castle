@@ -56,12 +56,14 @@ public class PlayerController : MonoBehaviour
     public Image countImage2;
 
     [Header("¿­¼è")]
+    [SerializeField]    private GameObject key;
     public static int keysCount;
     [SerializeField]    private Image keyUi1;
     [SerializeField]    private Image keyUi2;
     [SerializeField]    private Image keyUi3;
 
     [Header("Å¬¸®¾î")]
+    [SerializeField] private GameObject spidy;
     [SerializeField] private GameObject eraser;
     [SerializeField] private GameObject spawnPool;
     [SerializeField] private AudioClip clearSound;
@@ -81,7 +83,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject somethingUnlock;
     private void Start()
     {
-        //log = GameObject.FindGameObjectWithTag("Log").GetComponent<Transform>();
+        KeySpawn();
+        SpiderSpawnRandom();
         StartCoroutine("BaseAttack");
         StartCoroutine("CoolDown");
         //countImage1 = GameObject.Find("TpCounter").GetComponent<Image>();
@@ -331,6 +334,27 @@ public class PlayerController : MonoBehaviour
             countImage1.color = Color.black;
             countImage2.color = Color.black;
         }
+    }
+    private void SpiderSpawnRandom()
+    {
+        int spawnSpidy = Random.Range(0, 4);
+        switch (spawnSpidy)
+        {
+            case 0:
+                Instantiate(spidy, new Vector3(Random.Range(-3950, -2950), Random.Range(-2950, 2950), 0.1f), Quaternion.identity);break;
+            case 1:
+                Instantiate(spidy, new Vector3(Random.Range(2950, 3950), Random.Range(-2950, 2950), 0.1f), Quaternion.identity); break;
+            case 2:
+                Instantiate(spidy, new Vector3(Random.Range(-3950, 3950), Random.Range(-2950, -1950), 0.1f), Quaternion.identity); break;
+            case 3:
+                Instantiate(spidy, new Vector3(Random.Range(-3950, 3950), Random.Range(1950, 2950), 0.1f), Quaternion.identity); break;
+        }
+    }
+    private void KeySpawn()
+    {
+        Instantiate(key, new Vector3(Random.Range(-3950, 3950), Random.Range(-2950, 2950), 0.1f), Quaternion.identity);
+        Instantiate(key, new Vector3(Random.Range(-3950, 3950), Random.Range(-2950, 2950), 0.1f), Quaternion.identity);
+        Instantiate(key, new Vector3(Random.Range(-3950, 3950), Random.Range(-2950, 2950), 0.1f), Quaternion.identity);
     }
     private void KeyCount()
     {

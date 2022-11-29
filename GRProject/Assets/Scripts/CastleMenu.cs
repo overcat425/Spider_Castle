@@ -13,8 +13,8 @@ public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     //[SerializeField]
     //private AudioClip audioClip;            // 효과음 클립
     Vector3 defaultScale;                       // 버튼 크기 벡터
-    [SerializeField]
-    private GameObject helpNotice;
+    [SerializeField]    private GameObject helpNotice;
+    [SerializeField]    private GameObject dungeonUi;
     public bool hideHelp;
     void Start()
     {
@@ -27,15 +27,16 @@ public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             helpNotice.SetActive(false);
         }
+        dungeonUi.SetActive(false);
     }
     void Update()
     {
 
     }
-    public void OnClickDungeon()                            // 뉴게임씬 시작
+    public void OnClickDungeon()
     {
         Debug.Log("던전");
-        SceneManager.LoadScene("Stage1");
+        dungeonUi.SetActive(true);
         //audioSource.GetComponent<AudioSource>(); //audioSource.Play();
     }
     public void OnClickLab()
@@ -63,6 +64,10 @@ public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnClickHideoff()
     {
         helpNotice.SetActive(false);
+    }
+    public void OnClickDungeonoff()
+    {
+        dungeonUi.SetActive(false);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
