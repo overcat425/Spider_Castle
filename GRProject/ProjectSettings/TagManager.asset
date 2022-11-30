@@ -18,7 +18,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - CastleSpider
   - Water
   - UI
   - Enemy
@@ -56,4 +56,10 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 4293396109
+    locked: 0
+  - name: CastleSpider
+    uniqueID: 4268214311
+    locked: 0
+  - name: UI
+    uniqueID: 230915059
     locked: 0

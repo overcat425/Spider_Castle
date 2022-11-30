@@ -146,4 +146,19 @@ public class PlayerSkill : MonoBehaviour
             webCount2.color = Color.black;
         }
     }
+    private IEnumerator SpitPoison()
+    {
+        if (webCount > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                web.transform.position = new Vector2(player.position.x, player.position.y);
+                Instantiate(web);
+                SoundManager.SoundEffect.SoundPlay("trapSound", trapSound);
+                webCount -= 1;
+                CountCheck();
+            }
+            yield return null;
+        }
+    }
 }

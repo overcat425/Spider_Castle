@@ -46,7 +46,7 @@ public class DungeonMenu : MonoBehaviour
     }
     public void StartStage2()
     {
-
+        SceneManager.LoadScene("Stage2");
     }
     public void StartStage3()
     {

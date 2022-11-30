@@ -9,12 +9,15 @@ public class PlayerData
     public float bgmVolume;
     public float effectVolume;
     public int coins;
+    public int skill0Lv;
     public int skill1Lv;
     public int skill2Lv;
     public int skill3Lv;
     public int skill4Lv;
+    public int skill5Lv;
     public bool skill3Enable;
     public bool skill4Enable;
+    public bool skill5Enable;
     public bool hideHelpNotice;
 }
 public class SaveManager : MonoBehaviour
@@ -39,14 +42,18 @@ public class SaveManager : MonoBehaviour
     public static float getBgmInstance;
     public static float effectVolumeInstance;
     public static float getEffectInstance;
+    public static int skill0LvInstance;
     public static int skill1LvInstance;
     public static int skill2LvInstance;
     public static int skill3LvInstance;
     public static int skill4LvInstance;
+    public static int skill5LvInstance;
     public static bool skill3EnableInstance;
     public static bool skill4EnableInstance;
+    public static bool skill5EnableInstance;
     public static bool getSkill3EnableInstance;
     public static bool getSkill4EnableInstance;
+    public static bool getSkill5EnableInstance;
     public static bool hideNoticeInstance;
     public static int coinsInstance;
 
@@ -58,24 +65,32 @@ public class SaveManager : MonoBehaviour
     [SerializeField]    public Text earnedCoinsCountMain;
 
     [Header("스킬레벨")]
+    public int skill0Level;
     public int skill1Level;
     public int skill2Level;
     public int skill3Level;
     public int skill4Level;
+    public int skill5Level;
+    [SerializeField]    public Text skill0;
     [SerializeField]    public Text skill1;
     [SerializeField]    public Text skill2;
     [SerializeField]    public Text skill3;
     [SerializeField]    public Text skill4;
+    [SerializeField]    public Text skill5;
+    [SerializeField]    public Text skill0Hp;
     [SerializeField]    public Text skill1Dmg;
     [SerializeField]    public Text skill2Dmg;
     [SerializeField]    public Text skill3CoolDown;
     [SerializeField]    public Text skill4CoolDown;
+    [SerializeField]    public Text skill5Dmg;
 
     [Header("데미지&쿨타임")]
+    [SerializeField] public int skill0Health;
     [SerializeField] public int baseDamage;
     [SerializeField] public int maceDamage;
     [SerializeField] public float jumpCoolDown;
     [SerializeField] public float trapCoolDown;
+    [SerializeField] public int poisonDamage;
 
     [Header("효과음")]
     [SerializeField]
@@ -110,10 +125,12 @@ public class SaveManager : MonoBehaviour
             savefile = true;
         }
         LoadData();
+        skill0Level = playData.skill0Lv;
         skill1Level = playData.skill1Lv;
         skill2Level = playData.skill2Lv;
         skill3Level = playData.skill3Lv;
         skill4Level = playData.skill4Lv;
+        skill5Level = playData.skill5Lv;
         earnedCoins = playData.coins;
         hideNotice = playData.hideHelpNotice;
         //HealthGauge.canAutoSave = true;
@@ -142,6 +159,7 @@ public class SaveManager : MonoBehaviour
         else if (savefile == false)                 // 세이브파일 없을 때
         {
             //ForTestCoin();
+            Destroy(gameObject);
             SceneManager.LoadScene("StartGame");
         }
     }
@@ -154,6 +172,7 @@ public class SaveManager : MonoBehaviour
         }
         else if (savefile == true)                  // 세이브파일 있을 때
         {
+            Destroy(gameObject);
             LoadData();
             SceneManager.LoadScene("StartGame");
         }
@@ -194,21 +213,48 @@ public class SaveManager : MonoBehaviour
     }
     public IEnumerator AutoSave()
     {
-        if ((HealthGauge.health <= 0)||(HealthGauge.health == 369))        // 던전이 끝났을 때 자동저장
+        if (HealthGauge.health == 369)        // 던전 클리어 시 자동저장
         {
             if (HealthGauge.canAutoSave == true)
             {
-                Debug.Log("게임오버 자동저장");
+                Debug.Log("클리어 자동저장");
                 SaveVolume();
                 playData.coins += getCoinInstance;
                 playData.skill3Enable = getSkill3EnableInstance;
                 playData.skill4Enable = getSkill4EnableInstance;
+                playData.skill5Enable = getSkill5EnableInstance;
                 string data = JsonUtility.ToJson(playData);
                 File.WriteAllText(path + filename, data);
                 HealthGauge.canAutoSave = false;
             }
         }
         yield return null;
+    }
+    public void OnClickSkill0LvUp()
+    {
+        if (earnedCoins >= 50)                  // 코인 제한
+        {
+            if (skill0Level < 10)                    // 스킬 최대레벨 10
+            {
+                earnedCoins -= 50;
+                SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
+                skill0Level += 1;
+                playData.skill0Lv = skill0Level;
+                playData.coins = earnedCoins;
+            }
+            else if (skill0Level >= 10)
+            {
+                mastered.SetActive(true);
+                Invoke("MasterWarning", 0.5f);
+                SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+            }
+        }
+        else
+        {
+            needCost.SetActive(true);
+            Invoke("CostWarning", 0.5f);
+            SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+        }
     }
     public void OnClickSkill1LvUp()
     {
@@ -236,7 +282,6 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
-
     public void OnClickSkill2LvUp()
     {
         if (earnedCoins >= 20)
@@ -315,20 +360,52 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
+    public void OnClickSkill5LvUp()
+    {
+        if (earnedCoins >= 200)                  // 코인 제한
+        {
+            if (skill5Level < 9)                    // 스킬 최대레벨 10(9+1)
+            {
+                earnedCoins -= 200;
+                SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
+                skill5Level += 1;
+                playData.skill5Lv = skill5Level;
+                playData.coins = earnedCoins;
+            }
+            else if (skill5Level >= 9)
+            {
+                mastered.SetActive(true);
+                Invoke("MasterWarning", 0.5f);
+                SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+            }
+        }
+        else
+        {
+            needCost.SetActive(true);
+            Invoke("CostWarning", 0.5f);
+            SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+        }
+    }
     public void Sync()
     {
+        skill0.text = skill0Level.ToString();
         skill1.text = (skill1Level + 1).ToString();
         skill2.text = (skill2Level + 1).ToString();
         skill3.text = (skill3Level + 1).ToString();
         skill4.text = (skill4Level + 1).ToString();
+        //skill5.text = (skill5Level + 1).ToString();
+        skill0Health = 100 + (skill0Level * 20);
         baseDamage = (skill1Level + 1) * 30;
         maceDamage = (skill2Level + 1) * 20;
         jumpCoolDown = 6 - (skill3Level + 1);
         trapCoolDown = 4 - (skill4Level + 1);
+        //poisonDamage = (skill5Level + 1) * 20;
+        skill0Hp.text = skill0Health.ToString();
         skill1Dmg.text = baseDamage.ToString();
         skill2Dmg.text = maceDamage.ToString();
         skill3CoolDown.text = jumpCoolDown.ToString();
         skill4CoolDown.text = trapCoolDown.ToString();
+        //skill5Dmg.text = poisonDamage.ToString();
         earnedCoinsCount.text = earnedCoins.ToString();
         earnedCoinsCountMain.text = earnedCoins.ToString();
     }
@@ -336,12 +413,15 @@ public class SaveManager : MonoBehaviour
     {
         bgmVolumeInstance = playData.bgmVolume;
         effectVolumeInstance = playData.effectVolume;
+        skill0LvInstance = playData.skill0Lv;
         skill1LvInstance = playData.skill1Lv+1;
         skill2LvInstance = playData.skill2Lv+1;
         skill3LvInstance = playData.skill3Lv+1;
         skill4LvInstance = playData.skill4Lv + 1;
+        skill5LvInstance = playData.skill5Lv + 1;
         skill3EnableInstance = playData.skill3Enable;
         skill4EnableInstance = playData.skill4Enable;
+        skill5EnableInstance = playData.skill5Enable;
         hideNoticeInstance = playData.hideHelpNotice;
         coinsInstance = playData.coins;
 }

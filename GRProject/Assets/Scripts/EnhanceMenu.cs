@@ -14,14 +14,16 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField]    private GameObject spiderInfo;
 
     [Header("스킬")]
+    [SerializeField]    private GameObject skill0;
     [SerializeField]    private GameObject skill1;
     [SerializeField]    private GameObject skill2;
     [SerializeField]    private GameObject skill3;
     [SerializeField]    private GameObject skill4;
     [SerializeField]    private GameObject skill5;
-    [SerializeField]    private GameObject skill6;
+
     [SerializeField]    private GameObject skill3Pane;
     [SerializeField]    private GameObject skill4Pane;
+    [SerializeField]    private GameObject skill5Pane;
 
     [Header("거미종류")]
     [SerializeField]    private GameObject spider1;
@@ -29,8 +31,13 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField]    private GameObject spider3;
     [SerializeField]    private GameObject spider4;
 
+    [SerializeField]    private GameObject spider2Pane;
+    [SerializeField]    private GameObject spider3Pane;
+    [SerializeField]    private GameObject spider4Pane;
+
     public bool skill3Enable;
     public bool skill4Enable;
+    public bool skill5Enable;
 
     public Transform buttonScale;
     Vector3 defaultScale;
@@ -42,6 +49,7 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         skill3Enable = SaveManager.skill3EnableInstance;
         skill4Enable = SaveManager.skill4EnableInstance;
+        skill5Enable = SaveManager.skill5EnableInstance;
     }
     public void CallMenu()
     {
@@ -67,13 +75,13 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void OnClickEnhanceTab()
     {
-        Debug.Log(skill3Enable);
         labTab.SetActive(false);
         enhanceTab.SetActive(true);
         cobTab.SetActive(false);
         summary.SetActive(false);
         EnableSkill3();
         EnableSkill4();
+        EnableSkill5();
     }
     public void OnClickCobTab()
     {
@@ -81,66 +89,71 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         enhanceTab.SetActive(false);
         cobTab.SetActive(true);
         spiderInfo.SetActive(false);
+        EnableSpider2();
+        EnableSpider3();
+        EnableSpider4();
+    }
+    public void OnClickSkill0Icon()
+    {
+        summary.SetActive(true);
+        skill0.SetActive(true);
+        skill1.SetActive(false);
+        skill2.SetActive(false);
+        skill3.SetActive(false);
+        skill4.SetActive(false);
+        skill5.SetActive(false);
     }
     public void OnClickSkill1Icon()
     {
         summary.SetActive(true);
+        skill0.SetActive(false);
         skill1.SetActive(true);
         skill2.SetActive(false);
         skill3.SetActive(false);
         skill4.SetActive(false);
         skill5.SetActive(false);
-        skill6.SetActive(false);
+
     }
     public void OnClickSkill2Icon()
     {
         summary.SetActive(true);
         skill2.SetActive(true);
+        skill0.SetActive(false);
         skill1.SetActive(false);
         skill3.SetActive(false);
         skill4.SetActive(false);
         skill5.SetActive(false);
-        skill6.SetActive(false);
     }
     public void OnClickSkill3Icon()
     {
         summary.SetActive(true);
         skill3.SetActive(true);
+        skill0.SetActive(false);
         skill1.SetActive(false);
         skill2.SetActive(false);
         skill4.SetActive(false);
         skill5.SetActive(false);
-        skill6.SetActive(false);
+
     }
     public void OnClickSkill4Icon()
     {
         summary.SetActive(true);
         skill4.SetActive(true);
+        skill0.SetActive(false);
         skill1.SetActive(false);
         skill2.SetActive(false);
         skill3.SetActive(false);
         skill5.SetActive(false);
-        skill6.SetActive(false);
     }
     public void OnClickSkill5Icon()
     {
         summary.SetActive(true);
         skill5.SetActive(true);
+        skill0.SetActive(false);
         skill1.SetActive(false);
         skill2.SetActive(false);
         skill3.SetActive(false);
         skill4.SetActive(false);
-        skill6.SetActive(false);
-    }
-    public void OnClickSkill6Icon()
-    {
-        summary.SetActive(true);
-        skill6.SetActive(true);
-        skill1.SetActive(false);
-        skill2.SetActive(false);
-        skill3.SetActive(false);
-        skill4.SetActive(false);
-        skill5.SetActive(false);
     }
     public void OnClickSpider1Icon()
     {
@@ -194,6 +207,50 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         else if (skill4Enable == false)
         {
             skill4Pane.SetActive(false);
+        }
+    }
+    public void EnableSkill5()
+    {
+        if (skill5Enable == true)
+        {
+            skill5Pane.SetActive(true);
+        }
+        else if (skill5Enable == false)
+        {
+            skill5Pane.SetActive(false);
+        }
+    }
+    public void EnableSpider2()
+    {
+        if (skill3Enable == true)
+        {
+            spider2Pane.SetActive(true);
+        }
+        else if (skill3Enable == false)
+        {
+            spider2Pane.SetActive(false);
+        }
+    }
+    public void EnableSpider3()
+    {
+        if (skill4Enable == true)
+        {
+            spider3Pane.SetActive(true);
+        }
+        else if (skill4Enable == false)
+        {
+            spider3Pane.SetActive(false);
+        }
+    }
+    public void EnableSpider4()
+    {
+        if (skill5Enable == true)
+        {
+            spider4Pane.SetActive(true);
+        }
+        else if (skill5Enable == false)
+        {
+            spider4Pane.SetActive(false);
         }
     }
     public void OnPointerEnter(PointerEventData eventData)

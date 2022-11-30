@@ -752,18 +752,34 @@ MonoBehaviour:
   needCost: {fileID: 0}
   mastered: {fileID: 0}
   clip: {fileID: 8300000, guid: 0fab818f6ec142145b04e0ab096450bf, type: 3}
-  savefile: 0
   hideNotice: 0
   earnedCoins: 0
   earnedCoinsCount: {fileID: 0}
+  earnedCoinsCountMain: {fileID: 0}
+  skill0Level: 0
   skill1Level: 0
   skill2Level: 0
+  skill3Level: 0
+  skill4Level: 0
+  skill5Level: 0
+  skill0: {fileID: 0}
   skill1: {fileID: 0}
   skill2: {fileID: 0}
+  skill3: {fileID: 0}
+  skill4: {fileID: 0}
+  skill5: {fileID: 0}
+  skill0Hp: {fileID: 0}
   skill1Dmg: {fileID: 0}
   skill2Dmg: {fileID: 0}
+  skill3CoolDown: {fileID: 0}
+  skill4CoolDown: {fileID: 0}
+  skill5Dmg: {fileID: 0}
+  skill0Health: 0
   baseDamage: 0
   maceDamage: 0
+  jumpCoolDown: 0
+  trapCoolDown: 0
+  poisonDamage: 0
   lvUpSound: {fileID: 8300000, guid: 3b6deb981aa226e47a4fe39f16c3b410, type: 3}
   maxLvSound: {fileID: 8300000, guid: 86141e649b3df87478e8a8e25e202914, type: 3}
   alreadySavedGame: {fileID: 8300000, guid: c01df3918c6619e409b1c461f2f46250, type: 3}
@@ -1754,6 +1770,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abb1c5a36ff7f24b9eb4cbea5e3abb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgmVolume: {fileID: 0}
+  effectVolume: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: daf9f381d75414c428dab5649d07693f, type: 2}
   musicSource: {fileID: 0}
   effectSource: {fileID: 0}

@@ -1,37 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class CastleMenu : MonoBehaviour
 {
     public EnhanceMenu enhanceMenu;
-    public Transform buttonScale;           // 버튼 크기
     //private AudioSource audioSource;                // 버튼 효과음
     //[SerializeField]
     //private AudioClip audioClip;            // 효과음 클립
     Vector3 defaultScale;                       // 버튼 크기 벡터
-    [SerializeField]    private GameObject helpNotice;
+
+    [SerializeField]    private GameObject castleSpider;
+    [SerializeField]    private GameObject castleSpiderRev;
+    [SerializeField]    private GameObject castleSpider2;
+    [SerializeField]    private GameObject castleSpider2Rev;
     [SerializeField]    private GameObject dungeonUi;
+
+    [Header("도움말")]
     public bool hideHelp;
-    void Start()
+    [SerializeField]    private GameObject helpNotice;
+    [SerializeField]    private GameObject cobTip;
+    [SerializeField]    private GameObject labTip;
+    [SerializeField]    private GameObject enhanceTip;
+    [SerializeField]    private GameObject dungeonTip;
+    private void Awake()
     {
         HealthGauge.canAutoSave = false;
         PlayerController.isClear = false;
         PlayerController.keysCount = 0;
-        defaultScale = buttonScale.localScale;
         hideHelp = SaveManager.hideNoticeInstance;
-        if (hideHelp == true)
-        {
-            helpNotice.SetActive(false);
-        }
-        dungeonUi.SetActive(false);
+    }
+    void Start()
+    {
+        ShowTips();
+        InvokeRepeating("SpawnCastleSpider", 0, 1);
+        InvokeRepeating("SpawnCastleSpider2", 1, 2);
     }
     void Update()
-    {
-
+    {        
     }
     public void OnClickDungeon()
     {
@@ -61,7 +69,49 @@ public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         enhanceMenu.CloseMenu();
     }
-    public void OnClickHideoff()
+    private void ShowTips()
+    {
+        if (hideHelp == true)
+        {
+            helpNotice.SetActive(false);
+            Debug.Log("툴팁 숨김" + hideHelp);
+
+        }else if (hideHelp == false)
+        {
+            OnClickShowCob();
+            Debug.Log("툴팁 실행" + hideHelp);
+        }
+    }
+    public void OnClickShowCob()
+    {
+        helpNotice.SetActive(true);
+        cobTip.SetActive(true);
+        labTip.SetActive(false);
+        enhanceTip.SetActive(false);
+        dungeonTip.SetActive(false);
+    }
+    public void OnClickShowLab()
+    {
+        cobTip.SetActive(false);
+        labTip.SetActive(true);
+        enhanceTip.SetActive(false);
+        dungeonTip.SetActive(false);
+    }
+    public void OnClickShowEnhance()
+    {
+        cobTip.SetActive(false);
+        labTip.SetActive(false);
+        enhanceTip.SetActive(true);
+        dungeonTip.SetActive(false);
+    }
+    public void OnClickShowDungeon()
+    {
+        cobTip.SetActive(false);
+        labTip.SetActive(false);
+        enhanceTip.SetActive(false);
+        dungeonTip.SetActive(true);
+    }
+    public void OnClickTipoff()
     {
         helpNotice.SetActive(false);
     }
@@ -69,13 +119,28 @@ public class CastleMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         dungeonUi.SetActive(false);
     }
-    public void OnPointerEnter(PointerEventData eventData)
+    public void SpawnCastleSpider()
     {
-        buttonScale.localScale = defaultScale * 1.2f;                   // 버튼 크기 1.2배
+        int wander = Random.Range(0, 2);
+        if(wander == 0)
+        {
+            Instantiate(castleSpider, new Vector3(Random.Range(0, 1920), Random.Range(0, 250), 0), Quaternion.identity, GameObject.Find("Castle").transform);
+        }
+        else if(wander == 1)
+        {
+            Instantiate(castleSpiderRev, new Vector3(Random.Range(0, 1920), Random.Range(0, 250), 0), Quaternion.identity, GameObject.Find("Castle").transform);
+        }
     }
-
-    public void OnPointerExit(PointerEventData eventData)
+    public void SpawnCastleSpider2()
     {
-        buttonScale.localScale = defaultScale;                           // 1.2배에서 돌아오기
+        int wander2 = Random.Range(0, 2);
+        if (wander2 == 0)
+        {
+            Instantiate(castleSpider2, new Vector3(Random.Range(0, 1920), Random.Range(320, 540), 0), Quaternion.identity, GameObject.Find("Castle").transform);
+        }
+        else if (wander2 == 1)
+        {
+            Instantiate(castleSpider2Rev, new Vector3(Random.Range(0, 1920), Random.Range(320, 540), 0), Quaternion.identity, GameObject.Find("Castle").transform);
+        }
     }
 }

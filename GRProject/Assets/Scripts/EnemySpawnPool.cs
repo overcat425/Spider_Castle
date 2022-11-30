@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EnemySpawnPool : MonoBehaviour
 {
     [Header("적 오브젝트 생성")]
+    [SerializeField]    private GameObject snail;
     [SerializeField]    private GameObject enemy;
     [SerializeField]    private GameObject enemy2;
     [SerializeField]

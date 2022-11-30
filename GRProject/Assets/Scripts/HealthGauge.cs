@@ -7,13 +7,16 @@ using UnityEngine.SceneManagement;
 public class HealthGauge : MonoBehaviour
 {
     private Image healthBar;                        // 체력바 이미지
-    private float maxHealth = 100f;                 // 최대체력 100
+    [SerializeField]    private float maxHealth;                 // 최대체력 100
     public static float health;
     public static bool canAutoSave;
 
     public float CurrentHP => health; // 외부에서도 볼수 있도록 property 정의
     public float MaxHP => maxHealth;
-
+    private void Awake()
+    {
+        maxHealth = 100 + (SaveManager.skill0LvInstance*20);
+    }
     private void Start()
     {
         canAutoSave = true;
