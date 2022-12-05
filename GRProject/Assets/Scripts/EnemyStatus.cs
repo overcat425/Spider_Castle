@@ -43,6 +43,10 @@ public class EnemyStatus : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (collision.CompareTag("Elec"))
+        {
+            enemyHealth -= 10f;
+        }
     }
     public void Skill1Damage()
     {

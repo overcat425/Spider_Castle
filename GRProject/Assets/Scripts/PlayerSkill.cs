@@ -97,6 +97,10 @@ public class PlayerSkill : MonoBehaviour
             {
                 collider.GetComponent<EnemyStatus>().Skill2Damage();
             }
+            if (collider.tag == "Boss")
+            {
+                collider.GetComponent<BossStatus>().Skill2Damage();
+            }
         }
         yield return null;
     }

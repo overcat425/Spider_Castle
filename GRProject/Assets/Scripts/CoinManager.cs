@@ -7,9 +7,14 @@ public class CoinManager : MonoBehaviour
 {
     public int earnedCoins;
     public static int earnedCoinsInstance;
-    [SerializeField]
-    public Text earnedCoinsCount;
+    [SerializeField]   public Text earnedCoinsCount;
     private static CoinManager instance;
+
+    public int earnedGene;
+    public static int earnedGeneInstance;
+    [SerializeField] public Text earnedGeneCount;
+    private static CoinManager GeneInstance;
+
     public static CoinManager count_instance
     {
         get
@@ -19,6 +24,17 @@ public class CoinManager : MonoBehaviour
                 instance = GameObject.FindObjectOfType<CoinManager>();
             }
             return instance;
+        }
+    }
+    public static CoinManager count_geneInstance
+    {
+        get
+        {
+            if (GeneInstance == null)
+            {
+                GeneInstance = GameObject.FindObjectOfType<CoinManager>();
+            }
+            return GeneInstance;
         }
     }
     // Start is called before the first frame update
@@ -33,5 +49,8 @@ public class CoinManager : MonoBehaviour
         earnedCoinsCount.text = earnedCoins.ToString();
         SaveManager.getCoinInstance = earnedCoins;
         earnedCoinsInstance = earnedCoins;
+        earnedGeneCount.text = earnedGene.ToString();
+        SaveManager.getGeneInstance = earnedGene;
+        earnedGeneInstance = earnedGene;
     }
 }

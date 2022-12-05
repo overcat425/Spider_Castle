@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class HealthGauge : MonoBehaviour
 {
     private Image healthBar;                        // 체력바 이미지
-    [SerializeField]    private float maxHealth;                 // 최대체력 100
+    public static float maxHealth;                 // 최대체력 100
     public static float health;
     public static bool canAutoSave;
 

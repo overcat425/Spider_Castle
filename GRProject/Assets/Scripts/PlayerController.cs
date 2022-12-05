@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip enemyDestroySound;
     public AudioClip jumpSound;
     public GameObject maceSound;
+    public AudioClip electricShock;
+    public AudioClip healSound;
 
     public static bool canPlayerMove = false;
     public static bool isPause = false;
@@ -142,9 +144,22 @@ public class PlayerController : MonoBehaviour
         {
             isClear = true;
         }
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy")|| collision.CompareTag("Boss"))
         {
             StartCoroutine("OnBloodScreen");            // 피격시 빨간화면 코루틴 실행
+        }
+        if (collision.CompareTag("Elec"))
+        {
+            StartCoroutine("OnBloodScreen");
+            HealthGauge.health -= 5f;
+            SoundManager.SoundEffect.SoundPlay("electricShock", electricShock);
+        }
+        if (collision.CompareTag("HealItem"))
+        {
+            if (HealthGauge.maxHealth > HealthGauge.health)
+            {
+                SoundManager.SoundEffect.SoundPlay("healSound", healSound);
+            }
         }
     }
     private void OnTriggerStay2D(Collider2D collision)          // 피격 시
@@ -210,6 +225,10 @@ public class PlayerController : MonoBehaviour
             {
                 collider.GetComponent<EnemyStatus>().Skill1Damage();
             }                                           // Skill1 수치의 데미지 부여
+            if (collider.tag == "Boss")
+            {
+                collider.GetComponent<BossStatus>().Skill1Damage();
+            }
         }
         StartCoroutine("BaseAttackEffect"); // 기본공격 이펙트 코루틴메소드 반복
         StartCoroutine("BaseAttack");       // 기본공격 코루틴메소드 반복
@@ -341,13 +360,13 @@ public class PlayerController : MonoBehaviour
         switch (spawnSpidy)
         {
             case 0:
-                Instantiate(spidy, new Vector3(Random.Range(-3950, -2950), Random.Range(-2950, 2950), 0.1f), Quaternion.identity);break;
+                Instantiate(spidy, new Vector3(Random.Range(-3950, -2950), Random.Range(-2950, 2950), -0.1f), Quaternion.identity);break;
             case 1:
-                Instantiate(spidy, new Vector3(Random.Range(2950, 3950), Random.Range(-2950, 2950), 0.1f), Quaternion.identity); break;
+                Instantiate(spidy, new Vector3(Random.Range(2950, 3950), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
             case 2:
-                Instantiate(spidy, new Vector3(Random.Range(-3950, 3950), Random.Range(-2950, -1950), 0.1f), Quaternion.identity); break;
+                Instantiate(spidy, new Vector3(Random.Range(-3950, 3950), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
             case 3:
-                Instantiate(spidy, new Vector3(Random.Range(-3950, 3950), Random.Range(1950, 2950), 0.1f), Quaternion.identity); break;
+                Instantiate(spidy, new Vector3(Random.Range(-3950, 3950), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
         }
     }
     private void KeySpawn()

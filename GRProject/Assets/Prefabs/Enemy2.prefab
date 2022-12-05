@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3289890288520016628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 87956311111670257}
+  m_Layer: 6
+  m_Name: HUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &87956311111670257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3289890288520016628}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3674415999873294031}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3674415999094583432
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3674415999094583431}
   - component: {fileID: 3674415999094583430}
-  - component: {fileID: 8976474533131636580}
+  - component: {fileID: 7617576376548926318}
   m_Layer: 6
   m_Name: EnemyBody
   m_TagString: Untagged
@@ -27,11 +58,11 @@ Transform:
   m_GameObject: {fileID: 3674415999094583432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3674415999873294031}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3674415999094583430
 SpriteRenderer:
@@ -74,29 +105,37 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 385a437c59f3a8246a8a178c3586287f, type: 3}
+  m_Sprite: {fileID: -1187287667, guid: 4e3d51d1abc2361488cf62e7822d5bfa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.2, y: 1.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8976474533131636580
-MonoBehaviour:
+--- !u!95 &7617576376548926318
+Animator:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3674415999094583432}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80b37100161f87a4cb710535c9e3c961, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ce980043a3a190e4996e608fc988380c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3674415999873294064
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +168,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 87956311111670257}
   - {fileID: 3674415999094583431}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -145,7 +185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f27cfaf69b4f9241a9bfbe8fc9a9fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 300
+  slowSpeed: 0
+  moveSpeed: 0
   hitscanDistance: 1
 --- !u!58 &2228290874652602971
 CircleCollider2D:
@@ -160,9 +202,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.07301338, y: 0.00858963}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.625
 --- !u!114 &7048984751240206904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +220,7 @@ MonoBehaviour:
   hudDamageText: {fileID: 3692411484774435566, guid: e0d3877effa0d8f449e8e3f9969f29c1, type: 3}
   coins: {fileID: 4057302891543436477, guid: 558cf528c78b34548a11c26ea27f61e8, type: 3}
   hudPos: {fileID: 3674415999873294031}
-  maxHealth: 50
+  maxHealth: 100
   enemyHealth: 0
   enemyDestroySound: {fileID: 8300000, guid: f1e9ce0d0c415f04c95dfffcda9b8740, type: 3}
   baseDamage: 0

@@ -9,6 +9,7 @@ public class PlayerData
     public float bgmVolume;
     public float effectVolume;
     public int coins;
+    public int gene;
     public int skill0Lv;
     public int skill1Lv;
     public int skill2Lv;
@@ -56,13 +57,19 @@ public class SaveManager : MonoBehaviour
     public static bool getSkill5EnableInstance;
     public static bool hideNoticeInstance;
     public static int coinsInstance;
+    public static int geneInstance;
 
     public static int getCoinInstance;          // CoinManager에서 가져오는 수치
+    public static int getGeneInstance;
 
     [Header("재화")]
     public int earnedCoins;
     [SerializeField]    public Text earnedCoinsCount;
     [SerializeField]    public Text earnedCoinsCountMain;
+    public int earnedGene;
+    [SerializeField] public Text earnedGeneCount;
+    [SerializeField] public Text earnedGeneCountMain;
+
 
     [Header("스킬레벨")]
     public int skill0Level;
@@ -132,6 +139,7 @@ public class SaveManager : MonoBehaviour
         skill4Level = playData.skill4Lv;
         skill5Level = playData.skill5Lv;
         earnedCoins = playData.coins;
+        earnedGene = playData.gene;
         hideNotice = playData.hideHelpNotice;
         //HealthGauge.canAutoSave = true;
     }
@@ -220,6 +228,7 @@ public class SaveManager : MonoBehaviour
                 Debug.Log("클리어 자동저장");
                 SaveVolume();
                 playData.coins += getCoinInstance;
+                playData.gene += getGeneInstance;
                 playData.skill3Enable = getSkill3EnableInstance;
                 playData.skill4Enable = getSkill4EnableInstance;
                 playData.skill5Enable = getSkill5EnableInstance;
@@ -408,6 +417,8 @@ public class SaveManager : MonoBehaviour
         //skill5Dmg.text = poisonDamage.ToString();
         earnedCoinsCount.text = earnedCoins.ToString();
         earnedCoinsCountMain.text = earnedCoins.ToString();
+        earnedGeneCount.text = earnedGene.ToString();
+        earnedGeneCountMain.text = earnedGene.ToString();
     }
     public void Instancing()
     {
@@ -424,6 +435,7 @@ public class SaveManager : MonoBehaviour
         skill5EnableInstance = playData.skill5Enable;
         hideNoticeInstance = playData.hideHelpNotice;
         coinsInstance = playData.coins;
+        geneInstance = playData.gene;
 }
     public void SaveVolume()
     {
