@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
 
-    private float moveSpeed = 300.0f;                         // 이동 속도
+    private float moveSpeed;                         // 이동 속도
     private Vector3 moveDirection = Vector3.zero;      // 이동 벡터
     private CharacterMovement movement;       // 키보드로 플레이어 이동
     private SaveManager saveManager;
@@ -65,7 +65,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]    private Image keyUi3;
 
     [Header("클리어")]
-    [SerializeField] private GameObject spidy;
+    [SerializeField] private GameObject stage1Spidy;
+    [SerializeField] private GameObject stage2Spidy;
     [SerializeField] private GameObject eraser;
     [SerializeField] private GameObject spawnPool;
     [SerializeField] private AudioClip clearSound;
@@ -76,11 +77,14 @@ public class PlayerController : MonoBehaviour
     private GameObject clearUi;
     private GameObject killed;
     private GameObject coins;
+    private GameObject gene;
     [SerializeField] private Text killedText;
     [SerializeField] private Text coinsText;
+    [SerializeField] private Text geneText;
     public Transform clearUiSize;
     public Transform killedUiSize;
     public Transform coinsUiSize;
+    public Transform geneUiSize;
     [SerializeField] private GameObject jumpUnlock;
     [SerializeField] private GameObject somethingUnlock;
     private void Start()
@@ -94,8 +98,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake()
     {
-//        Cursor.visible = false;
-//        Cursor.lockState = CursorLockMode.Locked;
+        moveSpeed = 300 + (SaveManager.skill2LabLvInstance * 30);
         isPause = false;
         movement = GetComponent<CharacterMovement>();
         Time.timeScale = 1f;
@@ -357,16 +360,32 @@ public class PlayerController : MonoBehaviour
     private void SpiderSpawnRandom()
     {
         int spawnSpidy = Random.Range(0, 4);
-        switch (spawnSpidy)
+        if (SceneManager.GetActiveScene().name == "Stage1")
         {
-            case 0:
-                Instantiate(spidy, new Vector3(Random.Range(-3950, -2950), Random.Range(-2950, 2950), -0.1f), Quaternion.identity);break;
-            case 1:
-                Instantiate(spidy, new Vector3(Random.Range(2950, 3950), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
-            case 2:
-                Instantiate(spidy, new Vector3(Random.Range(-3950, 3950), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
-            case 3:
-                Instantiate(spidy, new Vector3(Random.Range(-3950, 3950), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+            switch (spawnSpidy)
+            {
+                case 0:
+                    Instantiate(stage1Spidy, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity);break;
+                case 1:
+                    Instantiate(stage1Spidy, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                case 2:
+                    Instantiate(stage1Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
+                case 3:
+                    Instantiate(stage1Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+            }
+        }else if (SceneManager.GetActiveScene().name == "Stage2")
+        {
+            switch (spawnSpidy)
+            {
+                case 0:
+                    Instantiate(stage2Spidy, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                case 1:
+                    Instantiate(stage2Spidy, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                case 2:
+                    Instantiate(stage2Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
+                case 3:
+                    Instantiate(stage2Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+            }
         }
     }
     private void KeySpawn()
@@ -406,6 +425,7 @@ public class PlayerController : MonoBehaviour
     {
         killedText.text = EnemySpawnPool.enemyKilledCountInstance.ToString();
         coinsText.text = CoinManager.earnedCoinsInstance.ToString();
+        geneText.text = CoinManager.earnedGeneInstance.ToString();
         Invoke("ClearStop", 3);
         maceSound.SetActive(false);
         eraser.SetActive(true);
@@ -421,7 +441,9 @@ public class PlayerController : MonoBehaviour
         {
             ClearSound();
             coinsUiSize.localScale = Vector3.one * ((time - 1.0f) * 2f);
-        }else if(time > 1.5f)
+            geneUiSize.localScale = Vector3.one * ((time - 1.0f) * 2f);
+        }
+        else if(time > 1.5f)
         {
             //Time.timeScale = 0f;
         }

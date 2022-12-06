@@ -16,6 +16,10 @@ public class PlayerData
     public int skill3Lv;
     public int skill4Lv;
     public int skill5Lv;
+    public int skill1LabLv;
+    public int skill2LabLv;
+    public int skill3LabLv;
+    public int skill4LabLv;
     public bool skill3Enable;
     public bool skill4Enable;
     public bool skill5Enable;
@@ -29,6 +33,8 @@ public class SaveManager : MonoBehaviour
     private MainMenu mainMenu;
     public GameObject needCost;
     public GameObject mastered;
+    public GameObject needCostLab;
+    public GameObject masteredLab;
 
     [SerializeField]
     private AudioClip clip;
@@ -49,6 +55,10 @@ public class SaveManager : MonoBehaviour
     public static int skill3LvInstance;
     public static int skill4LvInstance;
     public static int skill5LvInstance;
+    public static int skill1LabLvInstance;
+    public static int skill2LabLvInstance;
+    public static int skill3LabLvInstance;
+    public static int skill4LabLvInstance;
     public static bool skill3EnableInstance;
     public static bool skill4EnableInstance;
     public static bool skill5EnableInstance;
@@ -78,6 +88,10 @@ public class SaveManager : MonoBehaviour
     public int skill3Level;
     public int skill4Level;
     public int skill5Level;
+    public int skill1LabLevel;
+    public int skill2LabLevel;
+    public int skill3LabLevel;
+    public int skill4LabLevel;
     [SerializeField]    public Text skill0;
     [SerializeField]    public Text skill1;
     [SerializeField]    public Text skill2;
@@ -138,6 +152,10 @@ public class SaveManager : MonoBehaviour
         skill3Level = playData.skill3Lv;
         skill4Level = playData.skill4Lv;
         skill5Level = playData.skill5Lv;
+        skill1LabLevel = playData.skill1LabLv;
+        skill2LabLevel = playData.skill2LabLv;
+        skill3LabLevel = playData.skill3LabLv;
+        skill4LabLevel = playData.skill4LabLv;
         earnedCoins = playData.coins;
         earnedGene = playData.gene;
         hideNotice = playData.hideHelpNotice;
@@ -395,6 +413,83 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
+    public void OnClickSkill1LabLvUp()
+    {
+        if (earnedGene >= 1)                  // 内牢 力茄
+        {
+            if (skill1LabLevel < 4)
+            {
+                earnedGene -= 1;
+                SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
+                skill1LabLevel += 1;
+                playData.skill1LabLv = skill1LabLevel;
+                playData.gene = earnedGene;
+            }
+            else if (skill1LabLevel >= 4)
+            {
+                masteredLab.SetActive(true);
+                Invoke("MasterWarningLab", 0.5f);
+                SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+            }
+        }
+        else
+        {
+            needCostLab.SetActive(true);
+            Invoke("CostWarningLab", 0.5f);
+            SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+        }
+    }
+    public void OnClickSkill2LabLvUp()
+    {
+        if (earnedGene >= 1)                  // 内牢 力茄
+        {
+            if (skill2LabLevel < 4)
+            {
+                earnedGene -= 1;
+                SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
+                skill2LabLevel += 1;
+                playData.skill2LabLv = skill2LabLevel;
+                playData.gene = earnedGene;
+            }
+            else if (skill2LabLevel >= 4)
+            {
+                masteredLab.SetActive(true);
+                Invoke("MasterWarningLab", 0.5f);
+                SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+            }
+        }
+        else
+        {
+            needCostLab.SetActive(true);
+            Invoke("CostWarningLab", 0.5f);
+            SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+        }
+    }
+    public void OnClickSkill3LabLvUp()
+    {
+        if (earnedGene >= 1)                  // 内牢 力茄
+        {
+            if (skill3LabLevel < 4)
+            {
+                earnedGene -= 1;
+                SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
+                skill3LabLevel += 1;
+                playData.skill3LabLv = skill3LabLevel;
+                playData.gene = earnedGene;
+            }
+            else if (skill3LabLevel >= 4)
+            {
+                masteredLab.SetActive(true);
+                Invoke("MasterWarningLab", 0.5f);
+                SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+            }
+        }else
+        {
+            needCostLab.SetActive(true);
+            Invoke("CostWarningLab", 0.5f);
+            SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+        }
+    }
     public void Sync()
     {
         skill0.text = skill0Level.ToString();
@@ -430,6 +525,10 @@ public class SaveManager : MonoBehaviour
         skill3LvInstance = playData.skill3Lv+1;
         skill4LvInstance = playData.skill4Lv + 1;
         skill5LvInstance = playData.skill5Lv + 1;
+        skill1LabLvInstance = playData.skill1LabLv;
+        skill2LabLvInstance = playData.skill2LabLv;
+        skill3LabLvInstance = playData.skill3LabLv;
+        skill4LabLvInstance = playData.skill4LabLv;
         skill3EnableInstance = playData.skill3Enable;
         skill4EnableInstance = playData.skill4Enable;
         skill5EnableInstance = playData.skill5Enable;
@@ -455,6 +554,14 @@ public class SaveManager : MonoBehaviour
     public void MasterWarning()
     {
         mastered.SetActive(false);
+    }
+    public void CostWarningLab()
+    {
+        needCostLab.SetActive(false);
+    }
+    public void MasterWarningLab()
+    {
+        masteredLab.SetActive(false);
     }
     public void ForTestCoin()
     {

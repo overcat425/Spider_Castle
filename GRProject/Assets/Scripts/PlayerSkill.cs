@@ -9,7 +9,7 @@ public class PlayerSkill : MonoBehaviour
     public GameObject webMace;
     float circleR = 300f;                    // 철퇴 반지름
     float degree;                           // 각도
-    public float objSpeed = 200f;       // 회전 속도
+    private float objSpeed;       // 회전 속도
     [SerializeField]
     private SpriteRenderer maceAttack;
     public Transform mace;
@@ -21,13 +21,22 @@ public class PlayerSkill : MonoBehaviour
 
     [Header("거미줄 트랩")]
     [SerializeField] private GameObject webCounter;
-    public GameObject web;
+    public GameObject webLv0;
+    public GameObject webLv1;
+    public GameObject webLv2;
+    public GameObject webLv3;
+    public GameObject webLv4;
     public Transform player;
     [SerializeField] public float trapCoolDown;
     public int webCount = 2;
     public Image webCount1;
     public Image webCount2;
     public AudioClip trapSound;
+
+    private void Awake()
+    {
+        objSpeed = 200 + (SaveManager.skill1LabLvInstance * 20);
+    }
     void Start()
     {
         StartCoroutine("WebCoolDown");
@@ -110,13 +119,37 @@ public class PlayerSkill : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                web.transform.position = new Vector2(player.position.x, player.position.y);
-                Instantiate(web);
+                SpawnWeb();
                 SoundManager.SoundEffect.SoundPlay("trapSound", trapSound);
                 webCount -= 1;
                 CountCheck();
             }
             yield return null;
+        }
+    }
+    private void SpawnWeb()
+    {
+        int skill3Lab = SaveManager.skill3LabLvInstance;
+        if (skill3Lab == 0)
+        {
+            webLv0.transform.position = new Vector2(player.position.x, player.position.y);
+            Instantiate(webLv0);
+        }else if (skill3Lab == 1)
+        {
+            webLv1.transform.position = new Vector2(player.position.x, player.position.y);
+            Instantiate(webLv1);
+        }else if (skill3Lab == 2)
+        {
+            webLv2.transform.position = new Vector2(player.position.x, player.position.y);
+            Instantiate(webLv2);
+        }else if (skill3Lab == 3)
+        {
+            webLv3.transform.position = new Vector2(player.position.x, player.position.y);
+            Instantiate(webLv3);
+        }else if (skill3Lab == 4)
+        {
+            webLv4.transform.position = new Vector2(player.position.x, player.position.y);
+            Instantiate(webLv4);
         }
     }
     private IEnumerator WebCoolDown()
@@ -156,8 +189,8 @@ public class PlayerSkill : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                web.transform.position = new Vector2(player.position.x, player.position.y);
-                Instantiate(web);
+                //web.transform.position = new Vector2(player.position.x, player.position.y);
+                //Instantiate(web);
                 SoundManager.SoundEffect.SoundPlay("trapSound", trapSound);
                 webCount -= 1;
                 CountCheck();

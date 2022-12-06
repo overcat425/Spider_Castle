@@ -13,7 +13,27 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField]    private GameObject summary;
     [SerializeField]    private GameObject spiderInfo;
 
-    [Header("스킬")]
+    [Header("Lab탭 스킬")]
+    [SerializeField]    private GameObject skill2LabPane;
+    [SerializeField]    private GameObject skill3LabPane;
+    [SerializeField]    private GameObject skill4LabPane;
+
+    [SerializeField]    private GameObject skill1LabLv1Pane;
+    [SerializeField]    private GameObject skill1LabLv2Pane;
+    [SerializeField]    private GameObject skill1LabLv3Pane;
+    [SerializeField]    private GameObject skill1LabLv4Pane;
+
+    [SerializeField]    private GameObject skill2LabLv1Pane;
+    [SerializeField]    private GameObject skill2LabLv2Pane;
+    [SerializeField]    private GameObject skill2LabLv3Pane;
+    [SerializeField]    private GameObject skill2LabLv4Pane;
+
+    [SerializeField]    private GameObject skill3LabLv1Pane;
+    [SerializeField]    private GameObject skill3LabLv2Pane;
+    [SerializeField]    private GameObject skill3LabLv3Pane;
+    [SerializeField]    private GameObject skill3LabLv4Pane;
+
+    [Header("Enhance탭 스킬")]
     [SerializeField]    private GameObject skill0;
     [SerializeField]    private GameObject skill1;
     [SerializeField]    private GameObject skill2;
@@ -25,7 +45,7 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField]    private GameObject skill4Pane;
     [SerializeField]    private GameObject skill5Pane;
 
-    [Header("거미종류")]
+    [Header("Cob탭 거미종류")]
     [SerializeField]    private GameObject spider1;
     [SerializeField]    private GameObject spider2;
     [SerializeField]    private GameObject spider3;
@@ -50,6 +70,11 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         skill3Enable = SaveManager.skill3EnableInstance;
         skill4Enable = SaveManager.skill4EnableInstance;
         skill5Enable = SaveManager.skill5EnableInstance;
+        EnableSkills();
+        EnableSpiders();
+        Skill1LabPane();
+        Skill2LabPane();
+        Skill3LabPane();
     }
     public void CallMenu()
     {
@@ -71,7 +96,6 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         labTab.SetActive(true);
         enhanceTab.SetActive(false);
         cobTab.SetActive(false);
-
     }
     public void OnClickEnhanceTab()
     {
@@ -79,9 +103,6 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         enhanceTab.SetActive(true);
         cobTab.SetActive(false);
         summary.SetActive(false);
-        EnableSkill3();
-        EnableSkill4();
-        EnableSkill5();
     }
     public void OnClickCobTab()
     {
@@ -89,9 +110,122 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         enhanceTab.SetActive(false);
         cobTab.SetActive(true);
         spiderInfo.SetActive(false);
-        EnableSpider2();
-        EnableSpider3();
-        EnableSpider4();
+    }
+    public void Skill1LabPane()
+    {
+        int skill1LabLv = SaveManager.skill1LabLvInstance;
+        if (skill1LabLv == 0)
+        {
+            skill1LabLv1Pane.SetActive(false);
+            skill1LabLv2Pane.SetActive(false);
+            skill1LabLv3Pane.SetActive(false);
+            skill1LabLv4Pane.SetActive(false);
+        }
+        else if (skill1LabLv == 1)
+        {
+            skill1LabLv1Pane.SetActive(true);
+            skill1LabLv2Pane.SetActive(false);
+            skill1LabLv3Pane.SetActive(false);
+            skill1LabLv4Pane.SetActive(false);
+        }
+        else if (skill1LabLv == 2)
+        {
+            skill1LabLv1Pane.SetActive(true);
+            skill1LabLv2Pane.SetActive(true);
+            skill1LabLv3Pane.SetActive(false);
+            skill1LabLv4Pane.SetActive(false);
+        }
+        else if (skill1LabLv == 3)
+        {
+            skill1LabLv1Pane.SetActive(true);
+            skill1LabLv2Pane.SetActive(true);
+            skill1LabLv3Pane.SetActive(true);
+            skill1LabLv4Pane.SetActive(false);
+        }
+        else if (skill1LabLv == 4)
+        {
+            skill1LabLv1Pane.SetActive(true);
+            skill1LabLv2Pane.SetActive(true);
+            skill1LabLv3Pane.SetActive(true);
+            skill1LabLv4Pane.SetActive(true);
+        }
+    }
+    public void Skill2LabPane()
+    {
+        int skill2LabLv = SaveManager.skill2LabLvInstance;
+        if (skill2LabLv == 0)
+        {
+            skill2LabLv1Pane.SetActive(false);
+            skill2LabLv2Pane.SetActive(false);
+            skill2LabLv3Pane.SetActive(false);
+            skill2LabLv4Pane.SetActive(false);
+        }
+        else if (skill2LabLv == 1)
+        {
+            skill2LabLv1Pane.SetActive(true);
+            skill2LabLv2Pane.SetActive(false);
+            skill2LabLv3Pane.SetActive(false);
+            skill2LabLv4Pane.SetActive(false);
+        }
+        else if (skill2LabLv == 2)
+        {
+            skill2LabLv1Pane.SetActive(true);
+            skill2LabLv2Pane.SetActive(true);
+            skill2LabLv3Pane.SetActive(false);
+            skill2LabLv4Pane.SetActive(false);
+        }
+        else if (skill2LabLv == 3)
+        {
+            skill2LabLv1Pane.SetActive(true);
+            skill2LabLv2Pane.SetActive(true);
+            skill2LabLv3Pane.SetActive(true);
+            skill2LabLv4Pane.SetActive(false);
+        }
+        else if (skill2LabLv == 4)
+        {
+            skill2LabLv1Pane.SetActive(true);
+            skill2LabLv2Pane.SetActive(true);
+            skill2LabLv3Pane.SetActive(true);
+            skill2LabLv4Pane.SetActive(true);
+        }
+    }
+    public void Skill3LabPane()
+    {
+        int skill3LabLv = SaveManager.skill3LabLvInstance;
+        if (skill3LabLv == 0)
+        {
+            skill3LabLv1Pane.SetActive(false);
+            skill3LabLv2Pane.SetActive(false);
+            skill3LabLv3Pane.SetActive(false);
+            skill3LabLv4Pane.SetActive(false);
+        }else if (skill3LabLv == 1)
+        {
+            skill3LabLv1Pane.SetActive(true);
+            skill3LabLv2Pane.SetActive(false);
+            skill3LabLv3Pane.SetActive(false);
+            skill3LabLv4Pane.SetActive(false);
+        }
+        else if (skill3LabLv == 2)
+        {
+            skill3LabLv1Pane.SetActive(true);
+            skill3LabLv2Pane.SetActive(true);
+            skill3LabLv3Pane.SetActive(false);
+            skill3LabLv4Pane.SetActive(false);
+        }
+        else if (skill3LabLv == 3)
+        {
+            skill3LabLv1Pane.SetActive(true);
+            skill3LabLv2Pane.SetActive(true);
+            skill3LabLv3Pane.SetActive(true);
+            skill3LabLv4Pane.SetActive(false);
+        }
+        else if (skill3LabLv == 4)
+        {
+            skill3LabLv1Pane.SetActive(true);
+            skill3LabLv2Pane.SetActive(true);
+            skill3LabLv3Pane.SetActive(true);
+            skill3LabLv4Pane.SetActive(true);
+        }
     }
     public void OnClickSkill0Icon()
     {
@@ -187,40 +321,40 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         spider2.SetActive(false);
         spider3.SetActive(false);
     }
-    public void EnableSkill3()
+    public void EnableSkills()
     {
         if (skill3Enable == true)
         {
             skill3Pane.SetActive(true);
+            skill2LabPane.SetActive(true);
         }
         else if (skill3Enable == false)
         {
             skill3Pane.SetActive(false);
+            skill2LabPane.SetActive(false);
         }
-    }
-    public void EnableSkill4()
-    {
         if (skill4Enable == true)
         {
             skill4Pane.SetActive(true);
+            skill3LabPane.SetActive(true);
         }
         else if (skill4Enable == false)
         {
             skill4Pane.SetActive(false);
+            skill3LabPane.SetActive(false);
         }
-    }
-    public void EnableSkill5()
-    {
         if (skill5Enable == true)
         {
             skill5Pane.SetActive(true);
+            skill4LabPane.SetActive(true);
         }
         else if (skill5Enable == false)
         {
             skill5Pane.SetActive(false);
+            skill4LabPane.SetActive(false);
         }
     }
-    public void EnableSpider2()
+    public void EnableSpiders()
     {
         if (skill3Enable == true)
         {
@@ -230,9 +364,6 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             spider2Pane.SetActive(false);
         }
-    }
-    public void EnableSpider3()
-    {
         if (skill4Enable == true)
         {
             spider3Pane.SetActive(true);
@@ -241,9 +372,6 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             spider3Pane.SetActive(false);
         }
-    }
-    public void EnableSpider4()
-    {
         if (skill5Enable == true)
         {
             spider4Pane.SetActive(true);

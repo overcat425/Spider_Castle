@@ -84,7 +84,7 @@ public class EnemySpawnPool : MonoBehaviour
         stageBgm.SetActive(false);
         bossBgm.SetActive(true);
         bossGauge.SetActive(true);
-        Instantiate(boss, new Vector3(Random.Range(-3900, 3900), Random.Range(-2900, 2900), 0), Quaternion.identity);
+        Instantiate(boss, new Vector3(Random.Range(-3800, 3800), Random.Range(-2900, 2900), 0), Quaternion.identity);
     }
     private void BossDie()
     {

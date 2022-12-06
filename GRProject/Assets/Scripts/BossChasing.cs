@@ -28,7 +28,7 @@ public class BossChasing : MonoBehaviour
     }
     void Update()
     {
-        if (Vector2.Distance(transform.position, target.position) < 850)
+        if (Vector2.Distance(transform.position, target.position) < 1000)
         {
             TargetChasing();
             MobFlip();
@@ -45,7 +45,7 @@ public class BossChasing : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            //HealthGauge.health -= 2f;
+            HealthGauge.health -= 2f;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)          // 피격 상태 X

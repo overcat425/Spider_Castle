@@ -31,10 +31,10 @@ public class CastleMenu : MonoBehaviour
         PlayerController.isClear = false;
         PlayerController.keysCount = 0;
         hideHelp = SaveManager.hideNoticeInstance;
+        ShowTips();
     }
     void Start()
     {
-        ShowTips();
         InvokeRepeating("SpawnCastleSpider", 0, 1);
         InvokeRepeating("SpawnCastleSpider2", 1, 2);
     }

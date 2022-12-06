@@ -17,6 +17,8 @@ TagManager:
   - Elec
   - HealItem
   - Boss
+  - WebLv4
+  - PlayerJump
   layers:
   - Default
   - TransparentFX

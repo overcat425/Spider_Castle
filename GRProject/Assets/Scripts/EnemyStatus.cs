@@ -48,6 +48,13 @@ public class EnemyStatus : MonoBehaviour
             enemyHealth -= 10f;
         }
     }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("WebLv4"))
+        {
+            enemyHealth -= 0.5f;
+        }
+    }
     public void Skill1Damage()
     {
         enemyHealth -= baseDamage;

@@ -46,7 +46,7 @@ public class EnemyChasing : MonoBehaviour
             HealthGauge.health -= 0.5f;
             //EnemyStatus.enemyHealth -= 2f;
         }
-        if (collision.CompareTag("Web"))
+        if (collision.CompareTag("Web")||collision.CompareTag("WebLv4"))
         {
             StartCoroutine("Slow");
         }
