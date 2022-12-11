@@ -10,7 +10,10 @@ public class EnemySpawnPool : MonoBehaviour
     [SerializeField]    private GameObject enemy;
     [SerializeField]    private GameObject enemy2;
     [SerializeField]    private GameObject enemy3;
+    [SerializeField]    private GameObject enemy4;
+    [SerializeField]    private GameObject enemy5;
     [SerializeField]    private GameObject boss;
+    [SerializeField]    private GameObject endemy;
     [SerializeField]    private GameObject bossGauge;
     [SerializeField]    private GameObject stageBgm;
     [SerializeField]    private GameObject bossBgm;
@@ -40,7 +43,10 @@ public class EnemySpawnPool : MonoBehaviour
         InvokeRepeating("Spawn", 60, 4);
         InvokeRepeating("Spawn2", 120, 10);
         InvokeRepeating("Spawn3", 180, 20);
-        Invoke("BossSpawn", 300);
+        InvokeRepeating("Spawn4", 240, 25);
+        InvokeRepeating("Spawn5", 300, 30);
+        Invoke("BossSpawn", 600);
+        InvokeRepeating("Endemy", 900, 5);
     }
     void Update()
     {
@@ -79,6 +85,28 @@ public class EnemySpawnPool : MonoBehaviour
         Instantiate(enemy3, new Vector3(Random.Range(-5000, 5000), Random.Range(-4000, -3000), 0), Quaternion.identity);
         Instantiate(enemy3, new Vector3(Random.Range(-5000, 5000), Random.Range(3000, 4000), 0), Quaternion.identity);
     }
+    private void Spawn4()
+    {
+        Instantiate(enemy4, new Vector3(Random.Range(4000, 5000), Random.Range(-4000, 4000), 0), Quaternion.identity);
+        Instantiate(enemy4, new Vector3(Random.Range(-5000, -4000), Random.Range(-4000, 4000), 0), Quaternion.identity);
+        Instantiate(enemy4, new Vector3(Random.Range(-5000, 5000), Random.Range(-4000, -3000), 0), Quaternion.identity);
+        Instantiate(enemy4, new Vector3(Random.Range(-5000, 5000), Random.Range(3000, 4000), 0), Quaternion.identity);
+    }
+    private void Spawn5()
+    {
+        int rand = Random.Range(0, 4);
+        switch (rand)
+        {
+        case 0:
+            Instantiate(enemy5, new Vector3(Random.Range(4000, 5000), Random.Range(-4000, 4000), 0), Quaternion.identity); break;
+        case 1:
+            Instantiate(enemy5, new Vector3(Random.Range(-5000, -4000), Random.Range(-4000, 4000), 0), Quaternion.identity); break;
+        case 2:
+            Instantiate(enemy5, new Vector3(Random.Range(-5000, 5000), Random.Range(-4000, -3000), 0), Quaternion.identity); break;
+        case 3:
+            Instantiate(enemy5, new Vector3(Random.Range(-5000, 5000), Random.Range(3000, 4000), 0), Quaternion.identity); break;
+        }
+    }
     private void BossSpawn()
     {
         stageBgm.SetActive(false);
@@ -91,5 +119,12 @@ public class EnemySpawnPool : MonoBehaviour
         bossBgm.SetActive(false);
         stageBgm.SetActive(true);
         bossGauge.SetActive(false);
+    }
+    private void Endemy()
+    {
+        Instantiate(endemy, new Vector3(Random.Range(4000, 5000), Random.Range(-4000, 4000), 0), Quaternion.identity);
+        Instantiate(endemy, new Vector3(Random.Range(-5000, -4000), Random.Range(-4000, 4000), 0), Quaternion.identity);
+        Instantiate(endemy, new Vector3(Random.Range(-5000, 5000), Random.Range(-4000, -3000), 0), Quaternion.identity);
+        Instantiate(endemy, new Vector3(Random.Range(-5000, 5000), Random.Range(3000, 4000), 0), Quaternion.identity);
     }
 }

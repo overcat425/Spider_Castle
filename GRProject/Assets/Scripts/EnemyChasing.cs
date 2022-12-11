@@ -7,6 +7,7 @@ public class EnemyChasing : MonoBehaviour
 {
     Rigidbody2D enemyBody;
     Transform target;
+    private float flipX;
     private HealthGauge healthGauge;
 
     [Header("속도")]
@@ -19,6 +20,11 @@ public class EnemyChasing : MonoBehaviour
     private float hitscanDistance = 1f;
 
     private bool canSlow = true;
+
+    private void Awake()
+    {
+        flipX = -transform.localScale.x;
+    }
     void Start()
     {
         enemyBody = GetComponent<Rigidbody2D>();
@@ -60,12 +66,14 @@ public class EnemyChasing : MonoBehaviour
         if (target.position.x > transform.position.x)       // 몹이 플레이어 캐릭터쪽을 바라봄
         {
             CharacterFlip = Vector3.left;
-            transform.localScale = new Vector3(-100, 100, 1);
+            transform.localScale = new Vector3(flipX, transform.localScale.y, 1);
+            //transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else if (target.position.x < transform.position.x)
         {
             CharacterFlip = Vector3.right;
-            transform.localScale = new Vector3(100, 100, 1);
+            transform.localScale = new Vector3(-flipX, transform.localScale.y, 1);
+            //transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
     private IEnumerator Slow()

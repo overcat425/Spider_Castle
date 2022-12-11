@@ -6,16 +6,16 @@ using UnityEngine.UI;
 public class PlayerSkill : MonoBehaviour
 {
     [Header("거미줄 철퇴")]
-    public GameObject webMace;
-    float circleR = 300f;                    // 철퇴 반지름
+    public GameObject[] webMace;
+    [SerializeField]    private int webMaceCount;
+    float circleR;                    // 철퇴 반지름
     float degree;                           // 각도
-    private float objSpeed;       // 회전 속도
+    [SerializeField] private float objSpeed;       // 회전 속도
     [SerializeField]
     private SpriteRenderer maceAttack;
-    public Transform mace;
+    public Transform[] mace;
     public Vector2 maceSize;
 
-    private bool maceOn = true;
     [SerializeField]
     public AudioClip clip;
 
@@ -33,15 +33,48 @@ public class PlayerSkill : MonoBehaviour
     public Image webCount2;
     public AudioClip trapSound;
 
+    [Header("독 공격")]
+    public GameObject poisonUi;
+    public GameObject poisonHorizontal;
+    public GameObject poisonVertical;
+    public GameObject poisonDiagonal;
+    [SerializeField]    private AudioClip poisonSound;
+    [SerializeField]    private Transform charDirection;
+    private int poisonLabLv;
+    private int poisonAttackRate;
+
     private void Awake()
     {
-        objSpeed = 200 + (SaveManager.skill1LabLvInstance * 20);
+        circleR = 400f;
+        webMaceCount = SaveManager.skill1LabLvInstance+1;
+        if (webMaceCount <= 4)
+        {
+            objSpeed = 150f;
+        }else if(webMaceCount > 4)
+        {
+            objSpeed = 200f;
+        }
+        if (webMaceCount > 4)
+        {
+            webMaceCount = 4;
+        }
+        poisonLabLv = SaveManager.skill4LabLvInstance;
+        if (poisonLabLv >= 3)
+        {
+            poisonLabLv = 2;
+        }
+        poisonAttackRate = 3 - poisonLabLv;
     }
     void Start()
     {
         StartCoroutine("WebCoolDown");
+        MaceOn();
+        if (SaveManager.skill5EnableInstance == true)
+        {
+            poisonUi.SetActive(true);
+            StartCoroutine("SpitPoison");
+        }
     }
-
     void Update()
     {
         trapCoolDown = 4 - (SaveManager.skill4LvInstance);
@@ -68,39 +101,74 @@ public class PlayerSkill : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(mace.position, maceSize);
+        for (int i = 0; i < webMaceCount; i++)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireCube(mace[i].position, maceSize);
+        }
+    }
+    private void MaceOn()
+    {
+        for(int i=0; i<webMaceCount; i++)
+        {
+            webMace[i].SetActive(true);
+        }
     }
     private IEnumerator WebMace()
     {
         degree += Time.deltaTime * objSpeed;
+        Collider2D[] maceColleder1 = Physics2D.OverlapBoxAll(mace[0].position, maceSize, 0);
+        Collider2D[] maceColleder2 = Physics2D.OverlapBoxAll(mace[1].position, maceSize, 0);
+        Collider2D[] maceColleder3 = Physics2D.OverlapBoxAll(mace[2].position, maceSize, 0);
+        Collider2D[] maceColleder4 = Physics2D.OverlapBoxAll(mace[3].position, maceSize, 0);
         if (degree < 360)
         {
-            //반지름 변경
-            /*if (circleR < 300f && state == 0)
-                circleR += 1.5f;
-            else if (circleR >= 300f)
-                state = 1;
-            if (circleR > 50 && state == 1)
-                circleR -= 1.5f;
-            else if (circleR <= 50)
-                state = 0;*/
-
-            //if (circleR < 300f)
-            //    circleR += 1.5f;
-
-            var rad = Mathf.Deg2Rad * (degree);
-            var x = circleR * Mathf.Sin(rad);
-            var y = circleR * Mathf.Cos(rad);
-            webMace.transform.position = transform.position + new Vector3(x, y);
-            webMace.transform.rotation = Quaternion.Euler(0, 0, degree * -1); //가운데를 바라보게 각도 조절
-        }
-        else
+            for (int i = 0; i < webMaceCount; i++)
+            {
+                var rad = Mathf.Deg2Rad * (degree + (i * (360 / webMaceCount)));
+                var x = circleR * Mathf.Sin(rad);
+                var y = circleR * Mathf.Cos(rad);
+                webMace[i].transform.position = transform.position + new Vector3(x, y);
+                webMace[i].transform.rotation = Quaternion.Euler(0, 0, (degree + (i * (360 / webMaceCount))) * -1);
+            }
+        }else
         {
             degree = 0;
         }
-        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(mace.position, maceSize, 0);
-        foreach (Collider2D collider in collider2Ds)
+        foreach (Collider2D collider in maceColleder1)
+        {
+            if (collider.tag == "Enemy")
+            {
+                collider.GetComponent<EnemyStatus>().Skill2Damage();
+            }
+            if (collider.tag == "Boss")
+            {
+                collider.GetComponent<BossStatus>().Skill2Damage();
+            }
+        }
+        foreach (Collider2D collider in maceColleder2)
+        {
+            if (collider.tag == "Enemy")
+            {
+                collider.GetComponent<EnemyStatus>().Skill2Damage();
+            }
+            if (collider.tag == "Boss")
+            {
+                collider.GetComponent<BossStatus>().Skill2Damage();
+            }
+        }
+        foreach (Collider2D collider in maceColleder3)
+        {
+            if (collider.tag == "Enemy")
+            {
+                collider.GetComponent<EnemyStatus>().Skill2Damage();
+            }
+            if (collider.tag == "Boss")
+            {
+                collider.GetComponent<BossStatus>().Skill2Damage();
+            }
+        }
+        foreach (Collider2D collider in maceColleder4)
         {
             if (collider.tag == "Enemy")
             {
@@ -132,23 +200,23 @@ public class PlayerSkill : MonoBehaviour
         int skill3Lab = SaveManager.skill3LabLvInstance;
         if (skill3Lab == 0)
         {
-            webLv0.transform.position = new Vector2(player.position.x, player.position.y);
+            webLv0.transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
             Instantiate(webLv0);
         }else if (skill3Lab == 1)
         {
-            webLv1.transform.position = new Vector2(player.position.x, player.position.y);
+            webLv1.transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
             Instantiate(webLv1);
         }else if (skill3Lab == 2)
         {
-            webLv2.transform.position = new Vector2(player.position.x, player.position.y);
+            webLv2.transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
             Instantiate(webLv2);
         }else if (skill3Lab == 3)
         {
-            webLv3.transform.position = new Vector2(player.position.x, player.position.y);
+            webLv3.transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
             Instantiate(webLv3);
         }else if (skill3Lab == 4)
         {
-            webLv4.transform.position = new Vector2(player.position.x, player.position.y);
+            webLv4.transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
             Instantiate(webLv4);
         }
     }
@@ -185,17 +253,63 @@ public class PlayerSkill : MonoBehaviour
     }
     private IEnumerator SpitPoison()
     {
-        if (webCount > 0)
+        SoundManager.SoundEffect.SoundPlay("poisonSound", poisonSound);
+        if ((Input.GetAxisRaw("Horizontal") > 0) && (Input.GetAxisRaw("Vertical") > 0))
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            poisonDiagonal.transform.position = new Vector3(player.position.x + 250, player.position.y + 250, 0.1f);
+            poisonDiagonal.transform.rotation = Quaternion.Euler(0, 0, 45);
+            Instantiate(poisonDiagonal);
+        }else if ((Input.GetAxisRaw("Horizontal") > 0) && (Input.GetAxisRaw("Vertical") < 0))
+        {
+            poisonDiagonal.transform.position = new Vector3(player.position.x + 250, player.position.y - 250, 0.1f);
+            poisonDiagonal.transform.rotation = Quaternion.Euler(180, 0, 45);
+            Instantiate(poisonDiagonal);
+        }else if ((Input.GetAxisRaw("Horizontal") < 0) && (Input.GetAxisRaw("Vertical") < 0))
+        {
+            poisonDiagonal.transform.position = new Vector3(player.position.x - 250, player.position.y - 250, 0.1f);
+            poisonDiagonal.transform.rotation = Quaternion.Euler(180, 180, 45);
+            Instantiate(poisonDiagonal);
+        }else if ((Input.GetAxisRaw("Horizontal") < 0) && (Input.GetAxisRaw("Vertical") > 0))
+        {
+            poisonDiagonal.transform.position = new Vector3(player.position.x - 250, player.position.y + 250, 0.1f);
+            poisonDiagonal.transform.rotation = Quaternion.Euler(0, 180, 45);
+            Instantiate(poisonDiagonal);
+        }else if (Input.GetAxisRaw("Horizontal") < 0)
+        {
+            poisonHorizontal.transform.position = new Vector3(player.position.x - 250, player.position.y, 0.1f);
+            poisonHorizontal.transform.rotation = Quaternion.Euler(0, 180, 0);
+            Instantiate(poisonHorizontal);
+        }else if (Input.GetAxisRaw("Horizontal") > 0)
+        {
+            poisonHorizontal.transform.position = new Vector3(player.position.x + 250, player.position.y, 0.1f);
+            poisonHorizontal.transform.rotation = Quaternion.Euler(0, 0, 0);
+            Instantiate(poisonHorizontal);
+        }else if (Input.GetAxisRaw("Vertical") > 0)
+        {
+            poisonVertical.transform.position = new Vector3(player.position.x, player.position.y + 250, 0.1f);
+            poisonVertical.transform.rotation = Quaternion.Euler(0, 0, 0);
+            Instantiate(poisonVertical);
+        }else if (Input.GetAxisRaw("Vertical") < 0)
+        {
+            poisonVertical.transform.position = new Vector3(player.position.x, player.position.y - 250, 0.1f);
+            poisonVertical.transform.rotation = Quaternion.Euler(0, 0, 180);
+            Instantiate(poisonVertical);
+        }else
+        {
+            float charDir = charDirection.localScale.x;
+            if ( charDir == 1f)
             {
-                //web.transform.position = new Vector2(player.position.x, player.position.y);
-                //Instantiate(web);
-                SoundManager.SoundEffect.SoundPlay("trapSound", trapSound);
-                webCount -= 1;
-                CountCheck();
+                poisonHorizontal.transform.position = new Vector3(player.position.x + 250, player.position.y, 0.1f);
+                poisonHorizontal.transform.rotation = Quaternion.Euler(0, 0, 0);
+                Instantiate(poisonHorizontal);
+            }else if( charDir == -1f)
+            {
+                poisonHorizontal.transform.position = new Vector3(player.position.x - 250, player.position.y, 0.1f);
+                poisonHorizontal.transform.rotation = Quaternion.Euler(0, 180, 0);
+                Instantiate(poisonHorizontal);
             }
-            yield return null;
         }
+        yield return new WaitForSeconds(poisonAttackRate);
+        StartCoroutine("SpitPoison");
     }
 }

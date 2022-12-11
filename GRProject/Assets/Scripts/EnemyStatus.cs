@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class EnemyStatus : MonoBehaviour
 {
+    private SpriteRenderer sprite;
+    private Color color;
     public GameObject hudDamageText;
     public GameObject coins;
     public Transform hudPos;
@@ -17,19 +19,36 @@ public class EnemyStatus : MonoBehaviour
     public float enemyHealth;
     public AudioClip enemyDestroySound;
 
-    [SerializeField]    public int baseDamage;
-    [SerializeField]    public int maceDamage;
+    [SerializeField]    private int baseDamage;
+    [SerializeField]    private int maceDamage;
+    [SerializeField]    private int poisonDamage;
+    private int poisonLabLv;
+    private int poisoningTime;
 
+    private void Awake()
+    {
+        sprite = gameObject.GetComponent<SpriteRenderer>();
+        color = sprite.color;
+        poisonLabLv = SaveManager.skill4LabLvInstance;
+    }
     private void Start()
     {
         //healthBar = GetComponent<Image>();
         enemyHealth = maxHealth;
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        if (poisonLabLv <= 2)
+        {
+            poisoningTime = 3;
+        }else if(poisonLabLv <= 4)
+        {
+            poisoningTime = 3 + (poisonLabLv-2);
+        }
     }
     private void Update()
     {
         baseDamage = SaveManager.skill1LvInstance * 30;
-        maceDamage = SaveManager.skill2LvInstance * 20;
+        maceDamage = SaveManager.skill2LvInstance * 10;
+        poisonDamage = SaveManager.skill5LvInstance * 2;
         if (enemyHealth <= 0)
         {
             DestroyEnemy();
@@ -46,6 +65,10 @@ public class EnemyStatus : MonoBehaviour
         if (collision.CompareTag("Elec"))
         {
             enemyHealth -= 10f;
+        }
+        if (collision.CompareTag("Poison"))
+        {
+            StartCoroutine("PoisonDamage");
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -65,9 +88,19 @@ public class EnemyStatus : MonoBehaviour
     {
         enemyHealth -= maceDamage;
         DamageText(maceDamage);
-        StartCoroutine("KnockBack");
         EnemyDamaged();
         Invoke("EnemyCanDamage", 0.5f);
+    }
+    public IEnumerator PoisonDamage()
+    {
+        for (int i = 0; i < poisoningTime; i++)
+        {
+            sprite.color = new Color(1, 0, 1, 1);
+            enemyHealth -= poisonDamage;
+            DamageText(poisonDamage);
+            yield return new WaitForSeconds(1f);
+        }
+        sprite.color = color;
     }
     public void DestroyEnemy()
     {

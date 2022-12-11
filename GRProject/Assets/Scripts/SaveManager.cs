@@ -311,11 +311,11 @@ public class SaveManager : MonoBehaviour
     }
     public void OnClickSkill2LvUp()
     {
-        if (earnedCoins >= 20)
+        if (earnedCoins >= 50)
         {
             if (skill2Level < 9)
             {
-                earnedCoins -= 20;
+                earnedCoins -= 50;
                 SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
                 skill2Level += 1;
                 playData.skill2Lv = skill2Level;
@@ -389,11 +389,11 @@ public class SaveManager : MonoBehaviour
     }
     public void OnClickSkill5LvUp()
     {
-        if (earnedCoins >= 200)                  // 코인 제한
+        if (earnedCoins >= 100)                  // 코인 제한
         {
             if (skill5Level < 9)                    // 스킬 최대레벨 10(9+1)
             {
-                earnedCoins -= 200;
+                earnedCoins -= 100;
                 SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
                 skill5Level += 1;
                 playData.skill5Lv = skill5Level;
@@ -490,6 +490,32 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
+    public void OnClickSkill4LabLvUp()
+    {
+        if (earnedGene >= 1)                  // 코인 제한
+        {
+            if (skill4LabLevel < 4)
+            {
+                earnedGene -= 1;
+                SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
+                skill4LabLevel += 1;
+                playData.skill4LabLv = skill4LabLevel;
+                playData.gene = earnedGene;
+            }
+            else if (skill4LabLevel >= 4)
+            {
+                masteredLab.SetActive(true);
+                Invoke("MasterWarningLab", 0.5f);
+                SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+            }
+        }
+        else
+        {
+            needCostLab.SetActive(true);
+            Invoke("CostWarningLab", 0.5f);
+            SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
+        }
+    }
     public void Sync()
     {
         skill0.text = skill0Level.ToString();
@@ -497,19 +523,19 @@ public class SaveManager : MonoBehaviour
         skill2.text = (skill2Level + 1).ToString();
         skill3.text = (skill3Level + 1).ToString();
         skill4.text = (skill4Level + 1).ToString();
-        //skill5.text = (skill5Level + 1).ToString();
+        skill5.text = (skill5Level + 1).ToString();
         skill0Health = 100 + (skill0Level * 20);
         baseDamage = (skill1Level + 1) * 30;
-        maceDamage = (skill2Level + 1) * 20;
+        maceDamage = (skill2Level + 1) * 10;
         jumpCoolDown = 6 - (skill3Level + 1);
         trapCoolDown = 4 - (skill4Level + 1);
-        //poisonDamage = (skill5Level + 1) * 20;
+        poisonDamage = (skill5Level + 1) * 2;
         skill0Hp.text = skill0Health.ToString();
         skill1Dmg.text = baseDamage.ToString();
         skill2Dmg.text = maceDamage.ToString();
         skill3CoolDown.text = jumpCoolDown.ToString();
         skill4CoolDown.text = trapCoolDown.ToString();
-        //skill5Dmg.text = poisonDamage.ToString();
+        skill5Dmg.text = poisonDamage.ToString();
         earnedCoinsCount.text = earnedCoins.ToString();
         earnedCoinsCountMain.text = earnedCoins.ToString();
         earnedGeneCount.text = earnedGene.ToString();

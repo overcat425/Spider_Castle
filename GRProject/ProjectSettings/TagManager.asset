@@ -19,6 +19,7 @@ TagManager:
   - Boss
   - WebLv4
   - PlayerJump
+  - Poison
   layers:
   - Default
   - TransparentFX
