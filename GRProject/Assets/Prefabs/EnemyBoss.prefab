@@ -109,7 +109,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -293868488, guid: 9d653adcbb07feb4fb74fae1992f3b3a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -137,6 +137,7 @@ MonoBehaviour:
   slowSpeed: 0
   moveSpeed: 0
   hitscanDistance: 5
+  bossDashSound: {fileID: 8300000, guid: baa04263d01f1374990382aedfa8447d, type: 3}
 --- !u!58 &2228290874652602971
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -172,6 +173,7 @@ MonoBehaviour:
   enemyDestroySound: {fileID: 8300000, guid: f1e9ce0d0c415f04c95dfffcda9b8740, type: 3}
   baseDamage: 0
   maceDamage: 0
+  poisonDamage: 0
 --- !u!50 &2024272023827084254
 Rigidbody2D:
   serializedVersion: 4

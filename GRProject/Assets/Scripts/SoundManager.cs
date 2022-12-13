@@ -13,6 +13,7 @@ public class SoundManager : MonoBehaviour
     public AudioMixer audioMixer;
     public AudioSource musicSource;
     public AudioSource effectSource;
+    public AudioSource bossMusicSource;
     //public AudioSource bgm;
     private void Awake()
     {
@@ -51,6 +52,7 @@ public class SoundManager : MonoBehaviour
     {
         GameObject soundStart = new GameObject(sound + "Sound");
         AudioSource audioSource = soundStart.AddComponent<AudioSource>();
+        audioSource.volume = effectVolume.value;
         audioSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("EffectSound")[0];
         audioSource.clip = clip;
         audioSource.Play();
@@ -60,6 +62,7 @@ public class SoundManager : MonoBehaviour
     public void SetMusicVolume()
     {
         musicSource.volume = bgmVolume.value;
+        bossMusicSource.volume = bgmVolume.value;
         //musicSource.volume = volume; + 매개변수 float volume
     }
     public void SetEffectVolume()

@@ -751,17 +751,26 @@ MonoBehaviour:
   coinManager: {fileID: 0}
   needCost: {fileID: 0}
   mastered: {fileID: 0}
+  needCostLab: {fileID: 0}
+  masteredLab: {fileID: 0}
   clip: {fileID: 8300000, guid: 0fab818f6ec142145b04e0ab096450bf, type: 3}
   hideNotice: 0
   earnedCoins: 0
   earnedCoinsCount: {fileID: 0}
   earnedCoinsCountMain: {fileID: 0}
+  earnedGene: 0
+  earnedGeneCount: {fileID: 0}
+  earnedGeneCountMain: {fileID: 0}
   skill0Level: 0
   skill1Level: 0
   skill2Level: 0
   skill3Level: 0
   skill4Level: 0
   skill5Level: 0
+  skill1LabLevel: 0
+  skill2LabLevel: 0
+  skill3LabLevel: 0
+  skill4LabLevel: 0
   skill0: {fileID: 0}
   skill1: {fileID: 0}
   skill2: {fileID: 0}
@@ -1775,6 +1784,7 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: daf9f381d75414c428dab5649d07693f, type: 2}
   musicSource: {fileID: 0}
   effectSource: {fileID: 0}
+  bossMusicSource: {fileID: 0}
 --- !u!1 &427219839
 GameObject:
   m_ObjectHideFlags: 0

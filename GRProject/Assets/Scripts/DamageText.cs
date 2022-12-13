@@ -5,6 +5,7 @@ using TMPro;
 
 public class DamageText : MonoBehaviour
 {
+    public Renderer rend;
     public float speed = 10;
     public float alphaSpeed = 1;
     public float destroyTime = 2;
@@ -13,10 +14,12 @@ public class DamageText : MonoBehaviour
     Color alpha;
     void Start()
     {
+        rend = GetComponent<Renderer>();
         text = GetComponent<TextMeshPro>();
         text.text = damage.ToString();
         alpha = text.color;
         Invoke("DestroyObject", destroyTime);
+        SetLayer();
     }
     
     void Update()
@@ -24,6 +27,10 @@ public class DamageText : MonoBehaviour
         transform.Translate(new Vector3(0, speed * Time.deltaTime, 0));
         alpha.a = Mathf.Lerp(alpha.a, 0, Time.deltaTime * alphaSpeed);
         text.color = alpha;
+    }
+    private void SetLayer()
+    {
+        rend.sortingOrder = 2;
     }
     private void DestroyObject()
     {

@@ -11,8 +11,8 @@ public class PlayerSkill : MonoBehaviour
     float circleR;                    // 철퇴 반지름
     float degree;                           // 각도
     [SerializeField] private float objSpeed;       // 회전 속도
-    [SerializeField]
-    private SpriteRenderer maceAttack;
+    [SerializeField] private SpriteRenderer maceAttack;
+    [SerializeField] private AudioClip maceSound;
     public Transform[] mace;
     public Vector2 maceSize;
 
@@ -38,6 +38,7 @@ public class PlayerSkill : MonoBehaviour
     public GameObject poisonHorizontal;
     public GameObject poisonVertical;
     public GameObject poisonDiagonal;
+    public GameObject poisonDiagonal2;
     [SerializeField]    private AudioClip poisonSound;
     [SerializeField]    private Transform charDirection;
     private int poisonLabLv;
@@ -69,6 +70,7 @@ public class PlayerSkill : MonoBehaviour
     {
         StartCoroutine("WebCoolDown");
         MaceOn();
+        InvokeRepeating("MaceSound", 1, 1.5f);
         if (SaveManager.skill5EnableInstance == true)
         {
             poisonUi.SetActive(true);
@@ -181,6 +183,10 @@ public class PlayerSkill : MonoBehaviour
         }
         yield return null;
     }
+    private void MaceSound()
+    {
+        SoundManager.SoundEffect.SoundPlay("maceSound", maceSound);
+    }
     private IEnumerator MakeWeb()
     {
         if (webCount > 0)
@@ -261,14 +267,14 @@ public class PlayerSkill : MonoBehaviour
             Instantiate(poisonDiagonal);
         }else if ((Input.GetAxisRaw("Horizontal") > 0) && (Input.GetAxisRaw("Vertical") < 0))
         {
-            poisonDiagonal.transform.position = new Vector3(player.position.x + 250, player.position.y - 250, 0.1f);
-            poisonDiagonal.transform.rotation = Quaternion.Euler(180, 0, 45);
-            Instantiate(poisonDiagonal);
+            poisonDiagonal2.transform.position = new Vector3(player.position.x + 250, player.position.y - 250, 0.1f);
+            poisonDiagonal2.transform.rotation = Quaternion.Euler(180, 0, 45);
+            Instantiate(poisonDiagonal2);
         }else if ((Input.GetAxisRaw("Horizontal") < 0) && (Input.GetAxisRaw("Vertical") < 0))
         {
-            poisonDiagonal.transform.position = new Vector3(player.position.x - 250, player.position.y - 250, 0.1f);
-            poisonDiagonal.transform.rotation = Quaternion.Euler(180, 180, 45);
-            Instantiate(poisonDiagonal);
+            poisonDiagonal2.transform.position = new Vector3(player.position.x - 250, player.position.y - 250, 0.1f);
+            poisonDiagonal2.transform.rotation = Quaternion.Euler(180, 180, 45);
+            Instantiate(poisonDiagonal2);
         }else if ((Input.GetAxisRaw("Horizontal") < 0) && (Input.GetAxisRaw("Vertical") > 0))
         {
             poisonDiagonal.transform.position = new Vector3(player.position.x - 250, player.position.y + 250, 0.1f);

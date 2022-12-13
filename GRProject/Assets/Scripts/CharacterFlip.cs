@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterFlip : MonoBehaviour
 {
-    public Animator animator;                   // 대기/걷기 애니메이터
+    private Animator animator;                   // 대기/걷기 애니메이터
     Rigidbody2D rigidBody;
     private void Start()
     {

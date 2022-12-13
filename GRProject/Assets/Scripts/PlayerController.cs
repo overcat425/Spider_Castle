@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-
     private float moveSpeed;                         // 이동 속도
     private Vector3 moveDirection = Vector3.zero;      // 이동 벡터
     private CharacterMovement movement;       // 키보드로 플레이어 이동
@@ -21,9 +20,12 @@ public class PlayerController : MonoBehaviour
     public AudioClip clip;
     public AudioClip enemyDestroySound;
     public AudioClip jumpSound;
-    public GameObject maceSound;
     public AudioClip electricShock;
     public AudioClip healSound;
+
+    private bool enable3;
+    private bool enable4;
+    private bool enable5;
 
     public static bool canPlayerMove = false;
     public static bool isPause = false;
@@ -67,10 +69,12 @@ public class PlayerController : MonoBehaviour
     [Header("클리어")]
     [SerializeField] private GameObject stage1Spidy;
     [SerializeField] private GameObject stage2Spidy;
+    [SerializeField] private GameObject stage3Spidy;
+    [SerializeField] private GameObject clearGene;
     [SerializeField] private GameObject eraser;
     [SerializeField] private GameObject spawnPool;
     [SerializeField] private AudioClip clearSound;
-    private float time = 0f;
+    private float time;
     public static bool isClear;
     private int clearNum;
     [SerializeField]
@@ -87,6 +91,18 @@ public class PlayerController : MonoBehaviour
     public Transform geneUiSize;
     [SerializeField] private GameObject jumpUnlock;
     [SerializeField] private GameObject somethingUnlock;
+    private void Awake()
+    {
+        time = 0f;
+        moveSpeed = 300 + (SaveManager.skill2LabLvInstance * 30);
+        isPause = false;
+        movement = GetComponent<CharacterMovement>();
+        Time.timeScale = 1f;
+        clearNum = 0;
+        enable3 = SaveManager.skill3EnableInstance;
+        enable4 = SaveManager.skill4EnableInstance;
+        enable5 = SaveManager.skill5EnableInstance;
+    }
     private void Start()
     {
         KeySpawn();
@@ -96,14 +112,7 @@ public class PlayerController : MonoBehaviour
         //countImage1 = GameObject.Find("TpCounter").GetComponent<Image>();
         //countImage2 = GameObject.Find("TpCounter2").GetComponent<Image>();
     }
-    private void Awake()
-    {
-        moveSpeed = 300 + (SaveManager.skill2LabLvInstance * 30);
-        isPause = false;
-        movement = GetComponent<CharacterMovement>();
-        Time.timeScale = 1f;
-        clearNum = 0;
-    }
+
     private void Update()
     {
         jumpCoolDown = 6 - (SaveManager.skill3LvInstance);
@@ -138,7 +147,7 @@ public class PlayerController : MonoBehaviour
         if (isClear)
         {
             canPlayerMove = false;
-            ClearEvent();
+            Invoke("ClearEvent", 3.5f);
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)
@@ -362,29 +371,90 @@ public class PlayerController : MonoBehaviour
         int spawnSpidy = Random.Range(0, 4);
         if (SceneManager.GetActiveScene().name == "Stage1")
         {
-            switch (spawnSpidy)
+            if (enable3 == false)
             {
-                case 0:
-                    Instantiate(stage1Spidy, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity);break;
-                case 1:
-                    Instantiate(stage1Spidy, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
-                case 2:
-                    Instantiate(stage1Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
-                case 3:
-                    Instantiate(stage1Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+                switch (spawnSpidy)
+                {
+                    case 0:
+                        Instantiate(stage1Spidy, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                    case 1:
+                        Instantiate(stage1Spidy, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                    case 2:
+                        Instantiate(stage1Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
+                    case 3:
+                        Instantiate(stage1Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+                }
+            }else if (enable3 == true)
+            {
+                switch (spawnSpidy)
+                {
+                    case 0:
+                        Instantiate(clearGene, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                    case 1:
+                        Instantiate(clearGene, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                    case 2:
+                        Instantiate(clearGene, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
+                    case 3:
+                        Instantiate(clearGene, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+                }
             }
         }else if (SceneManager.GetActiveScene().name == "Stage2")
         {
-            switch (spawnSpidy)
+            if (enable4 == false)
             {
-                case 0:
-                    Instantiate(stage2Spidy, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
-                case 1:
-                    Instantiate(stage2Spidy, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
-                case 2:
-                    Instantiate(stage2Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
-                case 3:
-                    Instantiate(stage2Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+                switch (spawnSpidy)
+                {
+                    case 0:
+                        Instantiate(stage2Spidy, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                    case 1:
+                        Instantiate(stage2Spidy, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                    case 2:
+                        Instantiate(stage2Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
+                    case 3:
+                        Instantiate(stage2Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+                }
+            }else if (enable4 == true)
+            {
+                switch (spawnSpidy)
+                {
+                    case 0:
+                        Instantiate(clearGene, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                    case 1:
+                        Instantiate(clearGene, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                    case 2:
+                        Instantiate(clearGene, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
+                    case 3:
+                        Instantiate(clearGene, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+                }
+            }
+        }else if (SceneManager.GetActiveScene().name == "Stage3")
+        {
+            if (enable5 == false)
+            {
+                switch (spawnSpidy)
+                {
+                    case 0:
+                        Instantiate(stage3Spidy, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                    case 1:
+                        Instantiate(stage3Spidy, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                    case 2:
+                        Instantiate(stage3Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
+                    case 3:
+                        Instantiate(stage3Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+                }
+            }else if (enable4 == true)
+            {
+                switch (spawnSpidy)
+                {
+                    case 0:
+                        Instantiate(clearGene, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                    case 1:
+                        Instantiate(clearGene, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                    case 2:
+                        Instantiate(clearGene, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
+                    case 3:
+                        Instantiate(clearGene, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+                }
             }
         }
     }
@@ -427,10 +497,10 @@ public class PlayerController : MonoBehaviour
         coinsText.text = CoinManager.earnedCoinsInstance.ToString();
         geneText.text = CoinManager.earnedGeneInstance.ToString();
         Invoke("ClearStop", 3);
-        maceSound.SetActive(false);
         eraser.SetActive(true);
         clearUi.SetActive(true);
-        time += Time.deltaTime;
+        time += Time.deltaTime/1.5f;
+        Debug.Log(time);
         if (time < 0.5f)
         {
             clearUiSize.localScale = Vector3.one * (time * 2f);
