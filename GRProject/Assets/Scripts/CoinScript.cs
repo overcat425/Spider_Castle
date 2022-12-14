@@ -30,7 +30,7 @@ public class CoinScript : MonoBehaviour
         //{
         //    transform.position = Vector2.MoveTowards(transform.position, target.position, 10f);
         //}
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") || collision.CompareTag("PlayerJump"))
         {
             Collected();
         }

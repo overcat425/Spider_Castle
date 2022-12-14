@@ -8,6 +8,8 @@ public class ClearGeneScript : MonoBehaviour
     private bool isOpen;
     [SerializeField] private GameObject keyTip;
     [SerializeField] private GameObject wantKey;
+    [SerializeField] private GameObject cageMoving;
+    [SerializeField] private GameObject cageMoving2;
     [SerializeField] private GameObject cage;
     [SerializeField] private GameObject cageOpen;
     [SerializeField] private AudioClip doorOpenSound;
@@ -26,6 +28,8 @@ public class ClearGeneScript : MonoBehaviour
                 isOpen = true;
             }
             wantKey.SetActive(false);
+            cageMoving.SetActive(false);
+            cageMoving2.SetActive(false);
             cage.SetActive(false);
             cageOpen.SetActive(true);
         }

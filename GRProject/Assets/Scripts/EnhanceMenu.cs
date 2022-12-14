@@ -193,7 +193,7 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             skill2LabLv1Pane.SetActive(false);
             skill2LabLv2Pane.SetActive(false);
-            skill2LabLv3Pane.SetActive(false);
+            skill2LabLv3Pane.SetActive(true);
             skill2LabLv4Pane.SetActive(true);
         }
     }

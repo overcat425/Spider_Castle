@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private float moveSpeed;                         // 이동 속도
+    [SerializeField] private float moveSpeed;                         // 이동 속도
     private Vector3 moveDirection = Vector3.zero;      // 이동 벡터
     private CharacterMovement movement;       // 키보드로 플레이어 이동
     private SaveManager saveManager;
@@ -94,7 +94,12 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         time = 0f;
-        moveSpeed = 300 + (SaveManager.skill2LabLvInstance * 30);
+        if (SaveManager.skill2LabLvInstance < 4)
+        {
+            moveSpeed = 300 + (SaveManager.skill2LabLvInstance * 30);
+        }else if (SaveManager.skill2LabLvInstance == 4){
+            moveSpeed = 390;
+        }
         isPause = false;
         movement = GetComponent<CharacterMovement>();
         Time.timeScale = 1f;
@@ -139,6 +144,10 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && canDash)
             {
                 StartCoroutine("Dash");
+                if (SaveManager.skill2LabLvInstance == 4)
+                {
+                    InvincibleOn();
+                }
             }
         }else if(SaveManager.skill3EnableInstance == false)
         {
@@ -365,6 +374,15 @@ public class PlayerController : MonoBehaviour
             countImage1.color = Color.black;
             countImage2.color = Color.black;
         }
+    }
+    private void InvincibleOn()
+    {
+        gameObject.tag = "PlayerJump";
+        Invoke("InvincibleOff", 1f);
+    }
+    private void InvincibleOff()
+    {
+        gameObject.tag = "Player";
     }
     private void SpiderSpawnRandom()
     {

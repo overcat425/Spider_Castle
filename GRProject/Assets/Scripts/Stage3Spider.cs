@@ -9,6 +9,8 @@ public class Stage3Spider : MonoBehaviour
     private bool isLike;
     [SerializeField] private GameObject keyTip;
     [SerializeField] private GameObject wantKey;
+    [SerializeField] private GameObject cageMoving;
+    [SerializeField] private GameObject cageMoving2;
     [SerializeField] private GameObject cage;
     [SerializeField] private GameObject cageOpen;
     [SerializeField] private GameObject liked;
@@ -30,6 +32,8 @@ public class Stage3Spider : MonoBehaviour
                 isOpen = true;
             }
             wantKey.SetActive(false);
+            cageMoving.SetActive(false);
+            cageMoving2.SetActive(false);
             cage.SetActive(false);
             cageOpen.SetActive(true);
             Invoke("DoorOpen", 2f);
