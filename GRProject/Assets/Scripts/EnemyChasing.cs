@@ -20,6 +20,7 @@ public class EnemyChasing : MonoBehaviour
     private float hitscanDistance = 1f;
 
     private bool canSlow = true;
+    private bool playerInvincible;
 
     private void Awake()
     {
@@ -36,7 +37,7 @@ public class EnemyChasing : MonoBehaviour
     {
         TargetChasing();
         MobFlip();
-
+        playerInvincible = PlayerController.invincible;
     }
     public void TargetChasing()                    // 플레이어 추적
     {
@@ -49,8 +50,10 @@ public class EnemyChasing : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            HealthGauge.health -= 0.5f;
-            //EnemyStatus.enemyHealth -= 2f;
+            if(playerInvincible == false)
+            {
+                HealthGauge.health -= 0.5f;
+            }
         }
         if (collision.CompareTag("Web")||collision.CompareTag("WebLv4"))
         {

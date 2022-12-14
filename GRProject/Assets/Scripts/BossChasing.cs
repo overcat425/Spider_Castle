@@ -21,6 +21,7 @@ public class BossChasing : MonoBehaviour
     private float hitscanDistance = 5f;
 
     [SerializeField] private AudioClip bossDashSound;
+    private bool playerInvincible;
     private bool canDash;
     private bool isWander;
     private bool getTarget;
@@ -46,6 +47,7 @@ public class BossChasing : MonoBehaviour
     }
     void Update()
     {
+        playerInvincible = PlayerController.invincible;
         if (Vector2.Distance(transform.position, target.position) < 1000)   // 범위내로 들어오면
         {
             isWander = false;       // 배회모드 OFF
@@ -125,7 +127,10 @@ public class BossChasing : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            HealthGauge.health -= 2f;
+            if (playerInvincible == false)
+            {
+                HealthGauge.health -= 0.5f;
+            }
         }
     }
     public void MobFlip()

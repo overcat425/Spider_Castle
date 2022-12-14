@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private bool enable4;
     private bool enable5;
 
+    public static bool invincible = false;
     public static bool canPlayerMove = false;
     public static bool isPause = false;
 
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
     private bool isDashing;
     private float dashingTime = 0.2f;
     private float dashingCoolDown = 0.25f;
+    [SerializeField]    private SpriteRenderer sr;
     [SerializeField]    private TrailRenderer tr;
     [SerializeField]    public float jumpCoolDown;
     public int teleportationCount = 2;
@@ -144,10 +146,6 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && canDash)
             {
                 StartCoroutine("Dash");
-                if (SaveManager.skill2LabLvInstance == 4)
-                {
-                    InvincibleOn();
-                }
             }
         }else if(SaveManager.skill3EnableInstance == false)
         {
@@ -167,13 +165,19 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.CompareTag("Enemy")|| collision.CompareTag("Boss"))
         {
-            StartCoroutine("OnBloodScreen");            // 피격시 빨간화면 코루틴 실행
+            if(invincible == false)
+            {
+                StartCoroutine("OnBloodScreen");            // 피격시 빨간화면 코루틴 실행
+            }
         }
         if (collision.CompareTag("Elec"))
         {
-            StartCoroutine("OnBloodScreen");
-            HealthGauge.health -= 5f;
-            SoundManager.SoundEffect.SoundPlay("electricShock", electricShock);
+            if (invincible == false)
+            {
+                StartCoroutine("OnBloodScreen");
+                HealthGauge.health -= 5f;
+                SoundManager.SoundEffect.SoundPlay("electricShock", electricShock);
+            }
         }
         if (collision.CompareTag("HealItem"))
         {
@@ -333,6 +337,10 @@ public class PlayerController : MonoBehaviour
             { LerpMove(this.transform.position, this.transform.position + new Vector3(0, -150, 0), lerpTime); }
             //rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
             SoundManager.SoundEffect.SoundPlay("jumpSound", jumpSound);
+            if (SaveManager.skill2LabLvInstance == 4)
+            {
+                InvincibleOn();
+            }
             tr.emitting = true;
             yield return new WaitForSeconds(dashingTime);
             tr.emitting = false;
@@ -377,12 +385,14 @@ public class PlayerController : MonoBehaviour
     }
     private void InvincibleOn()
     {
-        gameObject.tag = "PlayerJump";
+        invincible = true;
+        sr.color = new Color(1,1,1,0.2f);
         Invoke("InvincibleOff", 1f);
     }
     private void InvincibleOff()
     {
-        gameObject.tag = "Player";
+        invincible = false;
+        sr.color = new Color(1, 1, 1, 1);
     }
     private void SpiderSpawnRandom()
     {
