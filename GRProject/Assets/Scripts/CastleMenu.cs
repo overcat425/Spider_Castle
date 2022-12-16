@@ -7,9 +7,6 @@ using UnityEngine.UI;
 public class CastleMenu : MonoBehaviour
 {
     public EnhanceMenu enhanceMenu;
-    //private AudioSource audioSource;                // 버튼 효과음
-    //[SerializeField]
-    //private AudioClip audioClip;            // 효과음 클립
     Vector3 defaultScale;                       // 버튼 크기 벡터
 
     [SerializeField]    private GameObject castleSpider;
@@ -45,7 +42,6 @@ public class CastleMenu : MonoBehaviour
     {
         Debug.Log("던전");
         dungeonUi.SetActive(true);
-        //audioSource.GetComponent<AudioSource>(); //audioSource.Play();
     }
     public void OnClickLab()
     {

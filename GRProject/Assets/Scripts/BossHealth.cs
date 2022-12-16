@@ -12,7 +12,6 @@ public class BossHealth : MonoBehaviour
 
     public float CurrentHP => bossHealth; // 외부에서도 볼수 있도록 property 정의
     public float MaxHP => bossMaxHealth;
-    // Start is called before the first frame update
     private void Awake()
     {
         bossHealth = bossMaxHealth;                                 // 초기 체력 = 최대체력
@@ -22,7 +21,6 @@ public class BossHealth : MonoBehaviour
         bossHealthBar = GetComponent<Image>();          // 체력바 구현
     }
 
-    // Update is called once per frame
     void Update()
     {
         bossHealth = BossStatus.bossHealth;

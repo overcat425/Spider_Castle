@@ -32,7 +32,6 @@ public class EnemyAttack : MonoBehaviour
     }
     public void Update()
     {
-        //navMeshAgent.SetDestination(target.position);
     }
     public void ChangeState(EnemyState newState)
     {

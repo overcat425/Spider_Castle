@@ -26,10 +26,6 @@ public class GeneScript : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        //if (collision.CompareTag("MagnetField")) // Update문의 조건으로 변경
-        //{
-        //    transform.position = Vector2.MoveTowards(transform.position, target.position, 10f);
-        //}
         if (collision.CompareTag("Player"))
         {
             Collected();

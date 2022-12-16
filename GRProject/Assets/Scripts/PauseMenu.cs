@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
-
 public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]    private GameObject go_BaseUi;
@@ -15,7 +14,6 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         defaultScale = buttonScale.localScale;
     }
-    // Update is called once per frame
     private void Update()
     {
         if (PlayerController.isClear == false)

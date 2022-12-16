@@ -88,18 +88,6 @@ public class PlayerSkill : MonoBehaviour
         {
             webCounter.SetActive(false);
         }
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    if (maceOn == false)
-        //    {
-        //        webMace.SetActive(true);
-        //        maceOn = true;
-        //    }else if (maceOn == true)
-        //    {
-        //        webMace.SetActive(false);
-        //        maceOn = false;
-        //    }
-        //}
     }
     private void OnDrawGizmos()
     {

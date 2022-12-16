@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class cookie_1 : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
@@ -9,10 +8,8 @@ public class cookie_1 : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-
      void Update()
     {
-
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {

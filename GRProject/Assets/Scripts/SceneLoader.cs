@@ -12,8 +12,6 @@ public class SceneLoader : MonoBehaviour
     {
         StartCoroutine(LoadScene());
     }
-
-    // Update is called once per frame
     void Update()
     {
 
@@ -32,7 +30,6 @@ public class SceneLoader : MonoBehaviour
         while (!operation.isDone)
         {
             yield return null;
-
         }
     }
 }

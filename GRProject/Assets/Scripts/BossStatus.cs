@@ -32,7 +32,6 @@ public class BossStatus : MonoBehaviour
     }
     private void Start()
     {
-        //healthBar = GetComponent<Image>();
         bossHealth = maxHealth;
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         if (poisonLabLv <= 2)

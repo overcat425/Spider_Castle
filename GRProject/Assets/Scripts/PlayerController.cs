@@ -187,13 +187,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    private void OnTriggerStay2D(Collider2D collision)          // 피격 시
-    {
-        if (collision.CompareTag("Enemy"))
-        {
-            //StartCoroutine("OnBloodScreen");            // 피격시 빨간화면 코루틴 실행
-        }
-    }
     private void FixedUpdate()
     {
         if (isDashing)
@@ -541,30 +534,15 @@ public class PlayerController : MonoBehaviour
             coinsUiSize.localScale = Vector3.one * ((time - 1.0f) * 2f);
             geneUiSize.localScale = Vector3.one * ((time - 1.0f) * 2f);
         }
-        else if(time > 1.5f)
-        {
-            //Time.timeScale = 0f;
-        }
-        //if (SaveManager.getSkill3EnableInstance == true)
-        //{
-        //    Debug.Log(SaveManager.getSkill3EnableInstance);
-        //    jumpUnlock.SetActive(false);
-        //    somethingUnlock.SetActive(true);
-        //}
-        //else if (SaveManager.getSkill3EnableInstance == false)
-        //{
-        //    Debug.Log(SaveManager.getSkill3EnableInstance);
-        //    somethingUnlock.SetActive(false);
-        //    jumpUnlock.SetActive(true);
-        //}
     }
     private void ClearSound()
     {
         if(clearNum == 0)
         {
-            SoundManager.SoundEffect.SoundPlay("clearSound", clearSound);
-            SoundManager.SoundEffect.SoundPlay("clearSound", clearSound);
-            SoundManager.SoundEffect.SoundPlay("clearSound", clearSound);
+            for(int i = 0; i < 3; i++)
+            {
+                SoundManager.SoundEffect.SoundPlay("clearSound", clearSound);
+            }
             clearNum++;
         }
     }

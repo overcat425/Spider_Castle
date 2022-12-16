@@ -10127,7 +10127,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294901925
-  m_fontColor: {r: 0.6460686, g: 0, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -10609,7 +10609,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294901925
-  m_fontColor: {r: 0.64705896, g: 0, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -38430,7 +38430,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294901925
-  m_fontColor: {r: 0.6460686, g: 0, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -40491,7 +40491,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294901925
-  m_fontColor: {r: 0.6460686, g: 0, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -41992,7 +41992,7 @@ MonoBehaviour:
   mastered: {fileID: 933458041}
   needCostLab: {fileID: 15103404}
   masteredLab: {fileID: 949166224}
-  clip: {fileID: 0}
+  alertClip: {fileID: 0}
   hideNotice: 0
   earnedCoins: 0
   earnedCoinsCount: {fileID: 1279571824}

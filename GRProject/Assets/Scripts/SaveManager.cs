@@ -37,7 +37,7 @@ public class SaveManager : MonoBehaviour
     public GameObject masteredLab;
 
     [SerializeField]
-    private AudioClip clip;
+    private AudioClip alertClip;
     PlayerData playData = new PlayerData();
     string path;
     string filename = "savedata";
@@ -139,7 +139,7 @@ public class SaveManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         path = Application.persistentDataPath+ "/";
     }
-    void Start()
+    public void Start()
     {
         if (File.Exists(path+filename))
         {
@@ -194,7 +194,7 @@ public class SaveManager : MonoBehaviour
         if (savefile == false)                      // 세이브파일이 없을 때
         {
             noSaveData.SetActive(true);
-            SoundManager.SoundEffect.SoundPlay("AlertSound", clip);
+            SoundManager.SoundEffect.SoundPlay("alertClip", alertClip);
         }
         else if (savefile == true)                  // 세이브파일 있을 때
         {

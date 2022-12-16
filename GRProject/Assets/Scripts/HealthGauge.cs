@@ -29,12 +29,7 @@ public class HealthGauge : MonoBehaviour
 
         if(health <= 0f)
         {
-            Debug.Log("Game Over");
             SceneManager.LoadScene("GameOver");
         }
     }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    Destroy(collision.gameObject);
-    //}
 }

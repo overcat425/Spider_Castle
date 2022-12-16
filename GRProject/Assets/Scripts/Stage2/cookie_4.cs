@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class cookie_4 : MonoBehaviour
 {
-  private SpriteRenderer spriteRenderer;
-    // Start is called before the first frame update
+    private SpriteRenderer spriteRenderer;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-
     }
-
      void Update()
     {
-
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {

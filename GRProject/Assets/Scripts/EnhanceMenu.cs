@@ -12,7 +12,6 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField]    private GameObject cobTab;
     [SerializeField]    private GameObject summary;
     [SerializeField]    private GameObject spiderInfo;
-
     #region
     [Header("Lab≈« Ω∫≈≥")]
     [SerializeField]    private GameObject skill2LabPane;
@@ -39,7 +38,6 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField]    private GameObject skill4LabLv3Pane;
     [SerializeField]    private GameObject skill4LabLv4Pane;
     #endregion
-
     [Header("Enhance≈« Ω∫≈≥")]
     [SerializeField]    private GameObject skill0;
     [SerializeField]    private GameObject skill1;
@@ -86,12 +84,10 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void CallMenu()
     {
-        //PlayerController.isPause = true;
         enhanceUi.SetActive(true);
     }
     public void CloseMenu()
     {
-        //PlayerController.isPause = false;
         enhanceUi.SetActive(false);
     }
     public void ClickExit()

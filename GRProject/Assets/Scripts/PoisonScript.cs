@@ -12,12 +12,6 @@ public class PoisonScript : MonoBehaviour
         Invoke("SetTruePoison", 0.5f);
         Invoke("DestroyObject", 3.5f);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void DestroySpit()
     {
         Destroy(spitPoison);

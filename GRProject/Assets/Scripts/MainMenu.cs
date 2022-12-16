@@ -9,27 +9,13 @@ public class MainMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Transform buttonScale;           // 버튼 크기
     private AudioSource audioSource;                // 버튼 효과음
-    //[SerializeField]
-    //private AudioClip audioClip;            // 효과음 클립
     Vector3 defaultScale;                       // 버튼 크기 벡터
     void Start()
     {
-        Cursor.lockState = CursorLockMode.None;             // 커서 중앙에 고정
-        Cursor.visible = true;                                         // 커서 안보이게
-        defaultScale = buttonScale.localScale;
+        defaultScale = buttonScale.localScale;                      // 버튼 스케일
     }
     void Update()
     {    
-    }
-    public void OnClickNewGame()                            // 뉴게임씬 시작
-    {
-        Debug.Log("게임시작");
-        //audioSource.GetComponent<AudioSource>();
-        //audioSource.Play();
-    }
-    public void OnClickLoadGame()
-    {
-        Debug.Log("게임 이어하기");
     }
     public void OnClickQuit()
     {

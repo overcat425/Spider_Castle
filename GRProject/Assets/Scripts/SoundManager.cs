@@ -20,7 +20,6 @@ public class SoundManager : MonoBehaviour
         if(SoundEffect == null)
         {
             SoundEffect = this;
-            //DontDestroyOnLoad(SoundEffect);
         }
         else
         {
@@ -43,8 +42,6 @@ public class SoundManager : MonoBehaviour
     }
     private void Update()
     {
-        //Debug.Log("bgm"+bgmVolume.value);
-        //Debug.Log("eft"+effectVolume.value);
         SaveManager.getBgmInstance = bgmVolume.value;
         SaveManager.getEffectInstance = effectVolume.value;
     }
@@ -63,18 +60,13 @@ public class SoundManager : MonoBehaviour
     {
         musicSource.volume = bgmVolume.value;
         bossMusicSource.volume = bgmVolume.value;
-        //musicSource.volume = volume; + 매개변수 float volume
     }
     public void SetEffectVolume()
     {
         effectSource.volume = effectVolume.value;
-        //effectSource.volume = volume; + 매개변수 float volume
     }
     public void SaveVolume()
     {
         saveManager.SaveVolume();
-    }
-    public void Load()
-    {
     }
 }

@@ -14,10 +14,6 @@ public class CharacterFlip : MonoBehaviour
     private void Update()
     {
         CharFlip();
-        //if (Input.GetKey(KeyCode.Z))
-        //{
-            //Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(point, size, angle);
-        //}
     }
     public void CharFlip()
     {                   // 방향키 하나라도 입력받으면 대기에서 걷기 모션으로 변환
