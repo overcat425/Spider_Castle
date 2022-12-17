@@ -154,6 +154,7 @@ public class PlayerController : MonoBehaviour
         if (isClear)
         {
             canPlayerMove = false;
+            eraser.SetActive(true);
             Invoke("ClearEvent", 3.5f);
         }
     }
