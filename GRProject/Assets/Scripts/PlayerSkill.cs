@@ -47,7 +47,7 @@ public class PlayerSkill : MonoBehaviour
     private void Awake()
     {
         circleR = 400f;
-        webMaceCount = SaveManager.skill1LabLvInstance+1;
+        webMaceCount = SaveManager.skill1LabLvStat + 1;
         if (webMaceCount <= 4)
         {
             objSpeed = 150f;
@@ -59,7 +59,7 @@ public class PlayerSkill : MonoBehaviour
         {
             webMaceCount = 4;
         }
-        poisonLabLv = SaveManager.skill4LabLvInstance;
+        poisonLabLv = SaveManager.skill4LabLvStat;
         if (poisonLabLv >= 3)
         {
             poisonLabLv = 2;
@@ -71,7 +71,7 @@ public class PlayerSkill : MonoBehaviour
         StartCoroutine("WebCoolDown");
         MaceOn();
         InvokeRepeating("MaceSound", 1, 1.5f);
-        if (SaveManager.skill5EnableInstance == true)
+        if (SaveManager.skill5EnableStat == true)
         {
             poisonUi.SetActive(true);
             StartCoroutine("SpitPoison");
@@ -79,12 +79,12 @@ public class PlayerSkill : MonoBehaviour
     }
     void Update()
     {
-        trapCoolDown = 4 - (SaveManager.skill4LvInstance);
+        trapCoolDown = 4 - (SaveManager.skill4LvStat);
         StartCoroutine("WebMace");
-        if (SaveManager.skill4EnableInstance == true)
+        if (SaveManager.skill4EnableStat == true)
         {
             StartCoroutine("MakeWeb");
-        }else if(SaveManager.skill4EnableInstance == false)
+        }else if(SaveManager.skill4EnableStat == false)
         {
             webCounter.SetActive(false);
         }
@@ -191,7 +191,7 @@ public class PlayerSkill : MonoBehaviour
     }
     private void SpawnWeb()
     {
-        int skill3Lab = SaveManager.skill3LabLvInstance;
+        int skill3Lab = SaveManager.skill3LabLvStat;
         if (skill3Lab == 0)
         {
             webLv0.transform.position = new Vector3(player.position.x, player.position.y, 0.1f);

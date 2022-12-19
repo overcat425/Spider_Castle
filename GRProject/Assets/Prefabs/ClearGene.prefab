@@ -639,7 +639,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC5F4\uC1E0\uB97C 3\uAC1C \uBAA8\uC544\uC11C\n\uD480\uC5B4\uC918!"
+  m_text: "\uC5F4\uC1E0\uB97C 3\uAC1C \uBAA8\uC544\uC57C\n\uC5F4 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 50543fbf8150b4540a99b1fc97e05366, type: 2}
   m_sharedMaterial: {fileID: -8114787824660201787, guid: 50543fbf8150b4540a99b1fc97e05366, type: 2}
@@ -785,7 +785,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 875019176dd184a4297ee64282e32b3a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

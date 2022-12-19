@@ -29,7 +29,7 @@ public class EnemyStatus : MonoBehaviour
     {
         sprite = gameObject.GetComponent<SpriteRenderer>();
         color = sprite.color;
-        poisonLabLv = SaveManager.skill4LabLvInstance;
+        poisonLabLv = SaveManager.skill4LabLvStat;
     }
     private void Start()
     {
@@ -46,9 +46,9 @@ public class EnemyStatus : MonoBehaviour
     }
     private void Update()
     {
-        baseDamage = SaveManager.skill1LvInstance * 30;
-        maceDamage = SaveManager.skill2LvInstance * 10;
-        poisonDamage = SaveManager.skill5LvInstance * 2;
+        baseDamage = SaveManager.skill1LvStat * 50;
+        maceDamage = SaveManager.skill2LvStat * 10;
+        poisonDamage = SaveManager.skill5LvStat * 2;
         if (enemyHealth <= 0)
         {
             DestroyEnemy();

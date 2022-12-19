@@ -13,7 +13,7 @@ public class PoisonCoolDown : MonoBehaviour
 
     private void Awake()
     {
-        poisonLabLv = SaveManager.skill4LabLvInstance;
+        poisonLabLv = SaveManager.skill4LabLvStat;
         if (poisonLabLv >= 3)
         {
             poisonLabLv = 2;

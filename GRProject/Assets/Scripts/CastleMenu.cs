@@ -27,7 +27,7 @@ public class CastleMenu : MonoBehaviour
         HealthGauge.canAutoSave = false;
         PlayerController.isClear = false;
         PlayerController.keysCount = 0;
-        hideHelp = SaveManager.hideNoticeInstance;
+        hideHelp = SaveManager.hideNoticeStat;
         ShowTips();
     }
     void Start()
@@ -40,24 +40,20 @@ public class CastleMenu : MonoBehaviour
     }
     public void OnClickDungeon()
     {
-        Debug.Log("´øÀü");
         dungeonUi.SetActive(true);
     }
     public void OnClickLab()
     {
-        Debug.Log("¿¬±¸¼Ò");
         enhanceMenu.CallMenu();
         enhanceMenu.OnClickLabTab();
     }
     public void OnClickEnhancement()
     {
-        Debug.Log("°­È­¼Ò");
         enhanceMenu.CallMenu();
         enhanceMenu.OnClickEnhanceTab();
     }
     public void OnClickCobweb()
     {
-        Debug.Log("°Å¹Ì ¼÷¼Ò");
         enhanceMenu.CallMenu();
         enhanceMenu.OnClickCobTab();
     }
@@ -70,12 +66,10 @@ public class CastleMenu : MonoBehaviour
         if (hideHelp == true)
         {
             helpNotice.SetActive(false);
-            Debug.Log("ÅøÆÁ ¼û±è" + hideHelp);
 
         }else if (hideHelp == false)
         {
             OnClickShowCob();
-            Debug.Log("ÅøÆÁ ½ÇÇà" + hideHelp);
         }
     }
     public void OnClickShowCob()

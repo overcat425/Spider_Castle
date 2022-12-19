@@ -96,19 +96,19 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         time = 0f;
-        if (SaveManager.skill2LabLvInstance < 4)
+        if (SaveManager.skill2LabLvStat < 4)
         {
-            moveSpeed = 300 + (SaveManager.skill2LabLvInstance * 30);
-        }else if (SaveManager.skill2LabLvInstance == 4){
+            moveSpeed = 300 + (SaveManager.skill2LabLvStat * 30);
+        }else if (SaveManager.skill2LabLvStat == 4){
             moveSpeed = 390;
         }
         isPause = false;
         movement = GetComponent<CharacterMovement>();
         Time.timeScale = 1f;
         clearNum = 0;
-        enable3 = SaveManager.skill3EnableInstance;
-        enable4 = SaveManager.skill4EnableInstance;
-        enable5 = SaveManager.skill5EnableInstance;
+        enable3 = SaveManager.skill3EnableStat;
+        enable4 = SaveManager.skill4EnableStat;
+        enable5 = SaveManager.skill5EnableStat;
     }
     private void Start()
     {
@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        jumpCoolDown = 6 - (SaveManager.skill3LvInstance);
+        jumpCoolDown = 6 - (SaveManager.skill3LvStat);
         if (canPlayerMove)
         {
             UpdateMove();
@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
         {
             canPlayerMove = true;
         }
-        if (SaveManager.skill3EnableInstance == true)
+        if (SaveManager.skill3EnableStat == true)
         {
             if (isDashing)
             {
@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
             {
                 StartCoroutine("Dash");
             }
-        }else if(SaveManager.skill3EnableInstance == false)
+        }else if(SaveManager.skill3EnableStat == false)
         {
             tpCounter.SetActive(false);
         }
@@ -331,7 +331,7 @@ public class PlayerController : MonoBehaviour
             { LerpMove(this.transform.position, this.transform.position + new Vector3(0, -150, 0), lerpTime); }
             //rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
             SoundManager.SoundEffect.SoundPlay("jumpSound", jumpSound);
-            if (SaveManager.skill2LabLvInstance == 4)
+            if (SaveManager.skill2LabLvStat == 4)
             {
                 InvincibleOn();
             }
@@ -515,9 +515,9 @@ public class PlayerController : MonoBehaviour
     }
     private void ClearEvent()
     {
-        killedText.text = EnemySpawnPool.enemyKilledCountInstance.ToString();
-        coinsText.text = CoinManager.earnedCoinsInstance.ToString();
-        geneText.text = CoinManager.earnedGeneInstance.ToString();
+        killedText.text = EnemySpawnPool.enemyKilledCountStat.ToString();
+        coinsText.text = CoinManager.earnedCoinsStat.ToString();
+        geneText.text = CoinManager.earnedGeneStat.ToString();
         Invoke("ClearStop", 3);
         eraser.SetActive(true);
         clearUi.SetActive(true);

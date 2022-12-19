@@ -12199,6 +12199,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1873822583}
+        m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
+        m_MethodName: SaveData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 985731864}
         m_TargetAssemblyTypeName: DungeonMenu, Assembly-CSharp
         m_MethodName: StartStage1
@@ -17792,6 +17804,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1873822583}
+        m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
+        m_MethodName: SaveData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 985731864}
         m_TargetAssemblyTypeName: DungeonMenu, Assembly-CSharp
         m_MethodName: StartStage2
@@ -19157,7 +19181,6 @@ MonoBehaviour:
   skill3Enable: 0
   skill4Enable: 0
   skill5Enable: 0
-  buttonScale: {fileID: 0}
 --- !u!1 &828485907
 GameObject:
   m_ObjectHideFlags: 0
@@ -25962,6 +25985,7 @@ GameObject:
   - component: {fileID: 1114389487}
   - component: {fileID: 1114389486}
   - component: {fileID: 1114389489}
+  - component: {fileID: 1114389491}
   - component: {fileID: 1114389490}
   m_Layer: 5
   m_Name: ResumeBtn
@@ -26098,7 +26122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   go_BaseUi: {fileID: 1158534398}
-  buttonScale: {fileID: 1114389485}
 --- !u!114 &1114389490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26144,6 +26167,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1114389491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114389484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a217db408e3d5041ba728fef81d7bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScale: {fileID: 1114389485}
 --- !u!1 &1121844721
 GameObject:
   m_ObjectHideFlags: 0
@@ -28513,6 +28549,7 @@ GameObject:
   - component: {fileID: 1265509491}
   - component: {fileID: 1265509490}
   - component: {fileID: 1265509493}
+  - component: {fileID: 1265509495}
   - component: {fileID: 1265509494}
   m_Layer: 5
   m_Name: MainMenuBtn
@@ -28649,7 +28686,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   go_BaseUi: {fileID: 1158534398}
-  buttonScale: {fileID: 1265509489}
 --- !u!114 &1265509494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28695,6 +28731,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1265509495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265509488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a217db408e3d5041ba728fef81d7bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScale: {fileID: 1265509489}
 --- !u!1 &1276338237
 GameObject:
   m_ObjectHideFlags: 0
@@ -33705,6 +33754,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1873822583}
+        m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
+        m_MethodName: SaveData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 985731864}
         m_TargetAssemblyTypeName: DungeonMenu, Assembly-CSharp
         m_MethodName: StartStage3
@@ -37423,7 +37484,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uCD5C\uB300 \uB808\uBCA8:10\n\n\uB370\uBBF8\uC9C0:lv*30"
+  m_text: "\uCD5C\uB300 \uB808\uBCA8:10\n\n\uB370\uBBF8\uC9C0:lv*50"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 50543fbf8150b4540a99b1fc97e05366, type: 2}
   m_sharedMaterial: {fileID: -8114787824660201787, guid: 50543fbf8150b4540a99b1fc97e05366, type: 2}
@@ -39812,6 +39873,7 @@ GameObject:
   - component: {fileID: 1781366519}
   - component: {fileID: 1781366518}
   - component: {fileID: 1781366521}
+  - component: {fileID: 1781366523}
   - component: {fileID: 1781366522}
   m_Layer: 5
   m_Name: SaveBtn
@@ -39897,6 +39959,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1873822583}
+        m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
+        m_MethodName: SaveSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1781366519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39948,7 +40022,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   go_BaseUi: {fileID: 1158534398}
-  buttonScale: {fileID: 1781366517}
 --- !u!114 &1781366522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39994,6 +40067,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1781366523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781366516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a217db408e3d5041ba728fef81d7bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScale: {fileID: 1781366517}
 --- !u!1 &1782839244
 GameObject:
   m_ObjectHideFlags: 0
@@ -41574,7 +41660,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   go_BaseUi: {fileID: 1158534398}
-  buttonScale: {fileID: 0}
 --- !u!1 &1856768033
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,12 +28,10 @@ public class SoundManager : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log(SaveManager.bgmVolumeInstance);
-        Debug.Log(SaveManager.effectVolumeInstance);
         if (SaveManager.savefile == true)
         {
-            bgmVolume.value = SaveManager.bgmVolumeInstance;
-            effectVolume.value = SaveManager.effectVolumeInstance;
+            bgmVolume.value = SaveManager.bgmVolumeStat;
+            effectVolume.value = SaveManager.effectVolumeStat;
         }else if (SaveManager.savefile == false)
         {
             bgmVolume.value = 0.6f;
@@ -42,8 +40,8 @@ public class SoundManager : MonoBehaviour
     }
     private void Update()
     {
-        SaveManager.getBgmInstance = bgmVolume.value;
-        SaveManager.getEffectInstance = effectVolume.value;
+        SaveManager.getBgmStat = bgmVolume.value;
+        SaveManager.getEffectStat = effectVolume.value;
     }
     public void SoundPlay(string sound, AudioClip clip)
     {

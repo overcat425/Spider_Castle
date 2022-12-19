@@ -15,7 +15,7 @@ public class HealthGauge : MonoBehaviour
     public float MaxHP => maxHealth;
     private void Awake()
     {
-        maxHealth = 100 + (SaveManager.skill0LvInstance*20);
+        maxHealth = 100 + (SaveManager.skill0LvStat * 20);
     }
     private void Start()
     {

@@ -5,14 +5,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
-public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class PauseMenu : MonoBehaviour
 {
     [SerializeField]    private GameObject go_BaseUi;
-    public Transform buttonScale;
-    Vector3 defaultScale;
     private void Start()
     {
-        defaultScale = buttonScale.localScale;
     }
     private void Update()
     {
@@ -61,14 +58,5 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 #else
                 Application.Quit();
 #endif
-    }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        buttonScale.localScale = defaultScale * 1.2f;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        buttonScale.localScale = defaultScale;
     }
 }

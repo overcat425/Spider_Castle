@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]    private GameObject enhanceUi;
     [SerializeField]    private GameObject labTab;
@@ -64,17 +64,17 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public bool skill4Enable;
     public bool skill5Enable;
 
-    public Transform buttonScale;
-    Vector3 defaultScale;
+    //public Transform buttonScale;
+    //Vector3 defaultScale;
     private void Start()
     {
-        defaultScale = buttonScale.localScale;
+        //defaultScale = buttonScale.localScale;
     }
     private void Update()
     {
-        skill3Enable = SaveManager.skill3EnableInstance;
-        skill4Enable = SaveManager.skill4EnableInstance;
-        skill5Enable = SaveManager.skill5EnableInstance;
+        skill3Enable = SaveManager.skill3EnableStat;
+        skill4Enable = SaveManager.skill4EnableStat;
+        skill5Enable = SaveManager.skill5EnableStat;
         EnableSkills();
         EnableSpiders();
         Skill1LabPane();
@@ -117,7 +117,7 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void Skill1LabPane()
     {
-        int skill1LabLv = SaveManager.skill1LabLvInstance;
+        int skill1LabLv = SaveManager.skill1LabLvStat;
         if (skill1LabLv == 0)
         {
             skill1LabLv1Pane.SetActive(false);
@@ -156,7 +156,7 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void Skill2LabPane()
     {
-        int skill2LabLv = SaveManager.skill2LabLvInstance;
+        int skill2LabLv = SaveManager.skill2LabLvStat;
         if (skill2LabLv == 0)
         {
             skill2LabLv1Pane.SetActive(false);
@@ -195,7 +195,7 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void Skill3LabPane()
     {
-        int skill3LabLv = SaveManager.skill3LabLvInstance;
+        int skill3LabLv = SaveManager.skill3LabLvStat;
         if (skill3LabLv == 0)
         {
             skill3LabLv1Pane.SetActive(false);
@@ -233,7 +233,7 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void Skill4LabPane()
     {
-        int skill4LabLv = SaveManager.skill4LabLvInstance;
+        int skill4LabLv = SaveManager.skill4LabLvStat;
         if (skill4LabLv == 0)
         {
             skill4LabLv1Pane.SetActive(false);
@@ -424,12 +424,12 @@ public class EnhanceMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             spider4Pane.SetActive(false);
         }
     }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        buttonScale.localScale = defaultScale * 1.1f;
-    }
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        buttonScale.localScale = defaultScale;
-    }
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{
+    //    buttonScale.localScale = defaultScale * 1.1f;
+    //}
+    //public void OnPointerExit(PointerEventData eventData)
+    //{
+    //    buttonScale.localScale = defaultScale;
+    //}
 }

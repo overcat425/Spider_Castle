@@ -45,32 +45,32 @@ public class SaveManager : MonoBehaviour
     public bool hideNotice;
 
     [Header("인스턴스")]       // 외부 스크립트 전용 static 수치
-    public static float bgmVolumeInstance;
-    public static float getBgmInstance;
-    public static float effectVolumeInstance;
-    public static float getEffectInstance;
-    public static int skill0LvInstance;
-    public static int skill1LvInstance;
-    public static int skill2LvInstance;
-    public static int skill3LvInstance;
-    public static int skill4LvInstance;
-    public static int skill5LvInstance;
-    public static int skill1LabLvInstance;
-    public static int skill2LabLvInstance;
-    public static int skill3LabLvInstance;
-    public static int skill4LabLvInstance;
-    public static bool skill3EnableInstance;
-    public static bool skill4EnableInstance;
-    public static bool skill5EnableInstance;
-    public static bool getSkill3EnableInstance;
-    public static bool getSkill4EnableInstance;
-    public static bool getSkill5EnableInstance;
-    public static bool hideNoticeInstance;
-    public static int coinsInstance;
-    public static int geneInstance;
+    public static float bgmVolumeStat;
+    public static float getBgmStat;
+    public static float effectVolumeStat;
+    public static float getEffectStat;
+    public static int skill0LvStat;
+    public static int skill1LvStat;
+    public static int skill2LvStat;
+    public static int skill3LvStat;
+    public static int skill4LvStat;
+    public static int skill5LvStat;
+    public static int skill1LabLvStat;
+    public static int skill2LabLvStat;
+    public static int skill3LabLvStat;
+    public static int skill4LabLvStat;
+    public static bool skill3EnableStat;
+    public static bool skill4EnableStat;
+    public static bool skill5EnableStat;
+    public static bool getSkill3EnableStat;
+    public static bool getSkill4EnableStat;
+    public static bool getSkill5EnableStat;
+    public static bool hideNoticeStat;
+    public static int coinsStat;
+    public static int geneStat;
 
-    public static int getCoinInstance;          // CoinManager에서 가져오는 수치
-    public static int getGeneInstance;
+    public static int getCoinStat;          // CoinManager에서 가져오는 수치
+    public static int getGeneStat;
 
     [Header("재화")]
     public int earnedCoins;
@@ -156,6 +156,9 @@ public class SaveManager : MonoBehaviour
         skill2LabLevel = playData.skill2LabLv;
         skill3LabLevel = playData.skill3LabLv;
         skill4LabLevel = playData.skill4LabLv;
+        getSkill3EnableStat = playData.skill3Enable;
+        getSkill4EnableStat = playData.skill4Enable;
+        getSkill5EnableStat = playData.skill5Enable;
         earnedCoins = playData.coins;
         earnedGene = playData.gene;
         hideNotice = playData.hideHelpNotice;
@@ -165,9 +168,11 @@ public class SaveManager : MonoBehaviour
     {
         //playData.bgmVolume = soundManager.musicSource.volume;
         //playData.effectVolume =  soundManager.effectSource.volume;
-        Instancing();
-        Sync();
-        //Debug.Log(skill3EnableInstance);
+        Initializing();
+        TextSync();
+        Debug.Log("skill3Enable : " + playData.skill3Enable);
+        Debug.Log("skill3EnableStat : " + skill3EnableStat);
+        Debug.Log("getSkill3EnableStat : " + getSkill3EnableStat);
         StartCoroutine("AutoSave");
         if(SceneManager.GetActiveScene().name == "GameOver")
         {
@@ -225,8 +230,11 @@ public class SaveManager : MonoBehaviour
         string data = JsonUtility.ToJson(playData);
         File.WriteAllText(path+filename, data);
         savedAlert.SetActive(true);
-        SoundManager.SoundEffect.SoundPlay("savedGameAlert", savedGameAlert);
         print(path);
+    }
+    public void SaveSound()
+    {
+        SoundManager.SoundEffect.SoundPlay("savedGameAlert", savedGameAlert);
     }
     public void ExitAlert2()
     {
@@ -245,11 +253,11 @@ public class SaveManager : MonoBehaviour
             {
                 Debug.Log("클리어 자동저장");
                 SaveVolume();
-                playData.coins += getCoinInstance;
-                playData.gene += getGeneInstance;
-                playData.skill3Enable = getSkill3EnableInstance;
-                playData.skill4Enable = getSkill4EnableInstance;
-                playData.skill5Enable = getSkill5EnableInstance;
+                playData.coins += getCoinStat;
+                playData.gene += getGeneStat;
+                playData.skill3Enable = getSkill3EnableStat;
+                playData.skill4Enable = getSkill4EnableStat;
+                playData.skill5Enable = getSkill5EnableStat;
                 string data = JsonUtility.ToJson(playData);
                 File.WriteAllText(path + filename, data);
                 HealthGauge.canAutoSave = false;
@@ -516,7 +524,7 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
-    public void Sync()
+    public void TextSync()
     {
         skill0.text = skill0Level.ToString();
         skill1.text = (skill1Level + 1).ToString();
@@ -525,7 +533,7 @@ public class SaveManager : MonoBehaviour
         skill4.text = (skill4Level + 1).ToString();
         skill5.text = (skill5Level + 1).ToString();
         skill0Health = 100 + (skill0Level * 20);
-        baseDamage = (skill1Level + 1) * 30;
+        baseDamage = (skill1Level + 1) * 50;
         maceDamage = (skill2Level + 1) * 10;
         jumpCoolDown = 6 - (skill3Level + 1);
         trapCoolDown = 4 - (skill4Level + 1);
@@ -541,31 +549,31 @@ public class SaveManager : MonoBehaviour
         earnedGeneCount.text = earnedGene.ToString();
         earnedGeneCountMain.text = earnedGene.ToString();
     }
-    public void Instancing()
+    public void Initializing()
     {
-        bgmVolumeInstance = playData.bgmVolume;
-        effectVolumeInstance = playData.effectVolume;
-        skill0LvInstance = playData.skill0Lv;
-        skill1LvInstance = playData.skill1Lv+1;
-        skill2LvInstance = playData.skill2Lv+1;
-        skill3LvInstance = playData.skill3Lv+1;
-        skill4LvInstance = playData.skill4Lv + 1;
-        skill5LvInstance = playData.skill5Lv + 1;
-        skill1LabLvInstance = playData.skill1LabLv;
-        skill2LabLvInstance = playData.skill2LabLv;
-        skill3LabLvInstance = playData.skill3LabLv;
-        skill4LabLvInstance = playData.skill4LabLv;
-        skill3EnableInstance = playData.skill3Enable;
-        skill4EnableInstance = playData.skill4Enable;
-        skill5EnableInstance = playData.skill5Enable;
-        hideNoticeInstance = playData.hideHelpNotice;
-        coinsInstance = playData.coins;
-        geneInstance = playData.gene;
-}
+        bgmVolumeStat = playData.bgmVolume;
+        effectVolumeStat = playData.effectVolume;
+        skill0LvStat = playData.skill0Lv;
+        skill1LvStat = playData.skill1Lv+1;
+        skill2LvStat = playData.skill2Lv+1;
+        skill3LvStat = playData.skill3Lv+1;
+        skill4LvStat = playData.skill4Lv + 1;
+        skill5LvStat = playData.skill5Lv + 1;
+        skill1LabLvStat = playData.skill1LabLv;
+        skill2LabLvStat = playData.skill2LabLv;
+        skill3LabLvStat = playData.skill3LabLv;
+        skill4LabLvStat = playData.skill4LabLv;
+        skill3EnableStat = playData.skill3Enable;
+        skill4EnableStat = playData.skill4Enable;
+        skill5EnableStat = playData.skill5Enable;
+        hideNoticeStat = playData.hideHelpNotice;
+        coinsStat = playData.coins;
+        geneStat = playData.gene;
+    }
     public void SaveVolume()
     {
-        playData.bgmVolume = getBgmInstance;
-        playData.effectVolume = getEffectInstance;
+        playData.bgmVolume = getBgmStat;
+        playData.effectVolume = getEffectStat;
     }
     public void OnClickHideHelp()
     {

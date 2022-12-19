@@ -22,7 +22,7 @@ public class EnemySpawnPool : MonoBehaviour
 
     [Header("적 처치")]
     public int EnemyKilledCount;            // 적 카운터
-    public static int enemyKilledCountInstance;
+    public static int enemyKilledCountStat;
     [SerializeField]
     public Text EnemyKilled;                // 카운터값을 보여주는 텍스트
     private static EnemySpawnPool instance;
@@ -51,7 +51,7 @@ public class EnemySpawnPool : MonoBehaviour
     void Update()
     {
         EnemyKilled.text = EnemyKilledCount.ToString();
-        enemyKilledCountInstance = EnemyKilledCount;
+        enemyKilledCountStat = EnemyKilledCount;
         if (BossStatus.bossHealth <= 0)
         {
             BossDie();

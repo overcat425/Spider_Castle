@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class CoinManager : MonoBehaviour
 {
     public int earnedCoins;
-    public static int earnedCoinsInstance;
+    public static int earnedCoinsStat;
     [SerializeField]   public Text earnedCoinsCount;
     private static CoinManager instance;
 
     public int earnedGene;
-    public static int earnedGeneInstance;
+    public static int earnedGeneStat;
     [SerializeField] public Text earnedGeneCount;
     private static CoinManager GeneInstance;
 
@@ -40,10 +40,10 @@ public class CoinManager : MonoBehaviour
     private void Update()
     {
         earnedCoinsCount.text = earnedCoins.ToString();
-        SaveManager.getCoinInstance = earnedCoins;
-        earnedCoinsInstance = earnedCoins;
+        SaveManager.getCoinStat = earnedCoins;
+        earnedCoinsStat = earnedCoins;
         earnedGeneCount.text = earnedGene.ToString();
-        SaveManager.getGeneInstance = earnedGene;
-        earnedGeneInstance = earnedGene;
+        SaveManager.getGeneStat = earnedGene;
+        earnedGeneStat = earnedGene;
     }
 }
