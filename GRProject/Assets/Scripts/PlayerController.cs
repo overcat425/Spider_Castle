@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject go_BaseUi;
 
+
     public AudioClip clip;
     public AudioClip enemyDestroySound;
     public AudioClip jumpSound;
@@ -67,6 +68,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField]    private Image keyUi1;
     [SerializeField]    private Image keyUi2;
     [SerializeField]    private Image keyUi3;
+
+    [Header("Á×À½")]
+    private float screenTime;
+    private bool dieSoundOnce = false;
+    [SerializeField] private AudioClip dieSound;
+    [SerializeField] private Image dieScreen;
+    [SerializeField] private GameObject spiderImg;
+    [SerializeField] private GameObject spiderDieImg;
+    [SerializeField] private Transform spiderPos;
+    [SerializeField] private GameObject dieHP;
+    [SerializeField] private GameObject dieAttackGaugeBar;
+    [SerializeField] private GameObject dieAttackGauge;
+
 
     [Header("Å¬¸®¾î")]
     [SerializeField] private GameObject stage1Spidy;
@@ -145,7 +159,10 @@ public class PlayerController : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Space) && canDash)
             {
-                StartCoroutine("Dash");
+                if (HealthGauge.isDie == false)
+                {
+                    StartCoroutine("Dash");
+                }
             }
         }else if(SaveManager.skill3EnableStat == false)
         {
@@ -156,6 +173,13 @@ public class PlayerController : MonoBehaviour
             canPlayerMove = false;
             eraser.SetActive(true);
             Invoke("ClearEvent", 3.5f);
+        }
+        if (HealthGauge.isDie == true)
+        {
+            canPlayerMove = false;
+            eraser.SetActive(true);
+            StartCoroutine("PlayerDie");
+            StartCoroutine("DieEvent");
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)
@@ -391,7 +415,7 @@ public class PlayerController : MonoBehaviour
     private void SpiderSpawnRandom()
     {
         int spawnSpidy = Random.Range(0, 4);
-        if (SceneManager.GetActiveScene().name == "Stage1")
+        if ((SceneManager.GetActiveScene().name == "Stage1") || (SceneManager.GetActiveScene().name == "Stage1Hard"))
         {
             if (enable3 == false)
             {
@@ -420,7 +444,7 @@ public class PlayerController : MonoBehaviour
                         Instantiate(clearGene, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
                 }
             }
-        }else if (SceneManager.GetActiveScene().name == "Stage2")
+        }else if ((SceneManager.GetActiveScene().name == "Stage2") || (SceneManager.GetActiveScene().name == "Stage2Hard"))
         {
             if (enable4 == false)
             {
@@ -449,7 +473,7 @@ public class PlayerController : MonoBehaviour
                         Instantiate(clearGene, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
                 }
             }
-        }else if (SceneManager.GetActiveScene().name == "Stage3")
+        }else if ((SceneManager.GetActiveScene().name == "Stage3") || (SceneManager.GetActiveScene().name == "Stage3Hard"))
         {
             if (enable5 == false)
             {
@@ -522,7 +546,6 @@ public class PlayerController : MonoBehaviour
         eraser.SetActive(true);
         clearUi.SetActive(true);
         time += Time.deltaTime/1.5f;
-        Debug.Log(time);
         if (time < 0.5f)
         {
             clearUiSize.localScale = Vector3.one * (time * 2f);
@@ -555,5 +578,47 @@ public class PlayerController : MonoBehaviour
     public void ClearStop()
     {
         Time.timeScale = 0f;
+    }
+    public IEnumerator PlayerDie()
+    {
+        canPlayerMove = false;
+        spiderImg.SetActive(false);
+        spiderDieImg.SetActive(true);
+        dieHP.SetActive(false);
+        dieAttackGaugeBar.SetActive(false);
+        dieAttackGauge.SetActive(false);
+        StopCoroutine("BaseAttack");
+        StopCoroutine("CoolDown");
+        yield return new WaitForSeconds(0.5f);
+        while (time <= 1f)
+        {
+            time += Time.deltaTime / 20f;
+            spiderPos.position = new Vector2(-time * 1.5f, -time);
+            spiderPos.localPosition = new Vector2(spiderPos.position.x, spiderPos.position.y);
+            spiderPos.localRotation = Quaternion.Euler(0, 0, time*90);
+            yield return null;
+        }
+        if(time >= 1f)
+        {
+            if(dieSoundOnce == false)
+            {
+                SoundManager.SoundEffect.SoundPlay("dieSound", dieSound);
+                dieSoundOnce = true;
+            }
+        }
+    }
+    public IEnumerator DieEvent()
+    {
+        yield return new WaitForSeconds(2.5f);
+        canPlayerMove = false;
+        dieScreen.gameObject.SetActive(true);
+        Color alpha = dieScreen.color;
+        while (alpha.a < 1f)
+        {
+            screenTime += Time.deltaTime / 200f;
+            alpha.a = Mathf.Lerp(0, 1, screenTime);
+            dieScreen.color = alpha;
+            yield return null;
+        }
     }
 }

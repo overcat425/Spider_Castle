@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 public class PlayerData
 {
     public float bgmVolume;
@@ -137,10 +138,12 @@ public class SaveManager : MonoBehaviour
             Destroy(instance.gameObject);
         }
         DontDestroyOnLoad(this.gameObject);
-        path = Application.persistentDataPath+ "/";
+        //path = Application.persistentDataPath+ "/";
+        path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/SpiderCastle/Savedata/";
     }
     public void Start()
     {
+
         if (File.Exists(path+filename))
         {
             savefile = true;
@@ -170,15 +173,15 @@ public class SaveManager : MonoBehaviour
         //playData.effectVolume =  soundManager.effectSource.volume;
         Initializing();
         TextSync();
-        Debug.Log("skill3Enable : " + playData.skill3Enable);
-        Debug.Log("skill3EnableStat : " + skill3EnableStat);
-        Debug.Log("getSkill3EnableStat : " + getSkill3EnableStat);
         StartCoroutine("AutoSave");
-        if(SceneManager.GetActiveScene().name == "GameOver")
+        //if(SceneManager.GetActiveScene().name == "GameOver")
+        //{
+        //    Destroy(gameObject);
+        //}
+        if (HealthGauge.isDie == true)
         {
             Destroy(gameObject);
         }
-        //Debug.Log("saveFile:" + savefile);
     }
     public void NewGame()
     {

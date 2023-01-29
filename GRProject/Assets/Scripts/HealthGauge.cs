@@ -10,6 +10,7 @@ public class HealthGauge : MonoBehaviour
     public static float maxHealth;                 // 최대체력 100
     public static float health;
     public static bool canAutoSave;
+    public static bool isDie;
 
     public float CurrentHP => health; // 외부에서도 볼수 있도록 property 정의
     public float MaxHP => maxHealth;
@@ -19,6 +20,7 @@ public class HealthGauge : MonoBehaviour
     }
     private void Start()
     {
+        isDie = false;
         canAutoSave = true;
         healthBar = GetComponent<Image>();          // 체력바 구현
         health = maxHealth;                                 // 초기 체력 = 최대체력
@@ -27,9 +29,15 @@ public class HealthGauge : MonoBehaviour
     {
         healthBar.fillAmount = health / maxHealth;
 
+        StartCoroutine("PlayerDie");
+    }
+    private IEnumerator PlayerDie()
+    {
         if(health <= 0f)
         {
-            SceneManager.LoadScene("GameOver");
+            isDie = true;
+            yield return new WaitForSeconds(5f);
+            SceneManager.LoadScene("StartGame");
         }
     }
 }

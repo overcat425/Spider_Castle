@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EnemyStatus : MonoBehaviour
 {
@@ -52,7 +53,13 @@ public class EnemyStatus : MonoBehaviour
         if (enemyHealth <= 0)
         {
             DestroyEnemy();
-            EnemySpawnPool.count_instance.EnemyKilledCount++;
+            if ((SceneManager.GetActiveScene().name == "Stage1") || (SceneManager.GetActiveScene().name == "Stage2") || (SceneManager.GetActiveScene().name == "Stage3"))
+            {
+                EnemySpawnPool.count_instance.EnemyKilledCount++;
+            }else if ((SceneManager.GetActiveScene().name == "Stage1Hard") || (SceneManager.GetActiveScene().name == "Stage2Hard") || (SceneManager.GetActiveScene().name == "Stage3Hard"))
+            {
+                EnemySpawnPoolHard.count_instance.EnemyKilledCount++;
+            }
             SoundManager.SoundEffect.SoundPlay("EnemyDestroySound", enemyDestroySound);
         }
     }
@@ -115,7 +122,6 @@ public class EnemyStatus : MonoBehaviour
         GameObject hudText = Instantiate(hudDamageText);
         hudText.transform.position = hudPos.position;
         hudText.GetComponent<DamageText>().damage = damageText;
-        Debug.Log(damageText);
     }
     public void CoinDrop()
     {

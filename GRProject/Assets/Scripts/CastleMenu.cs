@@ -32,6 +32,7 @@ public class CastleMenu : MonoBehaviour
     }
     void Start()
     {
+        Time.timeScale = 1f;
         InvokeRepeating("SpawnCastleSpider", 0, 1);
         InvokeRepeating("SpawnCastleSpider2", 1, 2);
     }

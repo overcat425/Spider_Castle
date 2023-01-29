@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerSkill : MonoBehaviour
 {
     [Header("°Å¹ÌÁÙ Ã¶Åð")]
+    public GameObject maceObject;
     public GameObject[] webMace;
     [SerializeField]    private int webMaceCount;
     float circleR;                    // Ã¶Åð ¹ÝÁö¸§
@@ -83,10 +84,22 @@ public class PlayerSkill : MonoBehaviour
         StartCoroutine("WebMace");
         if (SaveManager.skill4EnableStat == true)
         {
-            StartCoroutine("MakeWeb");
+            if(HealthGauge.isDie == false)
+            {
+                StartCoroutine("MakeWeb");
+            }
         }else if(SaveManager.skill4EnableStat == false)
         {
             webCounter.SetActive(false);
+        }
+        if (HealthGauge.isDie == true)
+        {
+            webCount = 0;
+            maceObject.SetActive(false);
+            poisonUi.SetActive(false);
+            StopCoroutine("WebCoolDown");
+            CancelInvoke("MaceSound");
+            StopCoroutine("SpitPoison");
         }
     }
     private void OnDrawGizmos()

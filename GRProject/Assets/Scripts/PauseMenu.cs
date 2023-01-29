@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
     }
     private void Update()
     {
-        if (PlayerController.isClear == false)
+        if ((PlayerController.isClear == false) && (HealthGauge.isDie == false))
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {

@@ -103,7 +103,6 @@ public class BossStatus : MonoBehaviour
         GameObject hudText = Instantiate(hudDamageText);
         hudText.transform.position = hudPos.position;
         hudText.GetComponent<DamageText>().damage = damageText;
-        Debug.Log(damageText);
     }
     public void GeneDrop()
     {
