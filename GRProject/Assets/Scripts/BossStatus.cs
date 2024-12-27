@@ -7,22 +7,22 @@ public class BossStatus : MonoBehaviour
 {
     private SpriteRenderer sprite;
     private Color color;
-    public GameObject hudDamageText;
-    public GameObject gene;
+    public GameObject hudDamageText;        // 피격시 데미지텍스트
+    public GameObject gene;                     // 보스 사망 시 드랍재화
 
-    public Transform hudPos;
+    public Transform hudPos;                    // 보스정보 HUD 위치
     Transform target;
     [SerializeField]
-    private float maxHealth;
+    private float maxHealth;                        // 보스 최대 체력
     [SerializeField]
     public static float bossHealth;
     public AudioClip enemyDestroySound;
 
-    [SerializeField] public int baseDamage;
-    [SerializeField] public int maceDamage;
-    [SerializeField] public int poisonDamage;
-    private int poisonLabLv;
-    private int poisoningTime;
+    [SerializeField] public int baseDamage;             // 기본공격 데미지
+    [SerializeField] public int maceDamage;             // 철퇴공격 데미지
+    [SerializeField] public int poisonDamage;           // 독 데미지
+    private int poisonLabLv;                            // 독 스킬레벨
+    private int poisoningTime;                          // 중독 상태이상 지속시간
 
     private void Awake()
     {
@@ -32,9 +32,9 @@ public class BossStatus : MonoBehaviour
     }
     private void Start()
     {
-        bossHealth = maxHealth;
+        bossHealth = maxHealth;                 // 보스 최대체력 초기화
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        if (poisonLabLv <= 2)
+        if (poisonLabLv <= 2)                   // 독 지속시간 설정 (특성)
         {
             poisoningTime = 3;
         }
@@ -45,29 +45,29 @@ public class BossStatus : MonoBehaviour
     }
     private void Update()
     {
-        baseDamage = SaveManager.skill1LvStat * 50;
-        maceDamage = SaveManager.skill2LvStat * 10;
-        poisonDamage = SaveManager.skill5LvStat * 2;
+        baseDamage = SaveManager.skill1LvStat * 50;             // 기본공격 계수
+        maceDamage = SaveManager.skill2LvStat * 10;             // 철퇴공격 계수
+        poisonDamage = SaveManager.skill5LvStat * 2;            // 독 공격 계수
         if (bossHealth <= 0)
-        {
-            DestroyEnemy();
-            EnemySpawnPool.count_instance.EnemyKilledCount++;
-            SoundManager.SoundEffect.SoundPlay("EnemyDestroySound", enemyDestroySound);
+        {                                                               // 보스 사망 시
+            DestroyEnemy();                                       // 맵전체 몹들 초기화 후
+            EnemySpawnPool.count_instance.EnemyKilledCount++;   // 전체 킬수에 +1 (보스)
+            SoundManager.SoundEffect.SoundPlay("EnemyDestroySound", enemyDestroySound);     // 보스 사망사운드
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Eraser"))
+        if (collision.CompareTag("Eraser"))             // 오브젝트 지우개
         {
             Destroy(gameObject);
         }
-        if (collision.CompareTag("Elec"))
+        if (collision.CompareTag("Elec"))               // 맵 전기 오브젝트 피격
         {
             bossHealth -= 10f;
         }
-        if (collision.CompareTag("Poison"))
+        if (collision.CompareTag("Poison"))             // 독 공격 피격 시
         {
-            StartCoroutine("PoisonDamage");
+            StartCoroutine("PoisonDamage");         // 독데미지 코루틴
         }
     }
     public void Skill1Damage()
@@ -82,38 +82,38 @@ public class BossStatus : MonoBehaviour
         EnemyDamaged();
         Invoke("EnemyCanDamage", 0.5f);
     }
-    public IEnumerator PoisonDamage()
+    public IEnumerator PoisonDamage()         // 중독 코루틴메소드
     {
         for (int i = 0; i < poisoningTime; i++)
         {
             sprite.color = new Color(1, 0, 1, 1);
             bossHealth -= poisonDamage;
             DamageText(poisonDamage);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1f);            // 1초마다 데미지
         }
         sprite.color = color;
     }
-    public void DestroyEnemy()
+    public void DestroyEnemy()              // 보스 사망시 재화드랍
     {
         GeneDrop();
         Destroy(gameObject);
     }
-    public void DamageText(int damageText)
+    public void DamageText(int damageText)              // 몹 피격시 데미지 출력
     {
         GameObject hudText = Instantiate(hudDamageText);
         hudText.transform.position = hudPos.position;
         hudText.GetComponent<DamageText>().damage = damageText;
     }
-    public void GeneDrop()
+    public void GeneDrop()              // 재화드랍 메소드
     {
         GameObject Gene = Instantiate(gene);
         Gene.transform.position = hudPos.position;
     }
-    public void EnemyDamaged()
+    public void EnemyDamaged()              // 보스 피격 대기시간 처리용 1
     {
         gameObject.tag = "EnemyDamaged";
     }
-    public void EnemyCanDamage()
+    public void EnemyCanDamage()        // 보스 피격 대기시간 처리용 2
     {
         gameObject.tag = "Boss";
     }

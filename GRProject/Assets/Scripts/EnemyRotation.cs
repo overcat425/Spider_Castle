@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRotation : MonoBehaviour
+public class EnemyRotation : MonoBehaviour          // 새 몬스터 ; 플레이어 바라보기
 {
     Transform target;
     void Start()

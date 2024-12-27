@@ -6,12 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class EnemyStatus : MonoBehaviour
 {
-    private SpriteRenderer sprite;
+    private SpriteRenderer sprite;                  // 적 스프라이트
     private Color color;
-    public GameObject hudDamageText;
-    public GameObject coins;
+    public GameObject hudDamageText;        // 피격시 데미지텍스트
+    public GameObject coins;                        // 코인
     public Transform hudPos;
-    Transform target;
+    Transform target;                                   // 추적 타겟정보
     private float moveSpeed = 7.5f;
     private Image healthBar;                  // 적 체력바(필요시 추가)
     [SerializeField]
@@ -20,11 +20,11 @@ public class EnemyStatus : MonoBehaviour
     public float enemyHealth;
     public AudioClip enemyDestroySound;
 
-    [SerializeField]    private int baseDamage;
-    [SerializeField]    private int maceDamage;
-    [SerializeField]    private int poisonDamage;
-    private int poisonLabLv;
-    private int poisoningTime;
+    [SerializeField]    private int baseDamage;         // 기본공격 데미지
+    [SerializeField]    private int maceDamage;         // 철퇴공격 데미지
+    [SerializeField]    private int poisonDamage;       // 독 공격 데미지
+    private int poisonLabLv;                                // 독 레벨
+    private int poisoningTime;                              // 중독 상태이상 지속시간
 
     private void Awake()
     {
@@ -35,9 +35,9 @@ public class EnemyStatus : MonoBehaviour
     private void Start()
     {
         //healthBar = GetComponent<Image>();
-        enemyHealth = maxHealth;
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        if (poisonLabLv <= 2)
+        enemyHealth = maxHealth;                // 몹 최대체력 초기화
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();  // 타겟을 플레이어로 설정
+        if (poisonLabLv <= 2)                       // 독 지속시간 설정(특성)
         {
             poisoningTime = 3;
         }else if(poisonLabLv <= 4)
@@ -50,7 +50,7 @@ public class EnemyStatus : MonoBehaviour
         baseDamage = SaveManager.skill1LvStat * 50;
         maceDamage = SaveManager.skill2LvStat * 10;
         poisonDamage = SaveManager.skill5LvStat * 2;
-        if (enemyHealth <= 0)
+        if (enemyHealth <= 0)           // 몹 사망시 난이도에 따른 적 스폰풀에 킬수 카운트
         {
             DestroyEnemy();
             if ((SceneManager.GetActiveScene().name == "Stage1") || (SceneManager.GetActiveScene().name == "Stage2") || (SceneManager.GetActiveScene().name == "Stage3"))
@@ -65,22 +65,22 @@ public class EnemyStatus : MonoBehaviour
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Eraser"))
+        if (collision.CompareTag("Eraser"))             // 오브젝트 지우개
         {
             Destroy(gameObject);
         }
-        if (collision.CompareTag("Elec"))
+        if (collision.CompareTag("Elec"))               // 맵 전기 오브젝트 피격
         {
             enemyHealth -= 10f;
         }
-        if (collision.CompareTag("Poison"))
+        if (collision.CompareTag("Poison"))             // 독 공격 피격 시
         {
-            StartCoroutine("PoisonDamage");
+            StartCoroutine("PoisonDamage");         // 독 데미지 코루틴
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("WebLv4"))
+        if (collision.CompareTag("WebLv4"))         // 거미줄 트랩에 피격 시 체력감소
         {
             enemyHealth -= 0.5f;
         }
@@ -96,9 +96,9 @@ public class EnemyStatus : MonoBehaviour
         enemyHealth -= maceDamage;
         DamageText(maceDamage);
         EnemyDamaged();
-        Invoke("EnemyCanDamage", 0.5f);
+        Invoke("EnemyCanDamage", 0.5f);             // 피격 대기시간
     }
-    public IEnumerator PoisonDamage()
+    public IEnumerator PoisonDamage()           // 독 데미지 코루틴메소드
     {
         for (int i = 0; i < poisoningTime; i++)
         {
@@ -109,7 +109,7 @@ public class EnemyStatus : MonoBehaviour
         }
         sprite.color = color;
     }
-    public void DestroyEnemy()
+    public void DestroyEnemy()              // 잡몹 사망 시 확률로 재화드랍
     {
         if (Random.Range(0, 5) == 0)
         {
@@ -117,7 +117,7 @@ public class EnemyStatus : MonoBehaviour
         }
         Destroy(gameObject);
     }
-    public void DamageText(int damageText)
+    public void DamageText(int damageText)          // 몹 피격시 데미지텍스트 출력
     {
         GameObject hudText = Instantiate(hudDamageText);
         hudText.transform.position = hudPos.position;
@@ -128,7 +128,7 @@ public class EnemyStatus : MonoBehaviour
         GameObject Coin = Instantiate(coins);
         Coin.transform.position = hudPos.position;
     }
-    public IEnumerator KnockBack()
+    public IEnumerator KnockBack()              // 몹 피격 시 넉백 코루틴메소드
     {
         float directionX = transform.position.x - target.position.x;
         float directionY = transform.position.y - target.position.y;

@@ -132,19 +132,18 @@ public class SaveManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-        }
-        else if (instance != this)
+        }else if (instance != this)
         {
             Destroy(instance.gameObject);
         }
+        Application.targetFrameRate = 60;
         DontDestroyOnLoad(this.gameObject);
         //path = Application.persistentDataPath+ "/";
         path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/SpiderCastle/Savedata/";
     }
     public void Start()
     {
-
-        if (File.Exists(path+filename))
+        if (File.Exists(path+filename))             // 세이브 파일이 있다면 로드
         {
             savefile = true;
         }
@@ -294,7 +293,7 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
-    public void OnClickSkill1LvUp()
+    public void OnClickSkill1LvUp()             // 1번 스킬 강화
     {
         if (earnedCoins >= 10)                  // 코인 제한
         {
@@ -320,7 +319,7 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
-    public void OnClickSkill2LvUp()
+    public void OnClickSkill2LvUp()             // 2번 스킬 강화
     {
         if (earnedCoins >= 50)
         {
@@ -346,7 +345,7 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
-    public void OnClickSkill3LvUp()
+    public void OnClickSkill3LvUp()              // 3번 스킬 강화
     {
         if (earnedCoins >= 100)
         {
@@ -372,7 +371,7 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
-    public void OnClickSkill4LvUp()
+    public void OnClickSkill4LvUp()         // 4번 스킬 강화
     {
         if (earnedCoins >= 50)
         {
@@ -398,7 +397,7 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
-    public void OnClickSkill5LvUp()
+    public void OnClickSkill5LvUp()             // 5번 스킬 강화
     {
         if (earnedCoins >= 100)                  // 코인 제한
         {
@@ -527,7 +526,7 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
-    public void TextSync()
+    public void TextSync()              // 실시간 값을 텍스트로 표기해주는 메소드
     {
         skill0.text = skill0Level.ToString();
         skill1.text = (skill1Level + 1).ToString();
@@ -552,7 +551,7 @@ public class SaveManager : MonoBehaviour
         earnedGeneCount.text = earnedGene.ToString();
         earnedGeneCountMain.text = earnedGene.ToString();
     }
-    public void Initializing()
+    public void Initializing()      // 다른 스크립트로 레벨값을 보내주기 위한 메소드
     {
         bgmVolumeStat = playData.bgmVolume;
         effectVolumeStat = playData.effectVolume;

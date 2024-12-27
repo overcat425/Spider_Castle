@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-public class GameOver : MonoBehaviour
+public class GameOver : MonoBehaviour       // °ÔÀÓ¿À¹ö ½Ã ¾À ³Ñ±è + È¹µæÀçÈ­ ÀúÀå
 {
     PlayerData playData = new PlayerData();
     string path;

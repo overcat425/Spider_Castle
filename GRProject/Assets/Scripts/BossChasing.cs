@@ -3,36 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BossChasing : MonoBehaviour
+public class BossChasing : MonoBehaviour    // 보스의 플레이어 추적 스크립트
 {
     [SerializeField]    private Animator animator;
     Rigidbody2D enemyBody;
     Transform target;
     private float flipX;
-    private HealthGauge healthGauge;
+    private HealthGauge healthGauge;                // 보스 피 게이지
 
     [Header("속도")]
-    [SerializeField] private float speed;
+    [SerializeField] private float speed;                 // 배회중 느린 속도
     [SerializeField] private float slowSpeed;
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float moveSpeed;          // 배회중 빠른 속도
 
     [Header("타격 거리")]
     [SerializeField]
     private float hitscanDistance = 5f;
 
     [SerializeField] private AudioClip bossDashSound;
-    private bool playerInvincible;
-    private bool canDash;
-    private bool isWander;
-    private bool getTarget;
-    private int wanderDice;
+    private bool playerInvincible;                  // 플레이어가 무적상태인가
+    private bool canDash;                           // 대쉬(스킬)을 쓸 수 있는상태
+    private bool isWander;                          // 배회상태 여부
+    private bool getTarget;                         // 표적 인식 여부
+    private int wanderDice;                         
     private int dashDice;
-    private Vector2 movingSpot;
-    private Vector2 dashSpot;
+    private Vector2 movingSpot;                 // 보스의 배회방향 좌표(랜덤)
+    private Vector2 dashSpot;                    // 보스의 플레이어 공격(대쉬)좌표
 
     private void Awake()
     {
-        flipX = -transform.localScale.x;
+        flipX = -transform.localScale.x;            // 플레이어 위치에 따라 몹 바라보는 방향 플립
     }
     void Start()
     {
@@ -42,8 +42,8 @@ public class BossChasing : MonoBehaviour
         slowSpeed = speed * 0.2f;
         moveSpeed = speed;
         getTarget = false;
-        Invoke("Wandering", 5);
-        InvokeRepeating("SetTargetFalse", 0, 10);
+        Invoke("Wandering", 5);                                 // 배회 메소드 5초마다
+        InvokeRepeating("SetTargetFalse", 0, 10);           // 추적위치 갱신 위한 
     }
     void Update()
     {
@@ -51,7 +51,7 @@ public class BossChasing : MonoBehaviour
         if (Vector2.Distance(transform.position, target.position) < 1000)   // 범위내로 들어오면
         {
             isWander = false;       // 배회모드 OFF
-            MobFlip();
+            MobFlip();                  // 플레이어를 바라보도록 플립
             if (canDash == false)       // 돌진 불가능할 때는
             {
                 animator.SetBool("BossRun", true);
@@ -114,7 +114,7 @@ public class BossChasing : MonoBehaviour
         dashSpot = new Vector2(target.position.x - ((transform.position.x - target.position.x)/2), target.position.y - ((transform.position.y - target.position.y) / 2));
         getTarget = true;
     }
-    private void SetTargetFalse()
+    private void SetTargetFalse()           // 다음 타겟정보 습득을 위한 초기화
     {
         canDash = true;
         getTarget = false;

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class DungeonMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject dungeonUi;
+    [SerializeField] private GameObject dungeonUi;      // 던전 UI
 
     [Header("스테이지")]
     [SerializeField] private GameObject stage1info;
@@ -18,10 +18,10 @@ public class DungeonMenu : MonoBehaviour
     private int soundOnce;
     public float percent;
     public float alpha;
-    [SerializeField] private AudioClip warningSound;
-    [SerializeField] private GameObject hardWarning;
-    [SerializeField] private Image warningImage;
-    [SerializeField] private AnimationCurve curveWarning;
+    [SerializeField] private AudioClip warningSound;        // 하드모드 경고 사운드
+    [SerializeField] private GameObject hardWarning;      // 하드모드 경고 출력
+    [SerializeField] private Image warningImage;            // 경고용 붉은 화면 이미지
+    [SerializeField] private AnimationCurve curveWarning;   // 붉은화면 그라데이션 연출
 
 
     [Header("스테이지 모드")]
@@ -31,12 +31,14 @@ public class DungeonMenu : MonoBehaviour
     [SerializeField] private GameObject stage1HardText;
     [SerializeField] private GameObject stage1ChangeToHard;
     [SerializeField] private GameObject stage1ChangeToNormal;
+
     [SerializeField] private GameObject stage2Normal;
     [SerializeField] private GameObject stage2NormalText;
     [SerializeField] private GameObject stage2Hard;
     [SerializeField] private GameObject stage2HardText;
     [SerializeField] private GameObject stage2ChangeToHard;
     [SerializeField] private GameObject stage2ChangeToNormal;
+
     [SerializeField] private GameObject stage3Normal;
     [SerializeField] private GameObject stage3NormalText;
     [SerializeField] private GameObject stage3Hard;
@@ -64,25 +66,25 @@ public class DungeonMenu : MonoBehaviour
             soundOnce = 0;
         }
     }
-    public void OnClickStage1()
+    public void OnClickStage1()           // 스테이지 1버튼 클릭
     {
         stage1info.SetActive(true);
         stage2info.SetActive(false);
         stage3info.SetActive(false);
     }
-    public void OnClickStage2()
+    public void OnClickStage2()           // 스테이지 2버튼 클릭
     {
         stage1info.SetActive(false);
         stage2info.SetActive(true);
         stage3info.SetActive(false);
     }
-    public void OnClickStage3()
+    public void OnClickStage3()           // 스테이지 3버튼 클릭
     {
         stage1info.SetActive(false);
         stage2info.SetActive(false);
         stage3info.SetActive(true);
     }
-    public void OnClickStage1HardBtn()
+    public void OnClickStage1HardBtn()// 스테이지 1 하드버튼 클릭
     {
         if(stage1Normal.activeSelf == true)
         {
@@ -102,7 +104,7 @@ public class DungeonMenu : MonoBehaviour
             stage1ChangeToHard.SetActive(true);
         }
     }
-    public void OnClickStage2HardBtn()
+    public void OnClickStage2HardBtn()// 스테이지 2 하드버튼 클릭
     {
         if (stage2Normal.activeSelf == true)
         {
@@ -123,7 +125,7 @@ public class DungeonMenu : MonoBehaviour
             stage2ChangeToHard.SetActive(true);
         }
     }
-    public void OnClickStage3HardBtn()
+    public void OnClickStage3HardBtn()// 스테이지 3 하드버튼 클릭
     {
         if (stage3Normal.activeSelf == true)
         {
@@ -149,7 +151,7 @@ public class DungeonMenu : MonoBehaviour
         warning = true;
         hardWarning.SetActive(true);
     }
-    private IEnumerator HardWarning()
+    private IEnumerator HardWarning()           // 하드모드 적색경고 코루틴메소드
     {
         if (percent <= 1f)
         {
@@ -176,7 +178,7 @@ public class DungeonMenu : MonoBehaviour
         warning = false;
         hardWarning.SetActive(false);
     }
-    private void WarningSoundOnce()
+    private void WarningSoundOnce()     // 경고 사운드 출력
     {
         if(soundOnce == 0)
         {

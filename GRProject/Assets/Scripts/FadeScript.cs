@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FadeScript : MonoBehaviour
+public class FadeScript : MonoBehaviour                 // 게임오버 붉은화면 페이드
 {
     public Image Panel;
     float time = 0f;

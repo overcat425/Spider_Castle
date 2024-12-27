@@ -7,9 +7,9 @@ public class PoisonCoolDown : MonoBehaviour
 {
     private Image poisonBar;                        // 기본공격 쿨타임바 이미지
     private float attackCoolDown = 100f;      // 기본공격 쿨다운게이지
-    public static float coolDown;
-    private int poisonLabLv;
-    private int poisonAttackRate;
+    public static float coolDown;                   // 쿨타임
+    private int poisonLabLv;                        // 독 레벨
+    private int poisonAttackRate;                   // 독 공속
 
     private void Awake()
     {

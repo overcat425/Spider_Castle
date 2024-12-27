@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnClickQuit()
     {
         Debug.Log("종료");
-#if UNITY_EDITOR
+#if UNITY_EDITOR                    // 에디터용 종료
         UnityEditor.EditorApplication.isPlaying = false;
 #else
                 Application.Quit();

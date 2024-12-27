@@ -20,7 +20,7 @@ public class CharacterMovement : MonoBehaviour
         characterController.Move(moveForce * Time.deltaTime);       // 초당 이동
     }
     
-    public void MoveTo(Vector2 direction)
+    public void MoveTo(Vector2 direction)           // 플레이어 이동
     {
         direction = transform.rotation * new Vector2(direction.x, direction.y);
         

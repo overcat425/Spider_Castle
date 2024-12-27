@@ -7,49 +7,49 @@ public class PlayerSkill : MonoBehaviour
 {
     [Header("거미줄 철퇴")]
     public GameObject maceObject;
-    public GameObject[] webMace;
+    public GameObject[] webMace;          // 철퇴 위치정보에 철퇴 게임오브젝트 배치
     [SerializeField]    private int webMaceCount;
     float circleR;                    // 철퇴 반지름
     float degree;                           // 각도
     [SerializeField] private float objSpeed;       // 회전 속도
-    [SerializeField] private SpriteRenderer maceAttack;
-    [SerializeField] private AudioClip maceSound;
-    public Transform[] mace;
-    public Vector2 maceSize;
+    [SerializeField] private SpriteRenderer maceAttack;     // 철퇴 렌더러
+    [SerializeField] private AudioClip maceSound;           // 철퇴 효과음
+    public Transform[] mace;        //  각 철퇴의 위치
+    public Vector2 maceSize;        // 
 
     [SerializeField]
     public AudioClip clip;
 
     [Header("거미줄 트랩")]
-    [SerializeField] private GameObject webCounter;
+    [SerializeField] private GameObject webCounter;     // 스킬 남은 횟수를 보여주는 UI 카운터
     public GameObject webLv0;
     public GameObject webLv1;
     public GameObject webLv2;
     public GameObject webLv3;
     public GameObject webLv4;
-    public Transform player;
-    [SerializeField] public float trapCoolDown;
-    public int webCount = 2;
+    public Transform player;                                // 플레이어 위치정보
+    [SerializeField] public float trapCoolDown;             // 트랩 쿨타임
+    public int webCount = 2;                                // 스킬 최대 누적횟수
     public Image webCount1;
     public Image webCount2;
-    public AudioClip trapSound;
+    public AudioClip trapSound;                 // 트랩 설치 효과음
 
     [Header("독 공격")]
-    public GameObject poisonUi;
+    public GameObject poisonUi;                     // 독 UI
     public GameObject poisonHorizontal;
     public GameObject poisonVertical;
     public GameObject poisonDiagonal;
     public GameObject poisonDiagonal2;
-    [SerializeField]    private AudioClip poisonSound;
-    [SerializeField]    private Transform charDirection;
+    [SerializeField]    private AudioClip poisonSound;      // 독 공격 효과음
+    [SerializeField]    private Transform charDirection;        // 독 발사 방향(위치)
     private int poisonLabLv;
     private int poisonAttackRate;
 
     private void Awake()
     {
-        circleR = 400f;
-        webMaceCount = SaveManager.skill1LabLvStat + 1;
-        if (webMaceCount <= 4)
+        circleR = 400f;                                 // 철퇴 회전 반지름
+        webMaceCount = SaveManager.skill1LabLvStat + 1;     // 레벨에 따른 철퇴 갯수
+        if (webMaceCount <= 4)                  // 철퇴 속도 조절
         {
             objSpeed = 150f;
         }else if(webMaceCount > 4)
@@ -71,11 +71,11 @@ public class PlayerSkill : MonoBehaviour
     {
         StartCoroutine("WebCoolDown");
         MaceOn();
-        InvokeRepeating("MaceSound", 1, 1.5f);
-        if (SaveManager.skill5EnableStat == true)
+        InvokeRepeating("MaceSound", 1, 1.5f);          // 철퇴 효과음
+        if (SaveManager.skill5EnableStat == true)       // 독 발사 스킬 활성화면
         {
-            poisonUi.SetActive(true);
-            StartCoroutine("SpitPoison");
+            poisonUi.SetActive(true);                       // 독 쿨타임 알려주는 UI ON
+            StartCoroutine("SpitPoison");                   // 독 스킬 코루틴실행
         }
     }
     void Update()
@@ -102,7 +102,7 @@ public class PlayerSkill : MonoBehaviour
             StopCoroutine("SpitPoison");
         }
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmos()                 // 철퇴 위치 테두리
     {
         for (int i = 0; i < webMaceCount; i++)
         {
@@ -258,8 +258,8 @@ public class PlayerSkill : MonoBehaviour
             webCount2.color = Color.black;
         }
     }
-    private IEnumerator SpitPoison()
-    {
+    private IEnumerator SpitPoison()            // 독 발사 코루틴메소드
+    {                                // 플레이어가 바라보는 방향에 따라 독 발사 위치 변경
         SoundManager.SoundEffect.SoundPlay("poisonSound", poisonSound);
         if ((Input.GetAxisRaw("Horizontal") > 0) && (Input.GetAxisRaw("Vertical") > 0))
         {

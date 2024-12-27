@@ -7,20 +7,20 @@ public class EnemyChasing : MonoBehaviour
 {
     Rigidbody2D enemyBody;
     Transform target;
-    private float flipX;
+    private float flipX;                            // 몹 플레이어 바라보기 플립
     private HealthGauge healthGauge;
 
     [Header("속도")]
-    [SerializeField]    private float speed;
-    [SerializeField]    private float slowSpeed;
-    [SerializeField]    private float moveSpeed;
+    [SerializeField]    private float speed;                // 기준 이동속도
+    [SerializeField]    private float slowSpeed;        // 감소된 이동속도 수치
+    [SerializeField]    private float moveSpeed;        // 평시 이동속도 수치
 
     [Header("타격 거리")]
     [SerializeField]
     private float hitscanDistance = 1f;
 
-    private bool canSlow = true;
-    private bool playerInvincible;
+    private bool canSlow = true;            // 몹 이동속도 감소 가능여부 초기화
+    private bool playerInvincible;            // 플레이어 피격 대기시간 부여
 
     private void Awake()
     {
@@ -29,8 +29,8 @@ public class EnemyChasing : MonoBehaviour
     void Start()
     {
         enemyBody = GetComponent<Rigidbody2D>();
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        slowSpeed = speed * 0.2f;
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();  // 타겟을 플레이어로 초기화
+        slowSpeed = speed * 0.2f;           // 감소된 이동속도는 평시의 0.2배로 설정
         moveSpeed = speed;
     }
     void Update()
@@ -46,7 +46,7 @@ public class EnemyChasing : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
         }
     }
-    private void OnTriggerStay2D(Collider2D collision)          // 피격 시
+    private void OnTriggerStay2D(Collider2D collision)          // 플레이어가 피격 시
     {
         if (collision.CompareTag("Player"))
         {
@@ -55,9 +55,9 @@ public class EnemyChasing : MonoBehaviour
                 HealthGauge.health -= 0.5f;
             }
         }
-        if (collision.CompareTag("Web")||collision.CompareTag("WebLv4"))
+        if (collision.CompareTag("Web")||collision.CompareTag("WebLv4"))    // 거미줄 트랩에 피격 시
         {
-            StartCoroutine("Slow");
+            StartCoroutine("Slow");         // 이동속도 감소 코루틴메소드 실행
         }
     }
     private void OnTriggerExit2D(Collider2D collision)          // 피격 상태 X
@@ -77,13 +77,13 @@ public class EnemyChasing : MonoBehaviour
             transform.localScale = new Vector3(-flipX, transform.localScale.y, 1);
         }
     }
-    private IEnumerator Slow()
+    private IEnumerator Slow()          // 몹 이동속도 감소 코루틴메소드
     {
-        if (canSlow)
+        if (canSlow)            // 이동속도 감소 가능상태면 이동속도 감소
         {
             canSlow = false;
             moveSpeed = slowSpeed;
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(4f);        // 4초 지속
             moveSpeed = speed;
         }
         canSlow = true;

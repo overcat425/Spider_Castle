@@ -6,12 +6,13 @@ using UnityEngine.UI;
 
 public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField]    private GameObject enhanceUi;
-    [SerializeField]    private GameObject labTab;
-    [SerializeField]    private GameObject enhanceTab;
-    [SerializeField]    private GameObject cobTab;
-    [SerializeField]    private GameObject summary;
-    [SerializeField]    private GameObject spiderInfo;
+    [SerializeField]    private GameObject enhanceUi;           // 강화 UI
+    [SerializeField]    private GameObject labTab;              // 연구소 탭
+    [SerializeField]    private GameObject enhanceTab;       // 강화 탭
+    [SerializeField]    private GameObject cobTab;              // 거미숙소 탭
+    [SerializeField]    private GameObject summary;         // 스킬내용 요약
+    [SerializeField]    private GameObject spiderInfo;          // 거미 정보
+
     #region
     [Header("Lab탭 스킬")]
     [SerializeField]    private GameObject skill2LabPane;
@@ -37,7 +38,7 @@ public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHa
     [SerializeField]    private GameObject skill4LabLv2Pane;
     [SerializeField]    private GameObject skill4LabLv3Pane;
     [SerializeField]    private GameObject skill4LabLv4Pane;
-    #endregion
+
     [Header("Enhance탭 스킬")]
     [SerializeField]    private GameObject skill0;
     [SerializeField]    private GameObject skill1;
@@ -59,6 +60,7 @@ public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHa
     [SerializeField]    private GameObject spider2Pane;
     [SerializeField]    private GameObject spider3Pane;
     [SerializeField]    private GameObject spider4Pane;
+    #endregion
 
     public bool skill3Enable;
     public bool skill4Enable;
@@ -115,7 +117,7 @@ public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHa
         cobTab.SetActive(true);
         spiderInfo.SetActive(false);
     }
-    public void Skill1LabPane()
+    public void Skill1LabPane()                 // 2번스킬 연구 카테고리
     {
         int skill1LabLv = SaveManager.skill1LabLvStat;
         if (skill1LabLv == 0)
@@ -154,7 +156,7 @@ public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHa
             skill1LabLv4Pane.SetActive(true);
         }
     }
-    public void Skill2LabPane()
+    public void Skill2LabPane()                 // 3번스킬 연구 카테고리
     {
         int skill2LabLv = SaveManager.skill2LabLvStat;
         if (skill2LabLv == 0)
@@ -193,7 +195,7 @@ public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHa
             skill2LabLv4Pane.SetActive(true);
         }
     }
-    public void Skill3LabPane()
+    public void Skill3LabPane()                 // 4번스킬 연구 카테고리
     {
         int skill3LabLv = SaveManager.skill3LabLvStat;
         if (skill3LabLv == 0)
@@ -231,7 +233,7 @@ public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHa
             skill3LabLv4Pane.SetActive(true);
         }
     }
-    public void Skill4LabPane()
+    public void Skill4LabPane()                 // 5번스킬 연구 카테고리
     {
         int skill4LabLv = SaveManager.skill4LabLvStat;
         if (skill4LabLv == 0)

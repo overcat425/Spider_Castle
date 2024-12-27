@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerColider : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)     // 플레이어 콜라이더
     {
         if (other.CompareTag("Item"))
         {

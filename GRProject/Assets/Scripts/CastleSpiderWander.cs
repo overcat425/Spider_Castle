@@ -13,14 +13,13 @@ public class CastleSpiderWander : MonoBehaviour
     }
     void Start()
     {
-        rectTransform.SetSiblingIndex(6);
+        rectTransform.SetSiblingIndex(6);           // 하이어라키 순서 설정
         StartCoroutine("FadeIn");
     }
-    // Update is called once per frame
     void Update()
     {
     }
-    private IEnumerator FadeIn()
+    private IEnumerator FadeIn()            // 주민 거미 페이드인
     {
         float fadein = 0f;
         while (fadein <= 1.0f)
@@ -34,7 +33,7 @@ public class CastleSpiderWander : MonoBehaviour
             StartCoroutine("FadeOut");
         }
     }
-    private IEnumerator FadeOut()
+    private IEnumerator FadeOut()           // 주민 거미 페이드아웃
     {
         float fadeout = 1f;
         while (fadeout >= 0f)

@@ -8,9 +8,9 @@ public class EnemyAttack : MonoBehaviour
 {
     [Header("Chasing")]
     [SerializeField]
-    private float targetRecognition = 100;
+    private float targetRecognition = 100;          // 타겟 인식 거리
     [SerializeField]
-    private float ChasingLimitRange = 100;
+    private float ChasingLimitRange = 100;          // 추적 제한 거리
 
     private EnemyState enemyAttack = EnemyState.Chasing;
     private PlayerStatus status;                           // 이동 정보
@@ -50,7 +50,7 @@ public class EnemyAttack : MonoBehaviour
             yield return null;
         }
     }
-    private void LookRotationToTarget()
+    private void LookRotationToTarget()             // 추적 시 플레이어 바라보기
     {
         Vector3 to = new Vector3(target.position.x, 0, target.position.z);
         Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);

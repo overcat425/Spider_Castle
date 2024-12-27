@@ -7,7 +7,7 @@ public class AttackCoolDown : MonoBehaviour
 {
     private Image attackBar;                        // 기본공격 쿨타임바 이미지
     private float attackCoolDown = 100f;      // 기본공격 쿨다운게이지
-    public static float coolDown;
+    public static float coolDown;                   // 기본공격 쿨타임
     private void Start()
     {
         attackBar = GetComponent<Image>();      // 이미지 컴포넌트           
