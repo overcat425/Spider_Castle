@@ -11,19 +11,9 @@ public class PlayerData
     public float effectVolume;
     public int coins;
     public int gene;
-    public int skill0Lv;
-    public int skill1Lv;
-    public int skill2Lv;
-    public int skill3Lv;
-    public int skill4Lv;
-    public int skill5Lv;
-    public int skill1LabLv;
-    public int skill2LabLv;
-    public int skill3LabLv;
-    public int skill4LabLv;
-    public bool skill3Enable;
-    public bool skill4Enable;
-    public bool skill5Enable;
+    public int[] skillLv = new int[6];
+    public int[] skillLabLv = new int[4];
+    public bool[] skillEnable = new bool[3];
     public bool hideHelpNotice;
 }
 public class SaveManager : MonoBehaviour
@@ -50,22 +40,10 @@ public class SaveManager : MonoBehaviour
     public static float getBgmStat;
     public static float effectVolumeStat;
     public static float getEffectStat;
-    public static int skill0LvStat;
-    public static int skill1LvStat;
-    public static int skill2LvStat;
-    public static int skill3LvStat;
-    public static int skill4LvStat;
-    public static int skill5LvStat;
-    public static int skill1LabLvStat;
-    public static int skill2LabLvStat;
-    public static int skill3LabLvStat;
-    public static int skill4LabLvStat;
-    public static bool skill3EnableStat;
-    public static bool skill4EnableStat;
-    public static bool skill5EnableStat;
-    public static bool getSkill3EnableStat;
-    public static bool getSkill4EnableStat;
-    public static bool getSkill5EnableStat;
+    public static int[] skillLvStat = new int[6];
+    public static int[] skillLabLvStat = new int[4];
+    public static bool[] skillEnableStat = new bool[3];
+    public static bool[] getSkillEnableStat = new bool[3];
     public static bool hideNoticeStat;
     public static int coinsStat;
     public static int geneStat;
@@ -83,28 +61,15 @@ public class SaveManager : MonoBehaviour
 
 
     [Header("스킬레벨")]
-    public int skill0Level;
-    public int skill1Level;
-    public int skill2Level;
-    public int skill3Level;
-    public int skill4Level;
-    public int skill5Level;
-    public int skill1LabLevel;
-    public int skill2LabLevel;
-    public int skill3LabLevel;
-    public int skill4LabLevel;
-    [SerializeField]    public Text skill0;
-    [SerializeField]    public Text skill1;
-    [SerializeField]    public Text skill2;
-    [SerializeField]    public Text skill3;
-    [SerializeField]    public Text skill4;
-    [SerializeField]    public Text skill5;
-    [SerializeField]    public Text skill0Hp;
-    [SerializeField]    public Text skill1Dmg;
-    [SerializeField]    public Text skill2Dmg;
-    [SerializeField]    public Text skill3CoolDown;
-    [SerializeField]    public Text skill4CoolDown;
-    [SerializeField]    public Text skill5Dmg;
+    public int[] skillLevel = new int[6];
+    public int[] skillLabLevel = new int[4];
+    public Text[] skillText;        // Text 6개
+    public Text skill0Hp;
+    public Text skill1Dmg;
+    public Text skill2Dmg;
+    public Text skill3CoolDown;
+    public Text skill4CoolDown;
+    public Text skill5Dmg;
 
     [Header("데미지&쿨타임")]
     [SerializeField] public int skill0Health;
@@ -148,19 +113,9 @@ public class SaveManager : MonoBehaviour
             savefile = true;
         }
         LoadData();
-        skill0Level = playData.skill0Lv;
-        skill1Level = playData.skill1Lv;
-        skill2Level = playData.skill2Lv;
-        skill3Level = playData.skill3Lv;
-        skill4Level = playData.skill4Lv;
-        skill5Level = playData.skill5Lv;
-        skill1LabLevel = playData.skill1LabLv;
-        skill2LabLevel = playData.skill2LabLv;
-        skill3LabLevel = playData.skill3LabLv;
-        skill4LabLevel = playData.skill4LabLv;
-        getSkill3EnableStat = playData.skill3Enable;
-        getSkill4EnableStat = playData.skill4Enable;
-        getSkill5EnableStat = playData.skill5Enable;
+        for(int i = 0; i < 6; i++){skillLevel[i] = playData.skillLv[i];}
+        for(int i = 0; i < 4; i++){skillLabLevel[i] = playData.skillLabLv[i];}
+        for (int i = 0; i < 3; i++){getSkillEnableStat[i] = playData.skillEnable[i];}
         earnedCoins = playData.coins;
         earnedGene = playData.gene;
         hideNotice = playData.hideHelpNotice;
@@ -257,9 +212,10 @@ public class SaveManager : MonoBehaviour
                 SaveVolume();
                 playData.coins += getCoinStat;
                 playData.gene += getGeneStat;
-                playData.skill3Enable = getSkill3EnableStat;
-                playData.skill4Enable = getSkill4EnableStat;
-                playData.skill5Enable = getSkill5EnableStat;
+                for (int i = 0; i < 3; i++)
+                {
+                    playData.skillEnable[i] = getSkillEnableStat[i];
+                }
                 string data = JsonUtility.ToJson(playData);
                 File.WriteAllText(path + filename, data);
                 HealthGauge.canAutoSave = false;
@@ -271,15 +227,15 @@ public class SaveManager : MonoBehaviour
     {
         if (earnedCoins >= 50)                  // 코인 제한
         {
-            if (skill0Level < 10)                    // 스킬 최대레벨 10
+            if (skillLevel[0] < 10)                    // 스킬 최대레벨 10
             {
                 earnedCoins -= 50;
                 SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
-                skill0Level += 1;
-                playData.skill0Lv = skill0Level;
+                skillLevel[0] += 1;
+                playData.skillLv[0] = skillLevel[0];
                 playData.coins = earnedCoins;
             }
-            else if (skill0Level >= 10)
+            else if (skillLevel[0] >= 10)
             {
                 mastered.SetActive(true);
                 Invoke("MasterWarning", 0.5f);
@@ -297,15 +253,15 @@ public class SaveManager : MonoBehaviour
     {
         if (earnedCoins >= 10)                  // 코인 제한
         {
-            if (skill1Level < 9)                    // 스킬 최대레벨 10(9+1)
+            if (skillLevel[1] < 9)                    // 스킬 최대레벨 10(9+1)
             {
                 earnedCoins -= 10;
                 SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
-                skill1Level += 1;
-                playData.skill1Lv = skill1Level;
+                skillLevel[1] += 1;
+                playData.skillLv[1] = skillLevel[1];
                 playData.coins = earnedCoins;
             }
-            else if (skill1Level >= 9)
+            else if (skillLevel[1] >= 9)
             {
                 mastered.SetActive(true);
                 Invoke("MasterWarning", 0.5f);
@@ -323,15 +279,15 @@ public class SaveManager : MonoBehaviour
     {
         if (earnedCoins >= 50)
         {
-            if (skill2Level < 9)
+            if (skillLevel[2] < 9)
             {
                 earnedCoins -= 50;
                 SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
-                skill2Level += 1;
-                playData.skill2Lv = skill2Level;
+                skillLevel[2] += 1;
+                playData.skillLv[2] = skillLevel[2];
                 playData.coins = earnedCoins;
             }
-            else if (skill2Level >= 9)
+            else if (skillLevel[2] >= 9)
             {
                 mastered.SetActive(true);
                 Invoke("MasterWarning", 0.5f);
@@ -349,15 +305,15 @@ public class SaveManager : MonoBehaviour
     {
         if (earnedCoins >= 100)
         {
-            if (skill3Level < 2)
+            if (skillLevel[3] < 2)
             {
                 earnedCoins -= 100;
                 SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
-                skill3Level += 1;
-                playData.skill3Lv = skill3Level;
+                skillLevel[3] += 1;
+                playData.skillLv[3] = skillLevel[3];
                 playData.coins = earnedCoins;
             }
-            else if (skill3Level >= 2)
+            else if (skillLevel[3] >= 2)
             {
                 mastered.SetActive(true);
                 Invoke("MasterWarning", 0.5f);
@@ -375,22 +331,21 @@ public class SaveManager : MonoBehaviour
     {
         if (earnedCoins >= 50)
         {
-            if (skill4Level < 2)
+            if (skillLevel[4] < 2)
             {
                 earnedCoins -= 50;
                 SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
-                skill4Level += 1;
-                playData.skill4Lv = skill4Level;
+                skillLevel[4] += 1;
+                playData.skillLv[4] = skillLevel[4];
                 playData.coins = earnedCoins;
             }
-            else if (skill4Level >= 2)
+            else if (skillLevel[4] >= 2)
             {
                 mastered.SetActive(true);
                 Invoke("MasterWarning", 0.5f);
                 SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
             }
-        }
-        else
+        }else
         {
             needCost.SetActive(true);
             Invoke("CostWarning", 0.5f);
@@ -401,15 +356,15 @@ public class SaveManager : MonoBehaviour
     {
         if (earnedCoins >= 100)                  // 코인 제한
         {
-            if (skill5Level < 9)                    // 스킬 최대레벨 10(9+1)
+            if (skillLevel[5] < 9)                    // 스킬 최대레벨 10(9+1)
             {
                 earnedCoins -= 100;
                 SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
-                skill5Level += 1;
-                playData.skill5Lv = skill5Level;
+                skillLevel[5] += 1;
+                playData.skillLv[5] = skillLevel[5];
                 playData.coins = earnedCoins;
             }
-            else if (skill5Level >= 9)
+            else if (skillLevel[5] >= 9)
             {
                 mastered.SetActive(true);
                 Invoke("MasterWarning", 0.5f);
@@ -427,15 +382,15 @@ public class SaveManager : MonoBehaviour
     {
         if (earnedGene >= 1)                  // 코인 제한
         {
-            if (skill1LabLevel < 4)
+            if (skillLabLevel[0] < 4)
             {
                 earnedGene -= 1;
                 SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
-                skill1LabLevel += 1;
-                playData.skill1LabLv = skill1LabLevel;
+                skillLabLevel[0] += 1;
+                playData.skillLabLv[0] = skillLabLevel[0];
                 playData.gene = earnedGene;
             }
-            else if (skill1LabLevel >= 4)
+            else if (skillLabLevel[0] >= 4)
             {
                 masteredLab.SetActive(true);
                 Invoke("MasterWarningLab", 0.5f);
@@ -453,15 +408,15 @@ public class SaveManager : MonoBehaviour
     {
         if (earnedGene >= 1)                  // 코인 제한
         {
-            if (skill2LabLevel < 4)
+            if (skillLabLevel[1] < 4)
             {
                 earnedGene -= 1;
                 SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
-                skill2LabLevel += 1;
-                playData.skill2LabLv = skill2LabLevel;
+                skillLabLevel[1] += 1;
+                playData.skillLabLv[1] = skillLabLevel[1];
                 playData.gene = earnedGene;
             }
-            else if (skill2LabLevel >= 4)
+            else if (skillLabLevel[1] >= 4)
             {
                 masteredLab.SetActive(true);
                 Invoke("MasterWarningLab", 0.5f);
@@ -479,15 +434,15 @@ public class SaveManager : MonoBehaviour
     {
         if (earnedGene >= 1)                  // 코인 제한
         {
-            if (skill3LabLevel < 4)
+            if (skillLabLevel[2] < 4)
             {
                 earnedGene -= 1;
                 SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
-                skill3LabLevel += 1;
-                playData.skill3LabLv = skill3LabLevel;
+                skillLabLevel[2] += 1;
+                playData.skillLabLv[2] = skillLabLevel[2];
                 playData.gene = earnedGene;
             }
-            else if (skill3LabLevel >= 4)
+            else if (skillLabLevel[2] >= 4)
             {
                 masteredLab.SetActive(true);
                 Invoke("MasterWarningLab", 0.5f);
@@ -504,15 +459,15 @@ public class SaveManager : MonoBehaviour
     {
         if (earnedGene >= 1)                  // 코인 제한
         {
-            if (skill4LabLevel < 4)
+            if (skillLabLevel[3] < 4)
             {
                 earnedGene -= 1;
                 SoundManager.SoundEffect.SoundPlay("LvUpSound", lvUpSound);
-                skill4LabLevel += 1;
-                playData.skill4LabLv = skill4LabLevel;
+                skillLabLevel[3] += 1;
+                playData.skillLabLv[3] = skillLabLevel[3];
                 playData.gene = earnedGene;
             }
-            else if (skill4LabLevel >= 4)
+            else if (skillLabLevel[3] >= 4)
             {
                 masteredLab.SetActive(true);
                 Invoke("MasterWarningLab", 0.5f);
@@ -526,20 +481,19 @@ public class SaveManager : MonoBehaviour
             SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
         }
     }
-    public void TextSync()              // 실시간 값을 텍스트로 표기해주는 메소드
+    public void TextSync()              // 실시간 값 To 텍스트
     {
-        skill0.text = skill0Level.ToString();
-        skill1.text = (skill1Level + 1).ToString();
-        skill2.text = (skill2Level + 1).ToString();
-        skill3.text = (skill3Level + 1).ToString();
-        skill4.text = (skill4Level + 1).ToString();
-        skill5.text = (skill5Level + 1).ToString();
-        skill0Health = 100 + (skill0Level * 20);
-        baseDamage = (skill1Level + 1) * 50;
-        maceDamage = (skill2Level + 1) * 10;
-        jumpCoolDown = 6 - (skill3Level + 1);
-        trapCoolDown = 4 - (skill4Level + 1);
-        poisonDamage = (skill5Level + 1) * 2;
+        skillText[0].text = skillLevel[0].ToString();
+        for (int i = 1; i < 6; i++)
+        {
+            skillText[i].text = (skillLevel[i] + 1).ToString();
+        }
+        skill0Health = 100 + (skillLevel[0] * 20);
+        baseDamage = (skillLevel[1] + 1) * 50;
+        maceDamage = (skillLevel[2] + 1) * 10;
+        jumpCoolDown = 6 - (skillLevel[3] + 1);
+        trapCoolDown = 4 - (skillLevel[4] + 1);
+        poisonDamage = (skillLevel[5] + 1) * 2;
         skill0Hp.text = skill0Health.ToString();
         skill1Dmg.text = baseDamage.ToString();
         skill2Dmg.text = maceDamage.ToString();
@@ -551,23 +505,23 @@ public class SaveManager : MonoBehaviour
         earnedGeneCount.text = earnedGene.ToString();
         earnedGeneCountMain.text = earnedGene.ToString();
     }
-    public void Initializing()      // 다른 스크립트로 레벨값을 보내주기 위한 메소드
+    public void Initializing()      // 다른 스크립트로 레벨값을 보냄
     {
         bgmVolumeStat = playData.bgmVolume;
         effectVolumeStat = playData.effectVolume;
-        skill0LvStat = playData.skill0Lv;
-        skill1LvStat = playData.skill1Lv+1;
-        skill2LvStat = playData.skill2Lv+1;
-        skill3LvStat = playData.skill3Lv+1;
-        skill4LvStat = playData.skill4Lv + 1;
-        skill5LvStat = playData.skill5Lv + 1;
-        skill1LabLvStat = playData.skill1LabLv;
-        skill2LabLvStat = playData.skill2LabLv;
-        skill3LabLvStat = playData.skill3LabLv;
-        skill4LabLvStat = playData.skill4LabLv;
-        skill3EnableStat = playData.skill3Enable;
-        skill4EnableStat = playData.skill4Enable;
-        skill5EnableStat = playData.skill5Enable;
+        for (int i = 0; i < 6; i++)
+        {
+            skillLvStat[i] = playData.skillLv[i];
+            if (i > 0) skillLvStat[i] += 1;
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            skillLabLvStat[i] = playData.skillLabLv[i];
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            skillEnableStat[i] = playData.skillEnable[i];
+        }
         hideNoticeStat = playData.hideHelpNotice;
         coinsStat = playData.coins;
         geneStat = playData.gene;

@@ -45,7 +45,7 @@ public class Stage1Spider : MonoBehaviour
         {
             if (collision.CompareTag("Player"))
             {
-                SaveManager.getSkill3EnableStat = true;
+                SaveManager.getSkillEnableStat[0] = true;
             }
         }else if (PlayerController.keysCount < 3){
             keyTip.SetActive(true);

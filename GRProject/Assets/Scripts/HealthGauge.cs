@@ -16,7 +16,7 @@ public class HealthGauge : MonoBehaviour
     public float MaxHP => maxHealth;
     private void Awake()
     {
-        maxHealth = 100 + (SaveManager.skill0LvStat * 20);  // 특성에 따른 체력설정 (체력 강화)
+        maxHealth = 100 + (SaveManager.skillLvStat[0] * 20);  // 특성에 따른 체력설정 (체력 강화)
     }
     private void Start()
     {

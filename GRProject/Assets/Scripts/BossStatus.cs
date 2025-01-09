@@ -28,7 +28,7 @@ public class BossStatus : MonoBehaviour
     {
         sprite = gameObject.GetComponent<SpriteRenderer>();
         color = sprite.color;
-        poisonLabLv = SaveManager.skill4LabLvStat;
+        poisonLabLv = SaveManager.skillLabLvStat[3];
     }
     private void Start()
     {
@@ -45,9 +45,9 @@ public class BossStatus : MonoBehaviour
     }
     private void Update()
     {
-        baseDamage = SaveManager.skill1LvStat * 50;             // 기본공격 계수
-        maceDamage = SaveManager.skill2LvStat * 10;             // 철퇴공격 계수
-        poisonDamage = SaveManager.skill5LvStat * 2;            // 독 공격 계수
+        baseDamage = SaveManager.skillLvStat[1] * 50;             // 기본공격 계수
+        maceDamage = SaveManager.skillLvStat[2] * 10;             // 철퇴공격 계수
+        poisonDamage = SaveManager.skillLvStat[5] * 2;            // 독 공격 계수
         if (bossHealth <= 0)
         {                                                               // 보스 사망 시
             DestroyEnemy();                                       // 맵전체 몹들 초기화 후

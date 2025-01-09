@@ -30,7 +30,7 @@ public class EnemyStatus : MonoBehaviour
     {
         sprite = gameObject.GetComponent<SpriteRenderer>();
         color = sprite.color;
-        poisonLabLv = SaveManager.skill4LabLvStat;
+        poisonLabLv = SaveManager.skillLabLvStat[3];
     }
     private void Start()
     {
@@ -47,9 +47,9 @@ public class EnemyStatus : MonoBehaviour
     }
     private void Update()
     {
-        baseDamage = SaveManager.skill1LvStat * 50;
-        maceDamage = SaveManager.skill2LvStat * 10;
-        poisonDamage = SaveManager.skill5LvStat * 2;
+        baseDamage = SaveManager.skillLvStat[1] * 50;
+        maceDamage = SaveManager.skillLvStat[2] * 10;
+        poisonDamage = SaveManager.skillLvStat[5] * 2;
         if (enemyHealth <= 0)           // 몹 사망시 난이도에 따른 적 스폰풀에 킬수 카운트
         {
             DestroyEnemy();

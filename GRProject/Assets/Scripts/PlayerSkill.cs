@@ -22,11 +22,7 @@ public class PlayerSkill : MonoBehaviour
 
     [Header("거미줄 트랩")]
     [SerializeField] private GameObject webCounter;     // 스킬 남은 횟수를 보여주는 UI 카운터
-    public GameObject webLv0;
-    public GameObject webLv1;
-    public GameObject webLv2;
-    public GameObject webLv3;
-    public GameObject webLv4;
+    public GameObject[] webLv;
     public Transform player;                                // 플레이어 위치정보
     [SerializeField] public float trapCoolDown;             // 트랩 쿨타임
     public int webCount = 2;                                // 스킬 최대 누적횟수
@@ -48,7 +44,7 @@ public class PlayerSkill : MonoBehaviour
     private void Awake()
     {
         circleR = 400f;                                 // 철퇴 회전 반지름
-        webMaceCount = SaveManager.skill1LabLvStat + 1;     // 레벨에 따른 철퇴 갯수
+        webMaceCount = SaveManager.skillLabLvStat[0] + 1;     // 레벨에 따른 철퇴 갯수
         if (webMaceCount <= 4)                  // 철퇴 속도 조절
         {
             objSpeed = 150f;
@@ -60,7 +56,7 @@ public class PlayerSkill : MonoBehaviour
         {
             webMaceCount = 4;
         }
-        poisonLabLv = SaveManager.skill4LabLvStat;
+        poisonLabLv = SaveManager.skillLabLvStat[3];
         if (poisonLabLv >= 3)
         {
             poisonLabLv = 2;
@@ -72,7 +68,7 @@ public class PlayerSkill : MonoBehaviour
         StartCoroutine("WebCoolDown");
         MaceOn();
         InvokeRepeating("MaceSound", 1, 1.5f);          // 철퇴 효과음
-        if (SaveManager.skill5EnableStat == true)       // 독 발사 스킬 활성화면
+        if (SaveManager.skillEnableStat[2] == true)       // 독 발사 스킬 활성화면
         {
             poisonUi.SetActive(true);                       // 독 쿨타임 알려주는 UI ON
             StartCoroutine("SpitPoison");                   // 독 스킬 코루틴실행
@@ -80,15 +76,15 @@ public class PlayerSkill : MonoBehaviour
     }
     void Update()
     {
-        trapCoolDown = 4 - (SaveManager.skill4LvStat);
+        trapCoolDown = 4 - (SaveManager.skillLvStat[4]);
         StartCoroutine("WebMace");
-        if (SaveManager.skill4EnableStat == true)
+        if (SaveManager.skillEnableStat[1] == true)
         {
             if(HealthGauge.isDie == false)
             {
                 StartCoroutine("MakeWeb");
             }
-        }else if(SaveManager.skill4EnableStat == false)
+        }else if (SaveManager.skillEnableStat[1] == false)
         {
             webCounter.SetActive(false);
         }
@@ -204,27 +200,29 @@ public class PlayerSkill : MonoBehaviour
     }
     private void SpawnWeb()
     {
-        int skill3Lab = SaveManager.skill3LabLvStat;
-        if (skill3Lab == 0)
+        int skill3Lab = SaveManager.skillLabLvStat[2];
+        switch (skill3Lab)
         {
-            webLv0.transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
-            Instantiate(webLv0);
-        }else if (skill3Lab == 1)
-        {
-            webLv1.transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
-            Instantiate(webLv1);
-        }else if (skill3Lab == 2)
-        {
-            webLv2.transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
-            Instantiate(webLv2);
-        }else if (skill3Lab == 3)
-        {
-            webLv3.transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
-            Instantiate(webLv3);
-        }else if (skill3Lab == 4)
-        {
-            webLv4.transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
-            Instantiate(webLv4);
+            case 0:
+                webLv[0].transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
+                Instantiate(webLv[0]);
+                break;
+            case 1:
+                webLv[1].transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
+                Instantiate(webLv[1]);
+                break;
+            case 2:
+                webLv[2].transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
+                Instantiate(webLv[2]);
+                break;
+            case 3:
+                webLv[3].transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
+                Instantiate(webLv[3]);
+                break;
+            case 4:
+                webLv[4].transform.position = new Vector3(player.position.x, player.position.y, 0.1f);
+                Instantiate(webLv[4]);
+                break;
         }
     }
     private IEnumerator WebCoolDown()

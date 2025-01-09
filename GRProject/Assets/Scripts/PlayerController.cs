@@ -17,16 +17,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject go_BaseUi;
 
-
     public AudioClip clip;
     public AudioClip enemyDestroySound;
     public AudioClip jumpSound;
     public AudioClip electricShock;
     public AudioClip healSound;
 
-    private bool enable3;
-    private bool enable4;
-    private bool enable5;
+    private bool[] enable = new bool[3];
 
     public static bool invincible = false;
     public static bool canPlayerMove = false;
@@ -65,9 +62,7 @@ public class PlayerController : MonoBehaviour
     [Header("¿­¼è")]
     [SerializeField]    private GameObject key;
     public static int keysCount;
-    [SerializeField]    private Image keyUi1;
-    [SerializeField]    private Image keyUi2;
-    [SerializeField]    private Image keyUi3;
+    [SerializeField]    private Image[] keyUi;
 
     [Header("Á×À½")]
     private float screenTime;
@@ -83,9 +78,7 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Å¬¸®¾î")]
-    [SerializeField] private GameObject stage1Spidy;
-    [SerializeField] private GameObject stage2Spidy;
-    [SerializeField] private GameObject stage3Spidy;
+    [SerializeField] private GameObject[] stageSpidy;
     [SerializeField] private GameObject clearGene;
     [SerializeField] private GameObject eraser;
     [SerializeField] private GameObject spawnPool;
@@ -110,19 +103,21 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         time = 0f;
-        if (SaveManager.skill2LabLvStat < 4)
+        if (SaveManager.skillLabLvStat[1] < 4)
         {
-            moveSpeed = 300 + (SaveManager.skill2LabLvStat * 30);
-        }else if (SaveManager.skill2LabLvStat == 4){
+            moveSpeed = 300 + (SaveManager.skillLabLvStat[1] * 30);
+        }else if (SaveManager.skillLabLvStat[1] == 4){
             moveSpeed = 390;
         }
         isPause = false;
         movement = GetComponent<CharacterMovement>();
         Time.timeScale = 1f;
         clearNum = 0;
-        enable3 = SaveManager.skill3EnableStat;
-        enable4 = SaveManager.skill4EnableStat;
-        enable5 = SaveManager.skill5EnableStat;
+        for (int i = 0; i < 3; i++)
+        {
+            enable[i] = SaveManager.skillEnableStat[i];
+        }
+        jumpCoolDown = 6 - (SaveManager.skillLvStat[3]);
     }
     private void Start()
     {
@@ -136,7 +131,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        jumpCoolDown = 6 - (SaveManager.skill3LvStat);
         if (canPlayerMove)
         {
             UpdateMove();
@@ -151,7 +145,7 @@ public class PlayerController : MonoBehaviour
         {
             canPlayerMove = true;
         }
-        if (SaveManager.skill3EnableStat == true)
+        if (SaveManager.skillEnableStat[0] == true)
         {
             if (isDashing)
             {
@@ -164,7 +158,7 @@ public class PlayerController : MonoBehaviour
                     StartCoroutine("Dash");
                 }
             }
-        }else if(SaveManager.skill3EnableStat == false)
+        }else if(SaveManager.skillEnableStat[0] == false)
         {
             tpCounter.SetActive(false);
         }
@@ -355,7 +349,7 @@ public class PlayerController : MonoBehaviour
             { LerpMove(this.transform.position, this.transform.position + new Vector3(0, -150, 0), lerpTime); }
             //rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
             SoundManager.SoundEffect.SoundPlay("jumpSound", jumpSound);
-            if (SaveManager.skill2LabLvStat == 4)
+            if (SaveManager.skillLabLvStat[1] == 4)
             {
                 InvincibleOn();
             }
@@ -417,20 +411,20 @@ public class PlayerController : MonoBehaviour
         int spawnSpidy = Random.Range(0, 4);
         if ((SceneManager.GetActiveScene().name == "Stage1") || (SceneManager.GetActiveScene().name == "Stage1Hard"))
         {
-            if (enable3 == false)
+            if (enable[0] == false)
             {
                 switch (spawnSpidy)
                 {
                     case 0:
-                        Instantiate(stage1Spidy, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                        Instantiate(stageSpidy[0], new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
                     case 1:
-                        Instantiate(stage1Spidy, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                        Instantiate(stageSpidy[0], new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
                     case 2:
-                        Instantiate(stage1Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
+                        Instantiate(stageSpidy[0], new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
                     case 3:
-                        Instantiate(stage1Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+                        Instantiate(stageSpidy[0], new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
                 }
-            }else if (enable3 == true)
+            }else if (enable[0] == true)
             {
                 switch (spawnSpidy)
                 {
@@ -446,20 +440,20 @@ public class PlayerController : MonoBehaviour
             }
         }else if ((SceneManager.GetActiveScene().name == "Stage2") || (SceneManager.GetActiveScene().name == "Stage2Hard"))
         {
-            if (enable4 == false)
+            if (enable[1] == false)
             {
                 switch (spawnSpidy)
                 {
                     case 0:
-                        Instantiate(stage2Spidy, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                        Instantiate(stageSpidy[1], new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
                     case 1:
-                        Instantiate(stage2Spidy, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                        Instantiate(stageSpidy[1], new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
                     case 2:
-                        Instantiate(stage2Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
+                        Instantiate(stageSpidy[1], new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
                     case 3:
-                        Instantiate(stage2Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+                        Instantiate(stageSpidy[1], new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
                 }
-            }else if (enable4 == true)
+            }else if (enable[1] == true)
             {
                 switch (spawnSpidy)
                 {
@@ -475,20 +469,20 @@ public class PlayerController : MonoBehaviour
             }
         }else if ((SceneManager.GetActiveScene().name == "Stage3") || (SceneManager.GetActiveScene().name == "Stage3Hard"))
         {
-            if (enable5 == false)
+            if (enable[2] == false)
             {
                 switch (spawnSpidy)
                 {
                     case 0:
-                        Instantiate(stage3Spidy, new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                        Instantiate(stageSpidy[2], new Vector3(Random.Range(-3900, -2900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
                     case 1:
-                        Instantiate(stage3Spidy, new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
+                        Instantiate(stageSpidy[2], new Vector3(Random.Range(2900, 3900), Random.Range(-2950, 2950), -0.1f), Quaternion.identity); break;
                     case 2:
-                        Instantiate(stage3Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
+                        Instantiate(stageSpidy[2], new Vector3(Random.Range(-3900, 3900), Random.Range(-2950, -1950), -0.1f), Quaternion.identity); break;
                     case 3:
-                        Instantiate(stage3Spidy, new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
+                        Instantiate(stageSpidy[2], new Vector3(Random.Range(-3900, 3900), Random.Range(1950, 2950), -0.1f), Quaternion.identity); break;
                 }
-            }else if (enable4 == true)
+            }else if (enable[1] == true)
             {
                 switch (spawnSpidy)
                 {
@@ -512,29 +506,33 @@ public class PlayerController : MonoBehaviour
     }
     private void KeyCount()
     {
-        if (keysCount == 3)
+        switch (keysCount)
         {
-            keyUi1.color = Color.white;
-            keyUi2.color = Color.white;
-            keyUi3.color = Color.white;
-        }
-        else if (keysCount == 2)
-        {
-            keyUi1.color = Color.white;
-            keyUi2.color = Color.white;
-            keyUi3.color = Color.black;
-        }
-        else if (keysCount == 1)
-        {
-            keyUi1.color = Color.white;
-            keyUi2.color = Color.black;
-            keyUi3.color = Color.black;
-        }
-        else if (keysCount == 0)
-        {
-            keyUi1.color = Color.black;
-            keyUi2.color = Color.black;
-            keyUi3.color = Color.black;
+            case 0:
+                for (int i = 0; i < 3; i++)
+                {
+                    keyUi[i].color = Color.black;
+                }
+                break;
+            case 1:
+                keyUi[0].color = Color.white;
+                for (int i = 1; i < 3; i++)
+                {
+                    keyUi[i].color = Color.black;
+                }
+                break;
+            case 2:
+                for (int i = 0; i < 2; i++)
+                {
+                    keyUi[i].color = Color.white;
+                }keyUi[2].color = Color.black;
+                break;
+            case 3:
+                for (int i = 0; i < 3; i++)
+                {
+                    keyUi[i].color = Color.white;
+                }
+                break;
         }
     }
     private void ClearEvent()

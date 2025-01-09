@@ -45,7 +45,7 @@ public class Stage3Spider : MonoBehaviour
         {
             if (collision.CompareTag("Player"))
             {
-                SaveManager.getSkill5EnableStat = true;
+                SaveManager.getSkillEnableStat[2] = true;
                 //Destroy(gameObject);
             }
         }
