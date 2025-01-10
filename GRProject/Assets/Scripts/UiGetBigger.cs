@@ -8,9 +8,6 @@ public class UiGetBigger : MonoBehaviour
     float time2 = 0;
     public float size = 5;
     public float upSizeTime = 3f;
-    void Start()
-    {
-    }
     void Update()
     {
         if(time <= 0.5f)

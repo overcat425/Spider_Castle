@@ -17,39 +17,17 @@ public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHa
     [SerializeField]    private GameObject[] skillLabPane;      // Lv 2,3,4
 
     [SerializeField]    private GameObject[] skill1LabLvPane;   // Lv1234
-
-    [SerializeField]    private GameObject skill2LabLv1Pane;
-    [SerializeField]    private GameObject skill2LabLv2Pane;
-    [SerializeField]    private GameObject skill2LabLv3Pane;
-    [SerializeField]    private GameObject skill2LabLv4Pane;
-
-    [SerializeField]    private GameObject skill3LabLv1Pane;
-    [SerializeField]    private GameObject skill3LabLv2Pane;
-    [SerializeField]    private GameObject skill3LabLv3Pane;
-    [SerializeField]    private GameObject skill3LabLv4Pane;
-
-    [SerializeField]    private GameObject skill4LabLv1Pane;
-    [SerializeField]    private GameObject skill4LabLv2Pane;
-    [SerializeField]    private GameObject skill4LabLv3Pane;
-    [SerializeField]    private GameObject skill4LabLv4Pane;
+    [SerializeField]    private GameObject[] skill2LabLvPane;
+    [SerializeField]    private GameObject[] skill3LabLvPane;
+    [SerializeField]    private GameObject[] skill4LabLvPane;
 
     [Header("Enhance탭 스킬")]
-    [SerializeField]    private GameObject skill0;
-    [SerializeField]    private GameObject skill1;
-    [SerializeField]    private GameObject skill2;
-    [SerializeField]    private GameObject skill3;
-    [SerializeField]    private GameObject skill4;
-    [SerializeField]    private GameObject skill5;
+    [SerializeField]    private GameObject[] skills;
 
-    [SerializeField]    private GameObject skill3Pane;
-    [SerializeField]    private GameObject skill4Pane;
-    [SerializeField]    private GameObject skill5Pane;
+    [SerializeField]    private GameObject[] skillPane; // Lv 3,4,5
 
     [Header("Cob탭 거미종류")]
-    [SerializeField]    private GameObject spider1;
-    [SerializeField]    private GameObject spider2;
-    [SerializeField]    private GameObject spider3;
-    [SerializeField]    private GameObject spider4;
+    [SerializeField]    private GameObject[] spiders;   // 1234
 
     [SerializeField]    private GameObject spider2Pane;
     [SerializeField]    private GameObject spider3Pane;
@@ -63,7 +41,7 @@ public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHa
     //Vector3 defaultScale;
     private void Start()
     {
-        //defaultScale = buttonScale.localScale;
+        StartCoroutine("SkillLabPaneUpdate");
     }
     private void Update()
     {
@@ -72,10 +50,6 @@ public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHa
         skill5Enable = SaveManager.skillEnableStat[2];
         EnableSkills();
         EnableSpiders();
-        Skill1LabPane();
-        Skill2LabPane();
-        Skill3LabPane();
-        Skill4LabPane();
     }
     public void CallMenu()
     {
@@ -95,6 +69,7 @@ public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHa
         labTab.SetActive(true);
         enhanceTab.SetActive(false);
         cobTab.SetActive(false);
+        Skill1LabPane();
     }
     public void OnClickEnhanceTab()
     {
@@ -110,9 +85,20 @@ public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHa
         cobTab.SetActive(true);
         spiderInfo.SetActive(false);
     }
+    IEnumerator SkillLabPaneUpdate()        // 실시간 레벨업상태 업데이트
+    {
+        while (true)
+        {
+            Skill1LabPane();
+            Skill2LabPane();
+            Skill3LabPane();
+            Skill4LabPane();
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
     public void Skill1LabPane()                 // 2번스킬 연구 카테고리
     {
-        int skill1LabLv = SaveManager.skillLabLvStat[0];
+        int skill1LabLv = SaveManager.instance.skillLabLvStat[0];
         for (int i = 0; i < 4; i++)
         {
             skill1LabLvPane[i].SetActive(false);
@@ -136,244 +122,120 @@ public class EnhanceMenu : MonoBehaviour//, IPointerEnterHandler, IPointerExitHa
     }
     public void Skill2LabPane()                 // 3번스킬 연구 카테고리
     {
-        int skill2LabLv = SaveManager.skillLabLvStat[1];
-        if (skill2LabLv == 0)
+        int skill2LabLv = SaveManager.instance.skillLabLvStat[1];
+        for (int i = 0; i < 4; i++)
         {
-            skill2LabLv1Pane.SetActive(false);
-            skill2LabLv2Pane.SetActive(false);
-            skill2LabLv3Pane.SetActive(false);
-            skill2LabLv4Pane.SetActive(false);
+            skill2LabLvPane[i].SetActive(false);
         }
-        else if (skill2LabLv == 1)
+        switch (skill2LabLv)
         {
-            skill2LabLv1Pane.SetActive(true);
-            skill2LabLv2Pane.SetActive(false);
-            skill2LabLv3Pane.SetActive(false);
-            skill2LabLv4Pane.SetActive(false);
-        }
-        else if (skill2LabLv == 2)
-        {
-            skill2LabLv1Pane.SetActive(false);
-            skill2LabLv2Pane.SetActive(true);
-            skill2LabLv3Pane.SetActive(false);
-            skill2LabLv4Pane.SetActive(false);
-        }
-        else if (skill2LabLv == 3)
-        {
-            skill2LabLv1Pane.SetActive(false);
-            skill2LabLv2Pane.SetActive(false);
-            skill2LabLv3Pane.SetActive(true);
-            skill2LabLv4Pane.SetActive(false);
-        }
-        else if (skill2LabLv == 4)
-        {
-            skill2LabLv1Pane.SetActive(false);
-            skill2LabLv2Pane.SetActive(false);
-            skill2LabLv3Pane.SetActive(true);
-            skill2LabLv4Pane.SetActive(true);
+            case 1:
+                skill2LabLvPane[0].SetActive(true);
+                break;
+            case 2:
+                skill2LabLvPane[1].SetActive(true);
+                break;
+            case 3:
+                skill2LabLvPane[2].SetActive(true);
+                break;
+            case 4:
+                skill2LabLvPane[2].SetActive(true);
+                skill2LabLvPane[3].SetActive(true);
+                break;
         }
     }
     public void Skill3LabPane()                 // 4번스킬 연구 카테고리
     {
-        int skill3LabLv = SaveManager.skillLabLvStat[2];
-        if (skill3LabLv == 0)
+        int skill3LabLv = SaveManager.instance.skillLabLvStat[2];
+        for (int i = 0; i < 4; i++)
         {
-            skill3LabLv1Pane.SetActive(false);
-            skill3LabLv2Pane.SetActive(false);
-            skill3LabLv3Pane.SetActive(false);
-            skill3LabLv4Pane.SetActive(false);
-        }else if (skill3LabLv == 1)
-        {
-            skill3LabLv1Pane.SetActive(true);
-            skill3LabLv2Pane.SetActive(false);
-            skill3LabLv3Pane.SetActive(false);
-            skill3LabLv4Pane.SetActive(false);
+            skill3LabLvPane[i].SetActive(false);
         }
-        else if (skill3LabLv == 2)
+        switch (skill3LabLv)
         {
-            skill3LabLv1Pane.SetActive(false);
-            skill3LabLv2Pane.SetActive(true);
-            skill3LabLv3Pane.SetActive(false);
-            skill3LabLv4Pane.SetActive(false);
-        }
-        else if (skill3LabLv == 3)
-        {
-            skill3LabLv1Pane.SetActive(false);
-            skill3LabLv2Pane.SetActive(false);
-            skill3LabLv3Pane.SetActive(true);
-            skill3LabLv4Pane.SetActive(false);
-        }
-        else if (skill3LabLv == 4)
-        {
-            skill3LabLv1Pane.SetActive(false);
-            skill3LabLv2Pane.SetActive(false);
-            skill3LabLv3Pane.SetActive(true);
-            skill3LabLv4Pane.SetActive(true);
+            case 1:
+                skill3LabLvPane[0].SetActive(true);
+                break;
+            case 2:
+                skill3LabLvPane[1].SetActive(true);
+                break;
+            case 3:
+                skill3LabLvPane[2].SetActive(true);
+                break;
+            case 4:
+                skill3LabLvPane[2].SetActive(true);
+                skill3LabLvPane[3].SetActive(true);
+                break;
         }
     }
     public void Skill4LabPane()                 // 5번스킬 연구 카테고리
     {
-        int skill4LabLv = SaveManager.skillLabLvStat[3];
-        if (skill4LabLv == 0)
+        int skill4LabLv = SaveManager.instance.skillLabLvStat[3];
+        for (int i = 0; i < 4; i++)
         {
-            skill4LabLv1Pane.SetActive(false);
-            skill4LabLv2Pane.SetActive(false);
-            skill4LabLv3Pane.SetActive(false);
-            skill4LabLv4Pane.SetActive(false);
+            skill4LabLvPane[i].SetActive(false);
         }
-        else if (skill4LabLv == 1)
+        switch (skill4LabLv)
         {
-            skill4LabLv1Pane.SetActive(true);
-            skill4LabLv2Pane.SetActive(false);
-            skill4LabLv3Pane.SetActive(false);
-            skill4LabLv4Pane.SetActive(false);
-        }
-        else if (skill4LabLv == 2)
-        {
-            skill4LabLv1Pane.SetActive(false);
-            skill4LabLv2Pane.SetActive(true);
-            skill4LabLv3Pane.SetActive(false);
-            skill4LabLv4Pane.SetActive(false);
-        }
-        else if (skill4LabLv == 3)
-        {
-            skill4LabLv1Pane.SetActive(false);
-            skill4LabLv2Pane.SetActive(true);
-            skill4LabLv3Pane.SetActive(true);
-            skill4LabLv4Pane.SetActive(false);
-        }
-        else if (skill4LabLv == 4)
-        {
-            skill4LabLv1Pane.SetActive(false);
-            skill4LabLv2Pane.SetActive(true);
-            skill4LabLv3Pane.SetActive(false);
-            skill4LabLv4Pane.SetActive(true);
+            case 1:
+                skill4LabLvPane[0].SetActive(true);
+                break;
+            case 2:
+                skill4LabLvPane[1].SetActive(true);
+                break;
+            case 3:
+                skill4LabLvPane[2].SetActive(true);
+                break;
+            case 4:
+                skill4LabLvPane[2].SetActive(true);
+                skill4LabLvPane[3].SetActive(true);
+                break;
         }
     }
-    public void OnClickSkill0Icon()
+    public void OnClickSkillIconFalse()
     {
-        summary.SetActive(true);
-        skill0.SetActive(true);
-        skill1.SetActive(false);
-        skill2.SetActive(false);
-        skill3.SetActive(false);
-        skill4.SetActive(false);
-        skill5.SetActive(false);
+        for (int i = 0; i < 6; i++)
+        {
+            skills[i].SetActive(false);
+        }
     }
-    public void OnClickSkill1Icon()
+    public void OnClickSpiderIconFalse()
     {
-        summary.SetActive(true);
-        skill0.SetActive(false);
-        skill1.SetActive(true);
-        skill2.SetActive(false);
-        skill3.SetActive(false);
-        skill4.SetActive(false);
-        skill5.SetActive(false);
-
-    }
-    public void OnClickSkill2Icon()
-    {
-        summary.SetActive(true);
-        skill2.SetActive(true);
-        skill0.SetActive(false);
-        skill1.SetActive(false);
-        skill3.SetActive(false);
-        skill4.SetActive(false);
-        skill5.SetActive(false);
-    }
-    public void OnClickSkill3Icon()
-    {
-        summary.SetActive(true);
-        skill3.SetActive(true);
-        skill0.SetActive(false);
-        skill1.SetActive(false);
-        skill2.SetActive(false);
-        skill4.SetActive(false);
-        skill5.SetActive(false);
-
-    }
-    public void OnClickSkill4Icon()
-    {
-        summary.SetActive(true);
-        skill4.SetActive(true);
-        skill0.SetActive(false);
-        skill1.SetActive(false);
-        skill2.SetActive(false);
-        skill3.SetActive(false);
-        skill5.SetActive(false);
-    }
-    public void OnClickSkill5Icon()
-    {
-        summary.SetActive(true);
-        skill5.SetActive(true);
-        skill0.SetActive(false);
-        skill1.SetActive(false);
-        skill2.SetActive(false);
-        skill3.SetActive(false);
-        skill4.SetActive(false);
-    }
-    public void OnClickSpider1Icon()
-    {
-        spiderInfo.SetActive(true);
-        spider1.SetActive(true);
-        spider2.SetActive(false);
-        spider3.SetActive(false);
-        spider4.SetActive(false);
-    }
-    public void OnClickSpider2Icon()
-    {
-        spiderInfo.SetActive(true);
-        spider2.SetActive(true);
-        spider1.SetActive(false);
-        spider3.SetActive(false);
-        spider4.SetActive(false);
-    }
-    public void OnClickSpider3Icon()
-    {
-        spiderInfo.SetActive(true);
-        spider3.SetActive(true);
-        spider1.SetActive(false);
-        spider2.SetActive(false);
-        spider4.SetActive(false);
-    }
-    public void OnClickSpider4Icon()
-    {
-        spiderInfo.SetActive(true);
-        spider4.SetActive(true);
-        spider1.SetActive(false);
-        spider2.SetActive(false);
-        spider3.SetActive(false);
+        for (int i = 0; i < 4; i++)
+        {
+            spiders[i].SetActive(false);
+        }
     }
     public void EnableSkills()
     {
         if (skill3Enable == true)
         {
-            skill3Pane.SetActive(true);
+            skillPane[0].SetActive(true);
             skillLabPane[0].SetActive(true);
         }
         else if (skill3Enable == false)
         {
-            skill3Pane.SetActive(false);
+            skillPane[0].SetActive(false);
             skillLabPane[0].SetActive(false);
         }
         if (skill4Enable == true)
         {
-            skill4Pane.SetActive(true);
+            skillPane[1].SetActive(true);
             skillLabPane[1].SetActive(true);
         }
         else if (skill4Enable == false)
         {
-            skill4Pane.SetActive(false);
+            skillPane[1].SetActive(false);
             skillLabPane[1].SetActive(false);
         }
         if (skill5Enable == true)
         {
-            skill5Pane.SetActive(true);
+            skillPane[2].SetActive(true);
             skillLabPane[2].SetActive(true);
         }
         else if (skill5Enable == false)
         {
-            skill5Pane.SetActive(false);
+            skillPane[2].SetActive(false);
             skillLabPane[2].SetActive(false);
         }
     }

@@ -14,9 +14,6 @@ public class MainMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         defaultScale = buttonScale.localScale;                      // 버튼 스케일
     }
-    void Update()
-    {    
-    }
     public void OnClickQuit()
     {
         Debug.Log("종료");

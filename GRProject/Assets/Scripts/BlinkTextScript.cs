@@ -6,10 +6,6 @@ using TMPro;
 public class BlinkTextScript : MonoBehaviour        // 게임오버 깜빡이는 텍스트
 {
     float blinkTime;
-    void Start()
-    {
-        
-    }
     void Update()
     {
         blinkTime += Time.deltaTime;

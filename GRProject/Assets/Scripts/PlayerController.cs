@@ -103,10 +103,10 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         time = 0f;
-        if (SaveManager.skillLabLvStat[1] < 4)
+        if (SaveManager.instance.skillLabLvStat[1] < 4)
         {
-            moveSpeed = 300 + (SaveManager.skillLabLvStat[1] * 30);
-        }else if (SaveManager.skillLabLvStat[1] == 4){
+            moveSpeed = 300 + (SaveManager.instance.skillLabLvStat[1] * 30);
+        }else if (SaveManager.instance.skillLabLvStat[1] == 4){
             moveSpeed = 390;
         }
         isPause = false;
@@ -349,7 +349,7 @@ public class PlayerController : MonoBehaviour
             { LerpMove(this.transform.position, this.transform.position + new Vector3(0, -150, 0), lerpTime); }
             //rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
             SoundManager.SoundEffect.SoundPlay("jumpSound", jumpSound);
-            if (SaveManager.skillLabLvStat[1] == 4)
+            if (SaveManager.instance.skillLabLvStat[1] == 4)
             {
                 InvincibleOn();
             }

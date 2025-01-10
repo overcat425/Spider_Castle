@@ -12,10 +12,6 @@ public class SceneLoader : MonoBehaviour
     {
         StartCoroutine(LoadScene());
     }
-    void Update()
-    {
-
-    }
     public static void LoadSceneHandle(string _name, int _loadType)
     {
         loadScene = _name;

@@ -13,9 +13,6 @@ public class WarningText : MonoBehaviour
     {
         StartCoroutine("FadeTextToZero");
     }
-    private void Update()
-    {
-    }
     private IEnumerator FadeTextToZero()  // 알파값 1에서 0으로 전환
     {
         while (text.color.a > 0.0f)

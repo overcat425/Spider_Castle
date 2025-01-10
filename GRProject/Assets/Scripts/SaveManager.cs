@@ -41,7 +41,7 @@ public class SaveManager : MonoBehaviour
     public static float effectVolumeStat;
     public static float getEffectStat;
     public static int[] skillLvStat = new int[6];
-    public static int[] skillLabLvStat = new int[4];
+    public int[] skillLabLvStat = new int[4];
     public static bool[] skillEnableStat = new bool[3];
     public static bool[] getSkillEnableStat = new bool[3];
     public static bool hideNoticeStat;
@@ -94,7 +94,7 @@ public class SaveManager : MonoBehaviour
     public GameObject savedAlert;
     private void Awake()
     {
-        if (instance == null)
+        if (instance == null)       // ΩÃ±€≈Ê ∆–≈œ
         {
             instance = this;
         }else if (instance != this)
@@ -241,8 +241,7 @@ public class SaveManager : MonoBehaviour
                 Invoke("MasterWarning", 0.5f);
                 SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
             }
-        }
-        else
+        }else
         {
             needCost.SetActive(true);
             Invoke("CostWarning", 0.5f);
@@ -267,8 +266,7 @@ public class SaveManager : MonoBehaviour
                 Invoke("MasterWarning", 0.5f);
                 SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
             }
-        }
-        else
+        }else
         {
             needCost.SetActive(true);
             Invoke("CostWarning", 0.5f);
@@ -293,8 +291,7 @@ public class SaveManager : MonoBehaviour
                 Invoke("MasterWarning", 0.5f);
                 SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
             }
-        }
-        else
+        }else
         {
             needCost.SetActive(true);
             Invoke("CostWarning", 0.5f);
@@ -319,8 +316,7 @@ public class SaveManager : MonoBehaviour
                 Invoke("MasterWarning", 0.5f);
                 SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
             }
-        }
-        else
+        }else
         {
             needCost.SetActive(true);
             Invoke("CostWarning", 0.5f);
@@ -370,8 +366,7 @@ public class SaveManager : MonoBehaviour
                 Invoke("MasterWarning", 0.5f);
                 SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
             }
-        }
-        else
+        }else
         {
             needCost.SetActive(true);
             Invoke("CostWarning", 0.5f);
@@ -396,8 +391,7 @@ public class SaveManager : MonoBehaviour
                 Invoke("MasterWarningLab", 0.5f);
                 SoundManager.SoundEffect.SoundPlay("MaxLvSound", maxLvSound);
             }
-        }
-        else
+        }else
         {
             needCostLab.SetActive(true);
             Invoke("CostWarningLab", 0.5f);

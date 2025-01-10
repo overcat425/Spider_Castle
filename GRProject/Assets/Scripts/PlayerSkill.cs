@@ -44,7 +44,7 @@ public class PlayerSkill : MonoBehaviour
     private void Awake()
     {
         circleR = 400f;                                 // Ã¶Åð È¸Àü ¹ÝÁö¸§
-        webMaceCount = SaveManager.skillLabLvStat[0] + 1;     // ·¹º§¿¡ µû¸¥ Ã¶Åð °¹¼ö
+        webMaceCount = SaveManager.instance.skillLabLvStat[0] + 1;     // ·¹º§¿¡ µû¸¥ Ã¶Åð °¹¼ö
         if (webMaceCount <= 4)                  // Ã¶Åð ¼Óµµ Á¶Àý
         {
             objSpeed = 150f;
@@ -56,7 +56,7 @@ public class PlayerSkill : MonoBehaviour
         {
             webMaceCount = 4;
         }
-        poisonLabLv = SaveManager.skillLabLvStat[3];
+        poisonLabLv = SaveManager.instance.skillLabLvStat[3];
         if (poisonLabLv >= 3)
         {
             poisonLabLv = 2;
@@ -200,7 +200,7 @@ public class PlayerSkill : MonoBehaviour
     }
     private void SpawnWeb()
     {
-        int skill3Lab = SaveManager.skillLabLvStat[2];
+        int skill3Lab = SaveManager.instance.skillLabLvStat[2];
         switch (skill3Lab)
         {
             case 0:

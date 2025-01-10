@@ -36,9 +36,6 @@ public class CastleMenu : MonoBehaviour
         InvokeRepeating("SpawnCastleSpider", 0, 1);     // 주민 거미 배회 연출 1
         InvokeRepeating("SpawnCastleSpider2", 1, 2);   // 주민 거미 배회 연출 2
     }
-    void Update()
-    {        
-    }
     public void OnClickDungeon()        // 던전메뉴 클릭
     {
         dungeonUi.SetActive(true);
@@ -64,47 +61,14 @@ public class CastleMenu : MonoBehaviour
     }
     private void ShowTips()                 // 도움말 ON/OFF
     {
-        if (hideHelp == true)
-        {
-            helpNotice.SetActive(false);
-
-        }else if (hideHelp == false)
+        if (hideHelp == false)
         {
             OnClickShowCob();
         }
     }
-    public void OnClickShowCob()        // 거미숙소 탭
+    public void OnClickShowCob()        // 도움말 UI ON
     {
         helpNotice.SetActive(true);
-        cobTip.SetActive(true);
-        labTip.SetActive(false);
-        enhanceTip.SetActive(false);
-        dungeonTip.SetActive(false);
-    }
-    public void OnClickShowLab()        // 연구실 탭
-    {
-        cobTip.SetActive(false);
-        labTip.SetActive(true);
-        enhanceTip.SetActive(false);
-        dungeonTip.SetActive(false);
-    }
-    public void OnClickShowEnhance()            // 스킬강화 탭
-    {
-        cobTip.SetActive(false);
-        labTip.SetActive(false);
-        enhanceTip.SetActive(true);
-        dungeonTip.SetActive(false);
-    }
-    public void OnClickShowDungeon()            // 던전 탭
-    {
-        cobTip.SetActive(false);
-        labTip.SetActive(false);
-        enhanceTip.SetActive(false);
-        dungeonTip.SetActive(true);
-    }
-    public void OnClickTipoff()
-    {
-        helpNotice.SetActive(false);
     }
     public void OnClickDungeonoff()
     {

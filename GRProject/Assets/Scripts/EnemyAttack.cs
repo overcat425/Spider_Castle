@@ -30,9 +30,6 @@ public class EnemyAttack : MonoBehaviour
     {
         ChangeState(EnemyState.Chasing);
     }
-    public void Update()
-    {
-    }
     public void ChangeState(EnemyState newState)
     {
         if (enemyAttack == newState) return;

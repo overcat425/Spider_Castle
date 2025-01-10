@@ -30,7 +30,7 @@ public class EnemyStatus : MonoBehaviour
     {
         sprite = gameObject.GetComponent<SpriteRenderer>();
         color = sprite.color;
-        poisonLabLv = SaveManager.skillLabLvStat[3];
+        poisonLabLv = SaveManager.instance.skillLabLvStat[3];
     }
     private void Start()
     {

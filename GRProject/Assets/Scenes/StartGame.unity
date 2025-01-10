@@ -2714,7 +2714,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 827924226}
         m_TargetAssemblyTypeName: EnhanceMenu, Assembly-CSharp
-        m_MethodName: OnClickSkill3Icon
+        m_MethodName: OnClickSkillIconFalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2723,6 +2723,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1891906483}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 519024381}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &122221818
 MonoBehaviour:
@@ -2893,10 +2917,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1827539463}
-        m_TargetAssemblyTypeName: CastleMenu, Assembly-CSharp
-        m_MethodName: OnClickShowEnhance
-        m_Mode: 1
+      - m_Target: {fileID: 864618479}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2904,6 +2928,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 540481785}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &124105551
 MonoBehaviour:
@@ -4065,7 +4101,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 827924226}
         m_TargetAssemblyTypeName: EnhanceMenu, Assembly-CSharp
-        m_MethodName: OnClickSpider1Icon
+        m_MethodName: OnClickSpiderIconFalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4074,6 +4110,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1038300325}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1434993889}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &182258800
 MonoBehaviour:
@@ -4557,10 +4617,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1827539463}
-        m_TargetAssemblyTypeName: CastleMenu, Assembly-CSharp
-        m_MethodName: OnClickTipoff
-        m_Mode: 1
+      - m_Target: {fileID: 781906343}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7723,7 +7783,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 985731864}
         m_TargetAssemblyTypeName: DungeonMenu, Assembly-CSharp
-        m_MethodName: OnClickStage3
+        m_MethodName: OnClickStagefalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7732,6 +7792,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1286092155}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &298215778
 MonoBehaviour:
@@ -11535,7 +11607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &445774925
 Transform:
   m_ObjectHideFlags: 0
@@ -13402,7 +13474,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 827924226}
         m_TargetAssemblyTypeName: EnhanceMenu, Assembly-CSharp
-        m_MethodName: OnClickSkill1Icon
+        m_MethodName: OnClickSkillIconFalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13411,6 +13483,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1891906483}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 987002210}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &539364464
 MonoBehaviour:
@@ -13614,7 +13710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &540481786
 Transform:
   m_ObjectHideFlags: 0
@@ -13635,7 +13731,7 @@ Transform:
   - {fileID: 1406370232}
   - {fileID: 550597027}
   m_Father: {fileID: 781906344}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &550079608
 GameObject:
@@ -14843,7 +14939,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 827924226}
         m_TargetAssemblyTypeName: EnhanceMenu, Assembly-CSharp
-        m_MethodName: OnClickSkill0Icon
+        m_MethodName: OnClickSkillIconFalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14852,6 +14948,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1891906483}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 35960265}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &585902615
 MonoBehaviour:
@@ -18403,10 +18523,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1076244330}
-  - {fileID: 2147463434}
-  - {fileID: 540481786}
   - {fileID: 864618480}
+  - {fileID: 540481786}
+  - {fileID: 2147463434}
+  - {fileID: 1076244330}
   m_Father: {fileID: 1827539462}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18701,10 +18821,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1827539463}
-        m_TargetAssemblyTypeName: CastleMenu, Assembly-CSharp
-        m_MethodName: OnClickShowEnhance
-        m_Mode: 1
+      - m_Target: {fileID: 2147463433}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -18712,6 +18832,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 540481785}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &788956110
 MonoBehaviour:
@@ -19547,7 +19679,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 827924226}
         m_TargetAssemblyTypeName: EnhanceMenu, Assembly-CSharp
-        m_MethodName: OnClickSkill5Icon
+        m_MethodName: OnClickSkillIconFalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19556,6 +19688,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1891906483}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 554342711}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &812448839
 MonoBehaviour:
@@ -19902,31 +20058,37 @@ MonoBehaviour:
   - {fileID: 1181731012}
   - {fileID: 683651780}
   - {fileID: 2118955005}
-  skill2LabLv1Pane: {fileID: 570302970}
-  skill2LabLv2Pane: {fileID: 1408575959}
-  skill2LabLv3Pane: {fileID: 1900372259}
-  skill2LabLv4Pane: {fileID: 1495654906}
-  skill3LabLv1Pane: {fileID: 1812133696}
-  skill3LabLv2Pane: {fileID: 2065995936}
-  skill3LabLv3Pane: {fileID: 1068180816}
-  skill3LabLv4Pane: {fileID: 1162504786}
-  skill4LabLv1Pane: {fileID: 391856043}
-  skill4LabLv2Pane: {fileID: 1794388476}
-  skill4LabLv3Pane: {fileID: 414465363}
-  skill4LabLv4Pane: {fileID: 1701781988}
-  skill0: {fileID: 35960265}
-  skill1: {fileID: 987002210}
-  skill2: {fileID: 1340251784}
-  skill3: {fileID: 519024381}
-  skill4: {fileID: 1437716070}
-  skill5: {fileID: 554342711}
-  skill3Pane: {fileID: 122221815}
-  skill4Pane: {fileID: 1552626790}
-  skill5Pane: {fileID: 812448836}
-  spider1: {fileID: 1434993889}
-  spider2: {fileID: 44043400}
-  spider3: {fileID: 671846216}
-  spider4: {fileID: 2009128221}
+  skill2LabLvPane:
+  - {fileID: 570302970}
+  - {fileID: 1408575959}
+  - {fileID: 1900372259}
+  - {fileID: 1495654906}
+  skill3LabLvPane:
+  - {fileID: 1812133696}
+  - {fileID: 2065995936}
+  - {fileID: 1068180816}
+  - {fileID: 1162504786}
+  skill4LabLvPane:
+  - {fileID: 391856043}
+  - {fileID: 1794388476}
+  - {fileID: 414465363}
+  - {fileID: 1701781988}
+  skills:
+  - {fileID: 35960265}
+  - {fileID: 987002210}
+  - {fileID: 1340251784}
+  - {fileID: 519024381}
+  - {fileID: 1437716070}
+  - {fileID: 554342711}
+  skillPane:
+  - {fileID: 2140824591}
+  - {fileID: 1474874404}
+  - {fileID: 1552850866}
+  spiders:
+  - {fileID: 1434993889}
+  - {fileID: 44043400}
+  - {fileID: 671846216}
+  - {fileID: 2009128221}
   spider2Pane: {fileID: 1414998194}
   spider3Pane: {fileID: 1822978692}
   spider4Pane: {fileID: 1664873938}
@@ -19948,7 +20110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &828485908
 Transform:
   m_ObjectHideFlags: 0
@@ -20759,7 +20921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &864618480
 Transform:
   m_ObjectHideFlags: 0
@@ -20781,7 +20943,7 @@ Transform:
   - {fileID: 1061394346}
   - {fileID: 429838612}
   m_Father: {fileID: 781906344}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &871775427
 GameObject:
@@ -23397,9 +23559,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonUi: {fileID: 985731862}
-  stage1info: {fileID: 828485907}
-  stage2info: {fileID: 445774924}
-  stage3info: {fileID: 1286092155}
+  stageinfo:
+  - {fileID: 828485907}
+  - {fileID: 445774924}
+  - {fileID: 1286092155}
   percent: 0
   alpha: 0
   warningSound: {fileID: 8300000, guid: d1f20f7197de8a9498b570fc2ad13352, type: 3}
@@ -23901,7 +24064,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 985731864}
         m_TargetAssemblyTypeName: DungeonMenu, Assembly-CSharp
-        m_MethodName: OnClickStage2
+        m_MethodName: OnClickStagefalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23910,6 +24073,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 445774924}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1022141700
 MonoBehaviour:
@@ -24230,7 +24405,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 827924226}
         m_TargetAssemblyTypeName: EnhanceMenu, Assembly-CSharp
-        m_MethodName: OnClickSkill2Icon
+        m_MethodName: OnClickSkillIconFalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24239,6 +24414,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1891906483}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1340251784}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1025934045
 MonoBehaviour:
@@ -24850,7 +25049,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1038300326
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26391,7 +26590,7 @@ Transform:
   - {fileID: 1364752971}
   - {fileID: 473258419}
   m_Father: {fileID: 781906344}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1076936202
 GameObject:
@@ -26554,10 +26753,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1827539463}
-        m_TargetAssemblyTypeName: CastleMenu, Assembly-CSharp
-        m_MethodName: OnClickShowLab
-        m_Mode: 1
+      - m_Target: {fileID: 540481785}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -26565,6 +26764,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2147463433}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1077776244
 MonoBehaviour:
@@ -29821,7 +30032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1234537937
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30716,7 +30927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1286092156
 Transform:
   m_ObjectHideFlags: 0
@@ -32632,10 +32843,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1827539463}
-        m_TargetAssemblyTypeName: CastleMenu, Assembly-CSharp
-        m_MethodName: OnClickShowLab
-        m_Mode: 1
+      - m_Target: {fileID: 1076244329}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -32643,6 +32854,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2147463433}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1364752973
 MonoBehaviour:
@@ -33751,10 +33974,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1827539463}
-        m_TargetAssemblyTypeName: CastleMenu, Assembly-CSharp
-        m_MethodName: OnClickShowDungeon
-        m_Mode: 1
+      - m_Target: {fileID: 540481785}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -33762,6 +33985,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 864618479}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1406370234
 MonoBehaviour:
@@ -34191,7 +34426,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 827924226}
         m_TargetAssemblyTypeName: EnhanceMenu, Assembly-CSharp
-        m_MethodName: OnClickSpider2Icon
+        m_MethodName: OnClickSpiderIconFalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -34200,6 +34435,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1038300325}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 44043400}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1414998198
 MonoBehaviour:
@@ -34478,7 +34737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1434993890
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35707,7 +35966,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 985731864}
         m_TargetAssemblyTypeName: DungeonMenu, Assembly-CSharp
-        m_MethodName: OnClickStage1
+        m_MethodName: OnClickStagefalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -35716,6 +35975,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 828485907}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1475349570
 MonoBehaviour:
@@ -37617,7 +37888,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 827924226}
         m_TargetAssemblyTypeName: EnhanceMenu, Assembly-CSharp
-        m_MethodName: OnClickSkill4Icon
+        m_MethodName: OnClickSkillIconFalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -37626,6 +37897,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1891906483}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1437716070}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1552626793
 MonoBehaviour:
@@ -40729,7 +41024,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 827924226}
         m_TargetAssemblyTypeName: EnhanceMenu, Assembly-CSharp
-        m_MethodName: OnClickSpider4Icon
+        m_MethodName: OnClickSpiderIconFalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -40738,6 +41033,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1038300325}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2009128221}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1664873942
 MonoBehaviour:
@@ -44375,7 +44694,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 827924226}
         m_TargetAssemblyTypeName: EnhanceMenu, Assembly-CSharp
-        m_MethodName: OnClickSpider3Icon
+        m_MethodName: OnClickSpiderIconFalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -44384,6 +44703,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1038300325}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 671846216}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1822978696
 MonoBehaviour:
@@ -45287,6 +45630,7 @@ MonoBehaviour:
   masteredLab: {fileID: 949166224}
   alertClip: {fileID: 0}
   hideNotice: 0
+  skillLabLvStat: 00000000000000000000000000000000
   earnedCoins: 0
   earnedCoinsCount: {fileID: 1279571824}
   earnedCoinsCountMain: {fileID: 1789322519}
@@ -45434,18 +45778,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 827924226}
-        m_TargetAssemblyTypeName: EnhanceMenu, Assembly-CSharp
-        m_MethodName: Skill1LabPane
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1873822583}
         m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
         m_MethodName: OnClickSkill1LabLvUp
@@ -45684,7 +46016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1891906484
 RectTransform:
   m_ObjectHideFlags: 0
@@ -49735,10 +50067,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1827539463}
-        m_TargetAssemblyTypeName: CastleMenu, Assembly-CSharp
-        m_MethodName: OnClickShowCob
-        m_Mode: 1
+      - m_Target: {fileID: 2147463433}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -49746,6 +50078,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1076244329}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &2108793639
 MonoBehaviour:
@@ -50556,7 +50900,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2147463434
 Transform:
   m_ObjectHideFlags: 0
@@ -50577,5 +50921,5 @@ Transform:
   - {fileID: 788956108}
   - {fileID: 141618943}
   m_Father: {fileID: 781906344}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

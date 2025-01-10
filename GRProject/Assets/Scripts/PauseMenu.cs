@@ -8,9 +8,6 @@ using UnityEngine.Audio;
 public class PauseMenu : MonoBehaviour                  // 일시 정지 메뉴
 {
     [SerializeField]    private GameObject go_BaseUi;
-    private void Start()
-    {
-    }
     private void Update() // 클리어이벤트상태나 플레이어가 죽은 상태가 아닐때만 실행
     {
         if ((PlayerController.isClear == false) && (HealthGauge.isDie == false))

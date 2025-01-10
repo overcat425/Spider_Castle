@@ -12,9 +12,6 @@ public class BtnSizeController : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         defaultScale = buttonScale.localScale;
     }
-    void Update()
-    {
-    }
     public void OnPointerEnter(PointerEventData eventData)
     {
         buttonScale.localScale = defaultScale * 1.1f;                   // 버튼 크기 1.2배

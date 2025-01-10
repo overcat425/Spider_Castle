@@ -11,9 +11,6 @@ public class GameOver : MonoBehaviour       // ∞‘¿”ø¿πˆ Ω√ æ¿ ≥—±Ë + »πµÊ¿Á»≠ ¿˙
     string filename = "savedata";
 
     [SerializeField] private GameObject press;
-    void Update()
-    {
-    }
     public void VillageBtn()
     {
         string data = JsonUtility.ToJson(playData);

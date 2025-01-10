@@ -9,10 +9,6 @@ public class Obstacle : MonoBehaviour               // 장애물 반투명 스크립트
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)     // 플레이어와 겹칠 시 반투명
     {
         if (collision.CompareTag("Player"))

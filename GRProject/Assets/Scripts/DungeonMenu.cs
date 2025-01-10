@@ -9,9 +9,7 @@ public class DungeonMenu : MonoBehaviour
     [SerializeField] private GameObject dungeonUi;      // 던전 UI
 
     [Header("스테이지")]
-    [SerializeField] private GameObject stage1info;
-    [SerializeField] private GameObject stage2info;
-    [SerializeField] private GameObject stage3info;
+    [SerializeField] private GameObject[] stageinfo;
 
     [Header("Warining")]
     private bool warning;
@@ -47,9 +45,6 @@ public class DungeonMenu : MonoBehaviour
     [SerializeField] private GameObject stage3ChangeToNormal;
     void Start()
     {
-        stage1info.SetActive(false);
-        stage2info.SetActive(false);
-        stage3info.SetActive(false);
         warning = false;
         soundOnce = 0;
     }
@@ -66,23 +61,11 @@ public class DungeonMenu : MonoBehaviour
             soundOnce = 0;
         }
     }
-    public void OnClickStage1()           // 스테이지 1버튼 클릭
+    public void OnClickStagefalse()           // 스테이지 버튼 클릭
     {
-        stage1info.SetActive(true);
-        stage2info.SetActive(false);
-        stage3info.SetActive(false);
-    }
-    public void OnClickStage2()           // 스테이지 2버튼 클릭
-    {
-        stage1info.SetActive(false);
-        stage2info.SetActive(true);
-        stage3info.SetActive(false);
-    }
-    public void OnClickStage3()           // 스테이지 3버튼 클릭
-    {
-        stage1info.SetActive(false);
-        stage2info.SetActive(false);
-        stage3info.SetActive(true);
+        stageinfo[0].SetActive(false);
+        stageinfo[1].SetActive(false);
+        stageinfo[2].SetActive(false);
     }
     public void OnClickStage1HardBtn()// 스테이지 1 하드버튼 클릭
     {

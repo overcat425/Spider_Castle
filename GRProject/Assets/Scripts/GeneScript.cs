@@ -15,8 +15,6 @@ public class GeneScript : MonoBehaviour
     {
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();      // 타겟을 플레이어로 설정
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (Vector2.Distance(transform.position, target.position) < 150)        // 플레이어가 거리 150 안으로 들어오면

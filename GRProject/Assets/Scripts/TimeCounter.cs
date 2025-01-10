@@ -7,9 +7,6 @@ public class TimeCounter : MonoBehaviour
     public float TimeCountSec;
     public int TimeCountMin;
     public Text Timer;
-    private void Start()
-    {
-    }
     void Update()
     {
         //Timer.text = Mathf.Round(TimeCountSec).ToString();
