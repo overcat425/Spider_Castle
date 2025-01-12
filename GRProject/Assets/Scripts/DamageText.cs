@@ -8,20 +8,23 @@ public class DamageText : MonoBehaviour
     public Renderer rend;
     public float speed = 10;
     public float alphaSpeed = 1;
-    public float destroyTime = 2;
+    public float destroyTime = 1.5f;
     public int damage;
     TextMeshPro text;
     Color alpha;
+    private void OnEnable()
+    {
+        alpha.a = 1f;
+        Invoke("DestroyObject", destroyTime);
+    }
     void Start()
     {
         rend = GetComponent<Renderer>();
         text = GetComponent<TextMeshPro>();
-        text.text = damage.ToString();
         alpha = text.color;
-        Invoke("DestroyObject", destroyTime);
+        text.text = damage.ToString();
         SetLayer();
     }
-    
     void Update()
     {
         transform.Translate(new Vector3(0, speed * Time.deltaTime, 0));
@@ -30,10 +33,10 @@ public class DamageText : MonoBehaviour
     }
     private void SetLayer()
     {
-        rend.sortingOrder = 2;
+        rend.sortingOrder = 5;
     }
     private void DestroyObject()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

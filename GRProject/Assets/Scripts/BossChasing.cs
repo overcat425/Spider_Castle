@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BossChasing : MonoBehaviour    // 보스의 플레이어 추적 스크립트
 {
+    BossStatus bossStatus;
     [SerializeField]    private Animator animator;
     Rigidbody2D enemyBody;
     Transform target;
@@ -131,6 +132,12 @@ public class BossChasing : MonoBehaviour    // 보스의 플레이어 추적 스크립트
             {
                 HealthGauge.health -= 0.5f;
             }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Mace")){
+            bossStatus.EnemyDamaged();
         }
     }
     public void MobFlip()

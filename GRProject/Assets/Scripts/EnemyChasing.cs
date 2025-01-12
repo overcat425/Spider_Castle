@@ -26,12 +26,16 @@ public class EnemyChasing : MonoBehaviour
     {
         flipX = -transform.localScale.x;
     }
+    private void OnEnable()
+    {
+          moveSpeed = speed;
+    }
     void Start()
     {
         enemyBody = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();  // 타겟을 플레이어로 초기화
         slowSpeed = speed * 0.2f;           // 감소된 이동속도는 평시의 0.2배로 설정
-        moveSpeed = speed;
+
     }
     void Update()
     {

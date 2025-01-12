@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BossStatus : MonoBehaviour
 {
+    EnemySpawner enemySpawner;
     private SpriteRenderer sprite;
     private Color color;
     public GameObject hudDamageText;        // 피격시 데미지텍스트
@@ -51,7 +52,7 @@ public class BossStatus : MonoBehaviour
         if (bossHealth <= 0)
         {                                                               // 보스 사망 시
             DestroyEnemy();                                       // 맵전체 몹들 초기화 후
-            EnemySpawnPool.count_instance.EnemyKilledCount++;   // 전체 킬수에 +1 (보스)
+            EnemySpawner.count_instance.EnemyKilledCount++;   // 전체 킬수에 +1 (보스)
             SoundManager.SoundEffect.SoundPlay("EnemyDestroySound", enemyDestroySound);     // 보스 사망사운드
         }
     }
@@ -80,7 +81,6 @@ public class BossStatus : MonoBehaviour
         bossHealth -= maceDamage;
         DamageText(maceDamage);
         EnemyDamaged();
-        Invoke("EnemyCanDamage", 0.5f);
     }
     public IEnumerator PoisonDamage()         // 중독 코루틴메소드
     {
@@ -100,7 +100,7 @@ public class BossStatus : MonoBehaviour
     }
     public void DamageText(int damageText)              // 몹 피격시 데미지 출력
     {
-        GameObject hudText = Instantiate(hudDamageText);
+        GameObject hudText = Instantiate(hudDamageText, EnemySpawner.instance.texts);
         hudText.transform.position = hudPos.position;
         hudText.GetComponent<DamageText>().damage = damageText;
     }
@@ -112,6 +112,7 @@ public class BossStatus : MonoBehaviour
     public void EnemyDamaged()              // 보스 피격 대기시간 처리용 1
     {
         gameObject.tag = "EnemyDamaged";
+        Invoke("EnemyCanDamage", 0.5f);
     }
     public void EnemyCanDamage()        // 보스 피격 대기시간 처리용 2
     {

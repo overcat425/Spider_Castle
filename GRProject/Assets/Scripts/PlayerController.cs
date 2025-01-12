@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private PlayerSkill playerSkill;
     private EnemyStatus enemyStatus;
     private static EnemyChasing enemyChasing;
+    public EnemySpawner enemySpawner;
 
     [SerializeField]
     private GameObject go_BaseUi;
@@ -537,7 +538,7 @@ public class PlayerController : MonoBehaviour
     }
     private void ClearEvent()
     {
-        killedText.text = EnemySpawnPool.enemyKilledCountStat.ToString();
+        killedText.text = EnemySpawner.enemyKilledCountStat.ToString();
         coinsText.text = CoinManager.earnedCoinsStat.ToString();
         geneText.text = CoinManager.earnedGeneStat.ToString();
         Invoke("ClearStop", 3);

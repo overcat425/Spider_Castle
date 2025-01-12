@@ -21,7 +21,7 @@ public class SaveManager : MonoBehaviour
     public static SaveManager instance;
     public SoundManager soundManager;
     public CoinManager coinManager;
-    private MainMenu mainMenu;
+    public MainMenu mainMenu;
     public GameObject needCost;
     public GameObject mastered;
     public GameObject needCostLab;
@@ -94,7 +94,7 @@ public class SaveManager : MonoBehaviour
     public GameObject savedAlert;
     private void Awake()
     {
-        if (instance == null)       // 싱글톤 패턴
+        if (instance == null)
         {
             instance = this;
         }else if (instance != this)
@@ -169,7 +169,7 @@ public class SaveManager : MonoBehaviour
     {
         noSaveData.SetActive(false);
     }
-    public void OnClickYesBtn()
+    public void OnClickYesBtn()         //  메인화면 저장데이터 초기화후 시작
     {
         File.Delete(path+filename);
         playData.hideHelpNotice = false;
@@ -189,7 +189,7 @@ public class SaveManager : MonoBehaviour
         savedAlert.SetActive(true);
         print(path);
     }
-    public void SaveSound()
+    public void SaveSound()             // 저장 효과음
     {
         SoundManager.SoundEffect.SoundPlay("savedGameAlert", savedGameAlert);
     }

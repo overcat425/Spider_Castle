@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class EnemyStatus : MonoBehaviour
 {
+    EnemySpawner enemySpawner;
     private SpriteRenderer sprite;                  // 적 스프라이트
     private Color color;
     public GameObject hudDamageText;        // 피격시 데미지텍스트
@@ -20,9 +21,9 @@ public class EnemyStatus : MonoBehaviour
     public float enemyHealth;
     public AudioClip enemyDestroySound;
 
-    [SerializeField]    private int baseDamage;         // 기본공격 데미지
-    [SerializeField]    private int maceDamage;         // 철퇴공격 데미지
-    [SerializeField]    private int poisonDamage;       // 독 공격 데미지
+    public int baseDamage;         // 기본공격 데미지
+    public int maceDamage;         // 철퇴공격 데미지
+    public int poisonDamage;       // 독 공격 데미지
     private int poisonLabLv;                                // 독 레벨
     private int poisoningTime;                              // 중독 상태이상 지속시간
 
@@ -32,9 +33,10 @@ public class EnemyStatus : MonoBehaviour
         color = sprite.color;
         poisonLabLv = SaveManager.instance.skillLabLvStat[3];
     }
-    private void Start()
+    private void OnEnable()
     {
         //healthBar = GetComponent<Image>();
+        sprite.color = new Color(1, 1, 1, 1);
         enemyHealth = maxHealth;                // 몹 최대체력 초기화
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();  // 타겟을 플레이어로 설정
         if (poisonLabLv <= 2)                       // 독 지속시간 설정(특성)
@@ -55,10 +57,10 @@ public class EnemyStatus : MonoBehaviour
             DestroyEnemy();
             if ((SceneManager.GetActiveScene().name == "Stage1") || (SceneManager.GetActiveScene().name == "Stage2") || (SceneManager.GetActiveScene().name == "Stage3"))
             {
-                EnemySpawnPool.count_instance.EnemyKilledCount++;
+                EnemySpawner.count_instance.EnemyKilledCount++;
             }else if ((SceneManager.GetActiveScene().name == "Stage1Hard") || (SceneManager.GetActiveScene().name == "Stage2Hard") || (SceneManager.GetActiveScene().name == "Stage3Hard"))
             {
-                EnemySpawnPoolHard.count_instance.EnemyKilledCount++;
+                EnemySpawnerHard.count_instance.EnemyKilledCount++;
             }
             SoundManager.SoundEffect.SoundPlay("EnemyDestroySound", enemyDestroySound);
         }
@@ -96,7 +98,6 @@ public class EnemyStatus : MonoBehaviour
         enemyHealth -= maceDamage;
         DamageText(maceDamage);
         EnemyDamaged();
-        Invoke("EnemyCanDamage", 0.5f);             // 피격 대기시간
     }
     public IEnumerator PoisonDamage()           // 독 데미지 코루틴메소드
     {
@@ -115,18 +116,34 @@ public class EnemyStatus : MonoBehaviour
         {
             CoinDrop();
         }
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     public void DamageText(int damageText)          // 몹 피격시 데미지텍스트 출력
     {
-        GameObject hudText = Instantiate(hudDamageText);
-        hudText.transform.position = hudPos.position;
-        hudText.GetComponent<DamageText>().damage = damageText;
+        if ((SceneManager.GetActiveScene().name == "Stage1") || (SceneManager.GetActiveScene().name == "Stage2") || (SceneManager.GetActiveScene().name == "Stage3"))
+        {
+            GameObject hudText = Instantiate(hudDamageText, EnemySpawner.instance.texts);
+            hudText.transform.position = hudPos.position;
+            hudText.GetComponent<DamageText>().damage = damageText;
+        }
+        else if ((SceneManager.GetActiveScene().name == "Stage1Hard") || (SceneManager.GetActiveScene().name == "Stage2Hard") || (SceneManager.GetActiveScene().name == "Stage3Hard"))
+        {
+            GameObject hudText = Instantiate(hudDamageText, EnemySpawnerHard.instance.texts);
+            hudText.transform.position = hudPos.position;
+            hudText.GetComponent<DamageText>().damage = damageText;
+        }
     }
     public void CoinDrop()
     {
-        GameObject Coin = Instantiate(coins);
-        Coin.transform.position = hudPos.position;
+        if ((SceneManager.GetActiveScene().name == "Stage1") || (SceneManager.GetActiveScene().name == "Stage2") || (SceneManager.GetActiveScene().name == "Stage3"))
+        {
+            GameObject Coin = EnemySpawner.instance.SpawnEnemy(8);
+            Coin.transform.position = hudPos.position;
+        }else if ((SceneManager.GetActiveScene().name == "Stage1Hard") || (SceneManager.GetActiveScene().name == "Stage2Hard") || (SceneManager.GetActiveScene().name == "Stage3Hard"))
+        {
+            GameObject Coin = EnemySpawnerHard.instance.SpawnEnemy(8);
+            Coin.transform.position = hudPos.position;
+        }
     }
     public IEnumerator KnockBack()              // 몹 피격 시 넉백 코루틴메소드
     {
@@ -156,6 +173,7 @@ public class EnemyStatus : MonoBehaviour
     public void EnemyDamaged()
     {
         gameObject.tag = "EnemyDamaged";
+        Invoke("EnemyCanDamage", 0.5f);             // 피격 대기시간
     }
     public void EnemyCanDamage()
     {

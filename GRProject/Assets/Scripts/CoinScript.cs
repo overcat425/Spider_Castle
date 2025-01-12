@@ -16,9 +16,9 @@ public class CoinScript : MonoBehaviour
     }
     void Update()
     {
-        if(Vector2.Distance(transform.position, target.position) < 250) // 플레이어가 범위 안에 들어오면
+        if(Vector2.Distance(transform.position, target.position) < 300) // 플레이어가 범위 안에 들어오면
         {
-            transform.position = Vector2.MoveTowards(transform.position, target.position, 5f);  // 자동으로 플레이어에게 흡수
+            transform.position = Vector2.MoveTowards(transform.position, target.position, 10f);  // 자동으로 플레이어에게 흡수
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -32,6 +32,6 @@ public class CoinScript : MonoBehaviour
     {
         CoinManager.count_instance.earnedCoins++;       // 코인 카운트 +1
         SoundManager.SoundEffect.SoundPlay("coinSound", coinSound); // 코인 획득 사운드 출력
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

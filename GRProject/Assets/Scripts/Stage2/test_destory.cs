@@ -9,9 +9,6 @@ public class test_destory : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-     void Update()
-    {
-    }
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

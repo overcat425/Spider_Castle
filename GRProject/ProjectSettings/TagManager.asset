@@ -20,6 +20,7 @@ TagManager:
   - WebLv4
   - PlayerJump
   - Poison
+  - Mace
   layers:
   - Default
   - TransparentFX
