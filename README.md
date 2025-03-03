@@ -1,2 +1,13 @@
-# Grad-Project
-a unity project for graduation
+<h1> 스파이더 캐슬 </h1><br>
+
+<h3> 거미의 특징을 기반으로 한 뱀서라이크 장르의 PC게임입니다. </h3>
+5인 팀 개발 작품이며, C# 스크립트 작성과 유니티 엔진을 이용한 전반적인 게임 구현을 담당했습니다.<br>
+
+<h3>🛠 구현한 기능 🛠</h3>
+● 오브젝트 풀링을 이용한 enemy 객체 재활용<br>
+● 스테이지마다 다른 맵 및 보스<br>
+● 플레이어 스킬 ( 철퇴, 거미줄 트랩, 독 뿌리기 )<br>
+● 던전 내 재화 획득<br>
+● 재화를 이용한 스킬 강화 시스템<br><br>
+
+![Image](https://github.com/user-attachments/assets/ed2a468a-5f6d-4312-92bf-5abadf4fbf15)
