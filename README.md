@@ -7,7 +7,7 @@
 ● 오브젝트 풀링을 이용한 enemy 객체 재활용<br>
 ● 스테이지마다 다른 맵 및 보스<br>
 ● 플레이어 스킬 ( 철퇴, 거미줄 트랩, 독 뿌리기 )<br>
-● 던전 내 재화 획득<br>
+● 던전 플레이 중 재화 획득<br>
 ● 재화를 이용한 스킬 강화 시스템<br>
 ● JSonUtility를 이용한 간단한 데이터 저장<br><br>
 플레이 영상 URL : https://www.youtube.com/watch?v=Jt87yXo5dxQ <br><br><br>
